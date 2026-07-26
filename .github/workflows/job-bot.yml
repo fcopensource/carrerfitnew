@@ -19,7 +19,8 @@ jobs:
           CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: |
           test -n "$CRON_SECRET"
-          curl --fail-with-body --retry 2 --retry-all-errors --max-time 780 \
+          curl --ipv4 --fail-with-body --retry 2 --retry-all-errors \
+            --connect-timeout 15 --max-time 600 \
             -X POST "https://carrerfit.com/api/cron/job-sources" \
             -H "x-cron-secret: $CRON_SECRET" \
             -H "user-agent: CarrerFit-JobBot/1.0"

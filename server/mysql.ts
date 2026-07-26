@@ -69,6 +69,12 @@ async function ensureMysqlSchema(target: Pool) {
         last_import_count INT UNSIGNED NOT NULL DEFAULT 0
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`);
       await connection.query("UPDATE job_sources SET enabled=0,last_status='Success',last_error=NULL WHERE id='manual-admin-source'");
+      await connection.query(`INSERT IGNORE INTO job_sources
+        (id,name,url,url_hash,type,enabled,created_at) VALUES
+        ('seed-lever-jumpcloud','JumpCloud','https://jobs.lever.co/jumpcloud','1f5bf77471b5b946aa2ba6897e914246502fb005753e8d55f7b74f96ff385a87','Lever',1,UTC_TIMESTAMP(3)),
+        ('seed-lever-smart-working','Smart Working','https://jobs.lever.co/smart-working-solutions','54912d486575bb10f2e36add53444591e67b97f13e7877977cb5c95386343ccc','Lever',1,UTC_TIMESTAMP(3)),
+        ('seed-lever-highlevel','HighLevel','https://jobs.lever.co/gohighlevel','6948382583be4ab2f295045dc48dedf9b0c0d6cd3cdc76c99ce729c8738afb23','Lever',1,UTC_TIMESTAMP(3)),
+        ('seed-lever-peoplegrove','PeopleGrove','https://jobs.lever.co/peoplegrove','8148cdbcde9dadf587ccd93212bc98eaf37ad20aee8a0421f0347ee8469c37e3','Lever',1,UTC_TIMESTAMP(3))`);
       await connection.query(`CREATE TABLE IF NOT EXISTS imported_jobs (
         id VARCHAR(80) PRIMARY KEY,
         external_id VARCHAR(200) NOT NULL,

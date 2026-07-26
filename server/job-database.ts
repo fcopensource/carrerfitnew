@@ -58,6 +58,12 @@ export function getSqliteJobDatabase() {
     CREATE INDEX IF NOT EXISTS job_bot_runs_started_idx ON job_bot_runs(started_at DESC);
   `);
   sqlite.prepare("UPDATE job_sources SET enabled=0,last_status='Success',last_error=NULL WHERE id='manual-admin-source'").run();
+  const seedSource = sqlite.prepare("INSERT OR IGNORE INTO job_sources (id,name,url,type,created_at) VALUES (?,?,?,?,?)");
+  const seededAt = new Date().toISOString();
+  seedSource.run("seed-lever-jumpcloud", "JumpCloud", "https://jobs.lever.co/jumpcloud", "Lever", seededAt);
+  seedSource.run("seed-lever-smart-working", "Smart Working", "https://jobs.lever.co/smart-working-solutions", "Lever", seededAt);
+  seedSource.run("seed-lever-highlevel", "HighLevel", "https://jobs.lever.co/gohighlevel", "Lever", seededAt);
+  seedSource.run("seed-lever-peoplegrove", "PeopleGrove", "https://jobs.lever.co/peoplegrove", "Lever", seededAt);
   return sqlite;
 }
 

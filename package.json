@@ -22,7 +22,8 @@
     "test:interview": "tsx scripts/test-interview.ts",
     "test:ingestion": "tsx scripts/test-job-ingestion.ts",
     "migrate:mysql": "tsx scripts/migrate-sqlite-to-mysql.ts",
-    "typecheck": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit"
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "argon2": "^0.44.0",

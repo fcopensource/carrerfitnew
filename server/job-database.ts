@@ -58,6 +58,11 @@ export function getSqliteJobDatabase() {
     CREATE INDEX IF NOT EXISTS job_bot_runs_started_idx ON job_bot_runs(started_at DESC);
   `);
   sqlite.prepare("UPDATE job_sources SET enabled=0,last_status='Success',last_error=NULL WHERE id='manual-admin-source'").run();
+  sqlite.prepare("DELETE FROM job_sources WHERE url IN (?,?,?)").run(
+    "https://www.google.com/about/careers/applications/jobs/results/",
+    "https://www.hirist.tech/k/data-mining-jobs?ref=homepagetag",
+    "https://www.salesforce.com/company/careers/jobs/JR337715/summer-2027-intern-software-engineer/",
+  );
   const seedSource = sqlite.prepare("INSERT OR IGNORE INTO job_sources (id,name,url,type,created_at) VALUES (?,?,?,?,?)");
   const seededAt = new Date().toISOString();
   seedSource.run("seed-lever-jumpcloud", "JumpCloud", "https://jobs.lever.co/jumpcloud", "Lever", seededAt);

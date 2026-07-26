@@ -100,6 +100,11 @@ async function ensureMysqlSchema(target: Pool) {
         KEY imported_jobs_search_idx (title, company, category),
         CONSTRAINT imported_jobs_source_fk FOREIGN KEY (source_id) REFERENCES job_sources(id) ON DELETE CASCADE
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`);
+      await connection.query(`DELETE FROM job_sources WHERE url IN (
+        'https://www.google.com/about/careers/applications/jobs/results/',
+        'https://www.hirist.tech/k/data-mining-jobs?ref=homepagetag',
+        'https://www.salesforce.com/company/careers/jobs/JR337715/summer-2027-intern-software-engineer/'
+      )`);
       await connection.query(`CREATE TABLE IF NOT EXISTS carrerfit_store (
         store_key VARCHAR(40) PRIMARY KEY,
         payload LONGTEXT NOT NULL,

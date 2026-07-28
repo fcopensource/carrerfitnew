@@ -3,6 +3,7 @@ import { apiFailure, rateLimit, resumeFileFromForm } from "@/app/api/_utils";
 import type { AssessmentAnswers, CareerMatch, Job } from "@/lib/types";
 import { privateJson, requireVerifiedUser, sessionForRequest, validateMutationOrigin } from "@/server/auth";
 import { analyticsDevice, recordAnalyticsEvent } from "@/server/analytics";
+import { sendVisitorAlert } from "@/server/mailer";
 import { adminSession } from "@/server/admin-access";
 import {
   createUserApplication, deleteUserApplication, getPrivateData, listUserApplications,
@@ -148,7 +149,11 @@ async function analyticsEvent(request: Request) {
   const type = String(body.type || ""); const durationMs = Math.max(0, Math.min(60_000, Number(body.durationMs) || 0));
   if (!/^[0-9a-f-]{36}$/i.test(sessionId) || !path.startsWith("/") || !["page_view", "engagement", "page_exit"].includes(type)) return new Response(null, { status: 204 });
   const user = await sessionForRequest(request);
-  await recordAnalyticsEvent({ sessionId, userId: user?.id || null, path, type: type as "page_view" | "engagement" | "page_exit", durationMs, device: analyticsDevice(request.headers.get("user-agent")) });
+  const device = analyticsDevice(request.headers.get("user-agent"));
+  const recorded = await recordAnalyticsEvent({ sessionId, userId: user?.id || null, path, type: type as "page_view" | "engagement" | "page_exit", durationMs, device });
+  if (type === "page_view" && recorded.isNewSession) {
+    await sendVisitorAlert({ path, device, userEmail: user?.email || null, visitedAt: recorded.recordedAt }).catch(() => undefined);
+  }
   return new Response(null, { status: 204 });
 }
 

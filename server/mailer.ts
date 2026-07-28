@@ -29,6 +29,18 @@ export async function sendAdminAccessEmail(token: string) {
   });
 }
 
+export async function sendVisitorAlert(input: { path: string; device: string; userEmail?: string | null; visitedAt: string }) {
+  const recipient = process.env.VISITOR_ALERT_EMAIL || process.env.ADMIN_EMAIL || process.env.SMTP_USER || "";
+  if (!recipient) throw new Error("VISITOR_ALERT_RECIPIENT_NOT_CONFIGURED");
+  const identity = input.userEmail ? `Signed-in user: ${input.userEmail}` : "Anonymous visitor";
+  return send({
+    to: recipient,
+    subject: `New CarrerFit visitor · ${input.path}`,
+    text: `A new visitor session started on CarrerFit.com.\n\n${identity}\nPage: ${input.path}\nDevice: ${input.device}\nTime: ${input.visitedAt}\n\nOpen the private admin analytics dashboard for the complete session journey.`,
+    html: emailHtml("New visitor session", `${escapeHtml(identity)} opened <strong>${escapeHtml(input.path)}</strong> using a ${escapeHtml(input.device)} device at ${escapeHtml(input.visitedAt)}.`, appUrl("/admin"), "Open analytics", "Only the first page of each new browser session triggers an alert."),
+  });
+}
+
 async function send(message: { to: string; subject: string; text: string; html: string }) {
   if (!mailConfigured()) throw new Error("SMTP_NOT_CONFIGURED");
   transporter ||= nodemailer.createTransport({

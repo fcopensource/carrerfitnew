@@ -73,6 +73,7 @@ Environment variables:
 - `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`: SMTP connection (`smtp.hostinger.com`, `465`, `true` for Hostinger)
 - `SMTP_USER`, `SMTP_PASSWORD`: credentials for a real mailbox such as `no-reply@carrerfit.com`
 - `SMTP_FROM`: visible sender, for example `CarrerFit.com <no-reply@carrerfit.com>`
+- `VISITOR_ALERT_EMAIL`: private mailbox that receives one alert when a new browser session first visits the site (falls back to `ADMIN_EMAIL`, then `SMTP_USER`)
 
 Copy `.env.example` to `.env` and add the Groq key before starting the API. Without a key, resume parsing and deterministic ranking still work and the result identifies itself as skills-based.
 

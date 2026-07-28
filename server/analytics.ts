@@ -14,8 +14,11 @@ export type AnalyticsEvent = {
 
 export async function recordAnalyticsEvent(event: AnalyticsEvent) {
   const now = new Date().toISOString(); const id = randomUUID();
+  let isNewSession = false;
   if (databaseBackend() === "mysql") {
     const pool = await getMysqlPool();
+    const [existing] = await pool.execute<(RowDataPacket & { id: string })[]>("SELECT id FROM analytics_sessions WHERE id=? LIMIT 1", [event.sessionId]);
+    isNewSession = existing.length === 0;
     await pool.execute(`INSERT INTO analytics_sessions
       (id,user_id,device_type,started_at,last_seen_at,total_duration_ms,page_views)
       VALUES (?,?,?,?,?,?,?)
@@ -27,6 +30,7 @@ export async function recordAnalyticsEvent(event: AnalyticsEvent) {
       [id, event.sessionId, event.userId, event.path, event.type, event.durationMs, mysqlDate(now)]);
   } else {
     const db = getSqliteJobDatabase(); ensureSqlite();
+    isNewSession = !db.prepare("SELECT id FROM analytics_sessions WHERE id=?").get(event.sessionId);
     db.prepare(`INSERT INTO analytics_sessions (id,user_id,device_type,started_at,last_seen_at,total_duration_ms,page_views)
       VALUES (?,?,?,?,?,?,?)
       ON CONFLICT(id) DO UPDATE SET user_id=COALESCE(excluded.user_id,user_id),device_type=excluded.device_type,
@@ -35,6 +39,7 @@ export async function recordAnalyticsEvent(event: AnalyticsEvent) {
     db.prepare("INSERT INTO analytics_events (id,session_id,user_id,path,event_type,duration_ms,created_at) VALUES (?,?,?,?,?,?,?)")
       .run(id, event.sessionId, event.userId, event.path, event.type, event.durationMs, now);
   }
+  return { isNewSession, recordedAt: now };
 }
 
 export async function getAdminAnalytics() {

@@ -82,7 +82,7 @@ async function users(request: Request) {
 async function botStatus(request: Request) {
   if (!adminSession(request)) return privateJson({ message: "Administrator authentication is required." }, 401);
   const [overview, runs] = await Promise.all([getJobSourceOverview(), listJobBotRuns(20)]);
-  return privateJson({ schedule: "17 * * * *", timezone: "UTC", nextRunAt: nextHourlyRun(), overview, runs });
+  return privateJson({ schedule: "7,37 * * * *", timezone: "UTC", nextRunAt: nextScheduledRun(), overview, runs });
 }
 async function cleanupJobs(request: Request) {
   if (!adminSession(request)) return privateJson({ message: "Confirm an administrator sign-in first." }, 401);
@@ -113,4 +113,12 @@ async function manualJob(request: Request) {
   return privateJson({ id, title, company }, 201);
 }
 function mysqlDate(value: string) { return new Date(value).toISOString().slice(0, 23).replace("T", " "); }
-function nextHourlyRun() { const next = new Date(); next.setUTCMinutes(17, 0, 0); if (next.getTime() <= Date.now()) next.setUTCHours(next.getUTCHours() + 1); return next.toISOString(); }
+function nextScheduledRun() {
+  const now = new Date();
+  const next = new Date(now);
+  const minute = now.getUTCMinutes();
+  if (minute < 7) next.setUTCMinutes(7, 0, 0);
+  else if (minute < 37) next.setUTCMinutes(37, 0, 0);
+  else { next.setUTCHours(next.getUTCHours() + 1); next.setUTCMinutes(7, 0, 0); }
+  return next.toISOString();
+}

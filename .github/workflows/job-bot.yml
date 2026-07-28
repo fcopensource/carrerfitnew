@@ -2,7 +2,9 @@ name: CarrerFit job ingestion bot
 
 on:
   schedule:
-    - cron: "17 * * * *"
+    # Run twice per hour. Two staggered entries reduce the effect of GitHub's
+    # occasional scheduled-run delays while concurrency prevents overlap.
+    - cron: "7,37 * * * *"
   workflow_dispatch:
 
 concurrency:
@@ -19,8 +21,21 @@ jobs:
           CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: |
           test -n "$CRON_SECRET"
+          response="$(mktemp)"
           curl --ipv4 --fail-with-body --retry 2 --retry-all-errors \
             --connect-timeout 15 --max-time 600 \
             -X POST "https://carrerfit.com/api/cron/job-sources" \
             -H "x-cron-secret: $CRON_SECRET" \
-            -H "user-agent: CarrerFit-JobBot/1.0"
+            -H "user-agent: CarrerFit-JobBot/1.0" \
+            --output "$response"
+
+          jq -e '{
+            ok,
+            runId,
+            sources,
+            refreshed,
+            failed,
+            activeJobs: .overview.stats.activeJobs,
+            newInLast24Hours: .overview.stats.last24Hours,
+            failedSources: .overview.stats.failedSources
+          }' "$response"

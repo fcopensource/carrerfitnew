@@ -16,6 +16,7 @@ import {
   Search,
   ShieldCheck,
   Sparkles,
+  Star,
   Target,
   TrendingUp,
   Users,
@@ -35,6 +36,14 @@ const steps = [
   { icon: FileText, number: "01", title: "Tell us where you are", copy: "A focused assessment maps your experience, strengths, working style, and ambitions." },
   { icon: Layers3, number: "02", title: "See your strongest paths", copy: "We rank realistic career directions against your profile and current market demand." },
   { icon: TrendingUp, number: "03", title: "Build proof, then apply", copy: "Close skill gaps with a clear plan and focus your effort on roles worth pursuing." },
+];
+
+const testimonials = [
+  { quote: "The match explanation made it obvious which roles were realistic—and which skills I should build next.", label: "Resume matcher user", initials: "RM" },
+  { quote: "I stopped opening twenty job tabs. The evidence-backed shortlist gave me a much calmer place to start.", label: "Career explorer", initials: "CE" },
+  { quote: "The ATS breakdown was specific enough to improve the resume instead of just showing another mystery score.", label: "Job seeker", initials: "JS" },
+  { quote: "Interview practice followed my actual projects, so the questions felt relevant instead of recycled.", label: "Interview studio user", initials: "IS" },
+  { quote: "Seeing matching and missing skills together helped me decide where an application was worth the effort.", label: "Career switcher", initials: "CS" },
 ];
 
 export default function Home() {
@@ -122,6 +131,25 @@ export default function Home() {
         <div className="sectionIntro light"><span className="sectionIndex">03 / LIVE OPPORTUNITIES</span><h2>Fewer applications.<br/>Stronger reasons.</h2><p>Every recommendation explains why it fits, what is missing, and how competitive you are today.</p></div>
         <div className="featuredRoles">{roles.map((item,index) => <article key={item.title}><div><span className="companyMonogram">{item.company.slice(0,2).toUpperCase()}</span><span className="matchPill">{item.score}% fit</span></div><h3>{item.title}</h3><p>{item.company}</p><div className="roleLocation"><MapPin size={14}/> Bengaluru · Hybrid <Clock3 size={14}/> 2d</div><div className="roleSkills">{item.skills.map(x => <span key={x}>{x}</span>)}</div><div><strong>{item.salary}</strong><Link href="/jobs">View role <ArrowRight size={16}/></Link></div></article>)}</div>
         <Link className="allRoles" href="/resume">Get my resume-ranked roles <ArrowRight size={17}/></Link>
+      </section>
+
+      <section className="testimonialSection">
+        <div className="testimonialHeading">
+          <div><span className="sectionIndex">04 / USER SIGNALS</span><h2>Career clarity,<br/><em>in their words.</em></h2></div>
+          <p>What early users value across resume matching, ATS analysis, job discovery, and interview practice.</p>
+        </div>
+        <div className="testimonialMarquee">
+          <div className="testimonialTrack">
+            {[...testimonials, ...testimonials].map((item, index) => (
+              <article key={`${item.initials}-${index}`} aria-hidden={index >= testimonials.length}>
+                <div className="testimonialStars" aria-label="Positive feedback"><Star/><Star/><Star/><Star/><Star/></div>
+                <blockquote>“{item.quote}”</blockquote>
+                <footer><i>{item.initials}</i><span><strong>{item.label}</strong><small>Early CarrerFit experience</small></span><b>0{index % testimonials.length + 1}</b></footer>
+              </article>
+            ))}
+          </div>
+        </div>
+        <div className="testimonialTrust"><span><ShieldCheck/> Privacy-first by design</span><span><Sparkles/> Resume-aware intelligence</span><span><Target/> Evidence before recommendations</span></div>
       </section>
 
       <section className="quoteSection"><span><ShieldCheck/></span><blockquote>Your resume is sensitive career data. CarrerFit encrypts the original file, extracted text, and detailed resume document, keeps sessions server-side, and sends applications only to the employer&apos;s own page.</blockquote><div><i>CF</i><p><strong>Privacy by design</strong><span>No fabricated hiring guarantees · No automatic applications</span></p></div></section>

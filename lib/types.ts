@@ -12,6 +12,7 @@ export type Job = {
   skills: string[];
   fitScore: number;
   postedDaysAgo: number;
+  postedAt?: string;
   logo: string;
   featured?: boolean;
   applyUrl: string;

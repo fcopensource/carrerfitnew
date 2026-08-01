@@ -22,8 +22,8 @@ jobs:
         run: |
           test -n "$CRON_SECRET"
           response="$(mktemp)"
-          curl --ipv4 --fail-with-body --retry 2 --retry-all-errors \
-            --connect-timeout 15 --max-time 600 \
+          curl --ipv4 --fail-with-body --retry 5 --retry-all-errors --retry-delay 5 \
+            --connect-timeout 30 --max-time 900 \
             -X POST "https://carrerfit.com/api/cron/job-sources" \
             -H "x-cron-secret: $CRON_SECRET" \
             -H "user-agent: CarrerFit-JobBot/1.0" \
@@ -35,6 +35,7 @@ jobs:
             sources,
             refreshed,
             failed,
+            newJobs,
             activeJobs: .overview.stats.activeJobs,
             newInLast24Hours: .overview.stats.last24Hours,
             failedSources: .overview.stats.failedSources

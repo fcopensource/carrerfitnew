@@ -64,6 +64,11 @@ export function getSqliteJobDatabase() {
   seedSource.run("seed-lever-smart-working", "Smart Working", "https://jobs.lever.co/smart-working-solutions", "Lever", seededAt);
   seedSource.run("seed-lever-highlevel", "HighLevel", "https://jobs.lever.co/gohighlevel", "Lever", seededAt);
   seedSource.run("seed-lever-peoplegrove", "PeopleGrove", "https://jobs.lever.co/peoplegrove", "Lever", seededAt);
+  seedSource.run("seed-greenhouse-phonepe", "PhonePe", "https://boards.greenhouse.io/phonepe", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-postman", "Postman", "https://boards.greenhouse.io/postman", "Greenhouse", seededAt);
+  seedSource.run("seed-ashby-linear", "Linear", "https://jobs.ashbyhq.com/linear", "Ashby", seededAt);
+  seedSource.run("seed-ashby-ramp", "Ramp", "https://jobs.ashbyhq.com/ramp", "Ashby", seededAt);
+  seedSource.run("seed-greenhouse-figma", "Figma", "https://boards.greenhouse.io/figma", "Greenhouse", seededAt);
   return sqlite;
 }
 
@@ -137,17 +142,19 @@ export async function markSourceFailed(id: string, message: string) {
 
 export async function replaceSourceJobs(source: JobSource, jobs: ImportedJob[]) {
   const now = new Date().toISOString();
+  let newJobs = 0;
   if (databaseBackend() === "mysql") {
     const connection = await (await getMysqlPool()).getConnection();
     try {
       await connection.beginTransaction();
       await connection.execute("UPDATE imported_jobs SET active=0 WHERE source_id=?", [source.id]);
       for (const job of jobs) {
-        await connection.execute(`INSERT INTO imported_jobs
+        const [result] = await connection.execute<ResultSetHeader>(`INSERT INTO imported_jobs
           (id,external_id,source_id,source_type,source_name,title,company,location,work_mode,description,apply_url,posted_at,skills,requirements,category,level,first_seen_at,last_seen_at,active)
           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,1)
           ON DUPLICATE KEY UPDATE source_type=VALUES(source_type),source_name=VALUES(source_name),title=VALUES(title),company=VALUES(company),location=VALUES(location),work_mode=VALUES(work_mode),description=VALUES(description),apply_url=VALUES(apply_url),posted_at=VALUES(posted_at),skills=VALUES(skills),requirements=VALUES(requirements),category=VALUES(category),level=VALUES(level),last_seen_at=VALUES(last_seen_at),active=1`,
         mysqlJobValues(source, job, now));
+        if (result.affectedRows === 1) newJobs += 1;
       }
       await connection.execute("UPDATE job_sources SET last_status='Success',last_error=NULL,last_scraped_at=?,last_import_count=? WHERE id=?", [mysqlDate(now), jobs.length, source.id]);
       await connection.commit();
@@ -157,7 +164,7 @@ export async function replaceSourceJobs(source: JobSource, jobs: ImportedJob[]) 
     } finally {
       connection.release();
     }
-    return;
+    return { newJobs };
   }
 
   const db = getSqliteJobDatabase();
@@ -167,9 +174,14 @@ export async function replaceSourceJobs(source: JobSource, jobs: ImportedJob[]) 
     ON CONFLICT(source_id,external_id) DO UPDATE SET source_type=excluded.source_type,source_name=excluded.source_name,title=excluded.title,company=excluded.company,location=excluded.location,work_mode=excluded.work_mode,description=excluded.description,apply_url=excluded.apply_url,posted_at=excluded.posted_at,skills=excluded.skills,requirements=excluded.requirements,category=excluded.category,level=excluded.level,last_seen_at=excluded.last_seen_at,active=1`);
   db.transaction(() => {
     db.prepare("UPDATE imported_jobs SET active=0 WHERE source_id=?").run(source.id);
-    for (const job of jobs) upsert.run({ ...job, id: `imported-${randomUUID()}`, sourceId: source.id, sourceType: dbSourceType(source), sourceName: source.name, skills: JSON.stringify(job.skills), requirements: JSON.stringify(job.requirements), now });
+    for (const job of jobs) {
+      const exists = db.prepare("SELECT 1 FROM imported_jobs WHERE source_id=? AND external_id=?").get(source.id, job.externalId);
+      upsert.run({ ...job, id: `imported-${randomUUID()}`, sourceId: source.id, sourceType: dbSourceType(source), sourceName: source.name, skills: JSON.stringify(job.skills), requirements: JSON.stringify(job.requirements), now });
+      if (!exists) newJobs += 1;
+    }
     db.prepare("UPDATE job_sources SET last_status='Success',last_error=NULL,last_scraped_at=?,last_import_count=? WHERE id=?").run(now, jobs.length, source.id);
   })();
+  return { newJobs };
 }
 
 export async function listImportedJobs(options: { q?: string; category?: string; mode?: string; limit?: number } = {}) {

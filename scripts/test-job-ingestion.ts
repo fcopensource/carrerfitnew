@@ -29,7 +29,7 @@ async function main() {
     const jobs = await database.listImportedJobs({ q: "analyst" });
     if (jobs.length !== 1 || !jobs[0].imported || jobs[0].source !== "Company careers") throw new Error("Database import failed.");
     const overview = await database.getJobSourceOverview();
-    if (overview.stats.activeJobs !== 1 || overview.sources[0].activeJobCount !== 1) throw new Error("Source statistics failed.");
+    if (overview.stats.activeJobs !== 1 || overview.sources.find((item) => item.id === source.id)?.activeJobCount !== 1) throw new Error("Source statistics failed.");
     const botRun = await database.createJobBotRun("admin", 1);
     await database.finishJobBotRun(botRun.id, 1, 0);
     if ((await database.listJobBotRuns(1))[0].status !== "Success") throw new Error("Bot run history failed.");

@@ -15,8 +15,9 @@ async function execute(trigger: "cron" | "admin") {
   const results = await runWithConcurrency(enabled, 3, scrapeJobSource);
   const refreshed = results.filter((result) => result.status === "fulfilled").length;
   const failed = results.length - refreshed;
+  const newJobs = results.reduce((total, result) => total + (result.status === "fulfilled" ? result.value.newJobs : 0), 0);
   const completed = await finishJobBotRun(run.id, refreshed, failed);
-  return { ok: failed === 0, runId: run.id, trigger, startedAt: run.startedAt, finishedAt: completed.finishedAt, sources: enabled.length, refreshed, failed, overview: await getJobSourceOverview() };
+  return { ok: failed === 0, runId: run.id, trigger, startedAt: run.startedAt, finishedAt: completed.finishedAt, sources: enabled.length, refreshed, failed, newJobs, overview: await getJobSourceOverview() };
 }
 
 async function runWithConcurrency<T, R>(items: T[], limit: number, worker: (item: T) => Promise<R>) {

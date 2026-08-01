@@ -74,7 +74,12 @@ async function ensureMysqlSchema(target: Pool) {
         ('seed-lever-jumpcloud','JumpCloud','https://jobs.lever.co/jumpcloud','1f5bf77471b5b946aa2ba6897e914246502fb005753e8d55f7b74f96ff385a87','Lever',1,UTC_TIMESTAMP(3)),
         ('seed-lever-smart-working','Smart Working','https://jobs.lever.co/smart-working-solutions','54912d486575bb10f2e36add53444591e67b97f13e7877977cb5c95386343ccc','Lever',1,UTC_TIMESTAMP(3)),
         ('seed-lever-highlevel','HighLevel','https://jobs.lever.co/gohighlevel','6948382583be4ab2f295045dc48dedf9b0c0d6cd3cdc76c99ce729c8738afb23','Lever',1,UTC_TIMESTAMP(3)),
-        ('seed-lever-peoplegrove','PeopleGrove','https://jobs.lever.co/peoplegrove','8148cdbcde9dadf587ccd93212bc98eaf37ad20aee8a0421f0347ee8469c37e3','Lever',1,UTC_TIMESTAMP(3))`);
+        ('seed-lever-peoplegrove','PeopleGrove','https://jobs.lever.co/peoplegrove','8148cdbcde9dadf587ccd93212bc98eaf37ad20aee8a0421f0347ee8469c37e3','Lever',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-phonepe','PhonePe','https://boards.greenhouse.io/phonepe','d3f1200fae3566d50b764e60d02fb8f2485a9f2699cdd05018a53c7faee36655','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-postman','Postman','https://boards.greenhouse.io/postman','d70b76f9bd9f9fe7aa62177f8cae4e8adb74b8b47e561fabf18c46dc044f9a5c','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-ashby-linear','Linear','https://jobs.ashbyhq.com/linear','ed039c768172c33d03f780799b57441a89743d499c6be155b77f8fa4baeefbe6','Ashby',1,UTC_TIMESTAMP(3)),
+        ('seed-ashby-ramp','Ramp','https://jobs.ashbyhq.com/ramp','c068716db4f03e610c81b8535835fe4539affb2cafd4dfa9c1d5b60acf522f12','Ashby',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-figma','Figma','https://boards.greenhouse.io/figma','66c8efac1d5f8431eba7be9cb8f373673e10dc1e7bebb2a8e70c5dc28c55d2c8','Greenhouse',1,UTC_TIMESTAMP(3))`);
       await connection.query(`CREATE TABLE IF NOT EXISTS imported_jobs (
         id VARCHAR(80) PRIMARY KEY,
         external_id VARCHAR(200) NOT NULL,

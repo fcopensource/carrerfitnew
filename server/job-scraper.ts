@@ -9,6 +9,7 @@ const USER_AGENT = "CarrerFitJobIndexer/1.0 (+https://carrerfit.com)";
 const MAX_RESPONSE_BYTES = 3 * 1024 * 1024;
 const MAX_JOBS = 300;
 const MAX_DISCOVERED_PAGES = 24;
+const MAX_POSTING_AGE_MS = 180 * 24 * 60 * 60 * 1000;
 const robotsCache = new Map<string, Promise<string>>();
 
 export function identifyJobSource(rawUrl: string, providedName = "") {
@@ -34,8 +35,9 @@ export async function scrapeJobSource(source: JobSource) {
       : source.type === "Ashby" ? await scrapeAshby(source)
       : await scrapeStructuredData(source);
     if (!jobs.length) throw new ScrapeError("No public jobs were found. Use a company job-board URL or a page containing JobPosting structured data.", 422);
-    await replaceSourceJobs(source, dedupe(jobs).slice(0, MAX_JOBS));
-    return { imported: Math.min(dedupe(jobs).length, MAX_JOBS), jobs: dedupe(jobs).slice(0, MAX_JOBS) };
+    const currentJobs = dedupe(jobs).filter((job) => !job.postedAt || Date.now() - new Date(job.postedAt).getTime() <= MAX_POSTING_AGE_MS).slice(0, MAX_JOBS);
+    const result = await replaceSourceJobs(source, currentJobs);
+    return { imported: currentJobs.length, newJobs: result.newJobs, jobs: currentJobs };
   } catch (error) {
     const message = error instanceof Error ? error.message : "The source could not be refreshed.";
     await markSourceFailed(source.id, message);

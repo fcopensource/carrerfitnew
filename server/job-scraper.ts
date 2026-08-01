@@ -35,7 +35,7 @@ export async function scrapeJobSource(source: JobSource) {
       : source.type === "Ashby" ? await scrapeAshby(source)
       : await scrapeStructuredData(source);
     if (!jobs.length) throw new ScrapeError("No public jobs were found. Use a company job-board URL or a page containing JobPosting structured data.", 422);
-    const currentJobs = dedupe(jobs).filter((job) => !job.postedAt || Date.now() - new Date(job.postedAt).getTime() <= MAX_POSTING_AGE_MS).slice(0, MAX_JOBS);
+    const currentJobs = dedupe(jobs).filter((job) => isUsefulJob(job) && (!job.postedAt || Date.now() - new Date(job.postedAt).getTime() <= MAX_POSTING_AGE_MS)).slice(0, MAX_JOBS);
     const result = await replaceSourceJobs(source, currentJobs);
     return { imported: currentJobs.length, newJobs: result.newJobs, jobs: currentJobs };
   } catch (error) {
@@ -274,6 +274,7 @@ function stringValue(value: unknown) { return typeof value === "string" || typeo
 function isRecord(value: unknown): value is Record<string, unknown> { return Boolean(value) && typeof value === "object" && !Array.isArray(value); }
 function titleCase(value: string) { return value.replace(/\b\w/g, (character) => character.toUpperCase()); }
 function dedupe(jobs: ImportedJob[]) { return [...new Map(jobs.filter((job) => job.title && job.applyUrl).map((job) => [`${job.externalId}:${job.applyUrl}`, job])).values()]; }
+function isUsefulJob(job: ImportedJob) { return !/^(search jobs?|job search)$/i.test(job.title.trim()) && !/\bjob vacancies\b/i.test(job.title); }
 function recordString(value: Record<string, unknown>, keys: string[]) { for (const key of keys) { const item = value[key]; if (typeof item === "string" || typeof item === "number") return String(item).trim(); if (isRecord(item) && typeof item.name === "string") return item.name.trim(); } return ""; }
 function firstText($: ReturnType<typeof load>, selectors: string[]) { for (const selector of selectors) { const element = $(selector).first(); const value = element.is("meta") ? element.attr("content")?.trim() : element.text().replace(/\s+/g, " ").trim(); if (value) return value; } return ""; }
 function firstHref($: ReturnType<typeof load>, selectors: string[]) { for (const selector of selectors) { const value = $(selector).first().attr("href")?.trim(); if (value) return value; } return ""; }

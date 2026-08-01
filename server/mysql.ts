@@ -69,6 +69,7 @@ async function ensureMysqlSchema(target: Pool) {
         last_import_count INT UNSIGNED NOT NULL DEFAULT 0
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`);
       await connection.query("UPDATE job_sources SET enabled=0,last_status='Success',last_error=NULL WHERE id='manual-admin-source'");
+      await connection.query("UPDATE job_sources SET enabled=0,last_status='Failed',last_error='Disabled because the source did not expose structured individual job records.' WHERE url LIKE '%google.com/about/careers/applications/jobs/results%' OR url LIKE '%hirist.tech%'");
       await connection.query(`INSERT IGNORE INTO job_sources
         (id,name,url,url_hash,type,enabled,created_at) VALUES
         ('seed-lever-jumpcloud','JumpCloud','https://jobs.lever.co/jumpcloud','1f5bf77471b5b946aa2ba6897e914246502fb005753e8d55f7b74f96ff385a87','Lever',1,UTC_TIMESTAMP(3)),
@@ -105,6 +106,7 @@ async function ensureMysqlSchema(target: Pool) {
         KEY imported_jobs_search_idx (title, company, category),
         CONSTRAINT imported_jobs_source_fk FOREIGN KEY (source_id) REFERENCES job_sources(id) ON DELETE CASCADE
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`);
+      await connection.query("UPDATE imported_jobs SET active=0 WHERE LOWER(TRIM(title)) IN ('search job','search jobs','job search') OR LOWER(title) LIKE '%job vacancies%'");
       await connection.query(`CREATE TABLE IF NOT EXISTS carrerfit_store (
         store_key VARCHAR(40) PRIMARY KEY,
         payload LONGTEXT NOT NULL,

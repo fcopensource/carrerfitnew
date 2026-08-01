@@ -20,6 +20,7 @@ export type Job = {
   requirements: string[];
   imported?: boolean;
   sourceName?: string;
+  discoveredAt?: string;
 };
 
 export type JobSource = {

@@ -18,6 +18,7 @@ import {
   listImportedJobs, setJobSourceEnabled,
 } from "@/server/job-database";
 import { identifyJobSource, ScrapeError, scrapeJobSource, validateJobSourceUrl } from "@/server/job-scraper";
+import { newestJobsFirst } from "@/server/job-order";
 import { extractResumeText } from "@/server/resume";
 import { completeResumeAnalysisRun, createResumeAnalysisRun, failResumeAnalysisRun, getResumeDocument, saveResumeDocument, saveResumeFile } from "@/server/resume-vault";
 import { readStore, writeStore } from "@/server/store";
@@ -251,7 +252,7 @@ async function importedJobsOrEmpty(options: Parameters<typeof listImportedJobs>[
     return { jobs: [] as Job[], degraded: true };
   }
 }
-function dedupeJobs(items: Job[]) { return [...new Map(items.map((job) => [job.applyUrl.replace(/\/?apply\/?$/, "").replace(/\/$/, ""), job])).values()]; }
+function dedupeJobs(items: Job[]) { return newestJobsFirst([...new Map(items.map((job) => [job.applyUrl.replace(/\/?apply\/?$/, "").replace(/\/$/, ""), job])).values()]); }
 function requireAdmin(request: Request) {
   if (adminSession(request)) return null;
   const configured = process.env.SCRAPER_ADMIN_TOKEN || "";

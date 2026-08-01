@@ -12,6 +12,7 @@ import { analyzeResumeWithGroq, hydrateRankedJobs } from "./groq.js";
 import { createInterviewPlan, evaluateInterviewAnswer, interviewResponseSchema, parseInterviewProfile } from "./interview.js";
 import { createJobSource, deleteJobSource, getImportedJob, getJobSource, getJobSourceOverview, listImportedJobs, listJobSources, setJobSourceEnabled } from "./job-database.js";
 import { identifyJobSource, ScrapeError, scrapeJobSource, validateJobSourceUrl } from "./job-scraper.js";
+import { newestJobsFirst } from "./job-order.js";
 import { extractResumeText, ResumeFileError } from "./resume.js";
 import { readStore, writeStore } from "./store.js";
 
@@ -210,7 +211,7 @@ export function apiErrorHandler(error: unknown, _req: express.Request, res: expr
 }
 
 async function findJob(id: string) { return jobs.find((item) => item.id === id) || await getImportedJob(id); }
-function dedupeJobs(items: typeof jobs) { return [...new Map(items.map((job) => [job.applyUrl.replace(/\/?apply\/?$/, "").replace(/\/$/, ""), job])).values()]; }
+function dedupeJobs(items: typeof jobs) { return newestJobsFirst([...new Map(items.map((job) => [job.applyUrl.replace(/\/?apply\/?$/, "").replace(/\/$/, ""), job])).values()]); }
 
 function requireScraperAdmin(req: express.Request, res: express.Response, next: express.NextFunction) {
   const configured = process.env.SCRAPER_ADMIN_TOKEN || "";

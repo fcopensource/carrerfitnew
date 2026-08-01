@@ -22,7 +22,7 @@ type JobRow = {
   id: string; external_id: string; source_id: string; source_type: Job["source"]; source_name: string;
   title: string; company: string; location: string; work_mode: Job["workMode"]; description: string;
   apply_url: string; posted_at: string | null; skills: string; requirements: string; category: string;
-  level: string; last_seen_at: string;
+  level: string; first_seen_at: string; last_seen_at: string;
 };
 
 let sqlite: Database.Database | null = null;
@@ -264,7 +264,7 @@ function mapSource(row: SourceRow): JobSource {
 }
 function mapJob(row: JobRow): Job {
   const posted = row.posted_at ? new Date(iso(row.posted_at)) : new Date(iso(row.last_seen_at));
-  return { id: row.id, title: row.title, company: row.company, location: row.location, workMode: row.work_mode, salaryMin: 0, salaryMax: 0, category: row.category, level: row.level, description: row.description, skills: safeArray(row.skills), requirements: safeArray(row.requirements), fitScore: 72, postedDaysAgo: Math.max(0, Math.floor((Date.now() - posted.getTime()) / 86_400_000)), logo: initials(row.company), applyUrl: row.apply_url, source: row.source_type, sourceName: row.source_name, verifiedAt: iso(row.last_seen_at).slice(0, 10), imported: true };
+  return { id: row.id, title: row.title, company: row.company, location: row.location, workMode: row.work_mode, salaryMin: 0, salaryMax: 0, category: row.category, level: row.level, description: row.description, skills: safeArray(row.skills), requirements: safeArray(row.requirements), fitScore: 72, postedDaysAgo: Math.max(0, Math.floor((Date.now() - posted.getTime()) / 86_400_000)), logo: initials(row.company), applyUrl: row.apply_url, source: row.source_type, sourceName: row.source_name, verifiedAt: iso(row.last_seen_at).slice(0, 10), discoveredAt: iso(row.first_seen_at), imported: true };
 }
 function mysqlJobValues(source: JobSource, job: ImportedJob, now: string) {
   return [`imported-${randomUUID()}`, job.externalId, source.id, dbSourceType(source), source.name, job.title, job.company, job.location, job.workMode, job.description, job.applyUrl, job.postedAt ? mysqlDate(job.postedAt) : null, JSON.stringify(job.skills), JSON.stringify(job.requirements), job.category, job.level, mysqlDate(now), mysqlDate(now)];

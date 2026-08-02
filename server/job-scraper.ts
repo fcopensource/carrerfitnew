@@ -10,7 +10,7 @@ const USER_AGENT = "CarrerFitJobIndexer/1.0 (+https://carrerfit.com)";
 // API includes full job descriptions. Keep a hard ceiling, but allow those
 // official feeds while limiting each source to MAX_JOBS below.
 const MAX_RESPONSE_BYTES = 8 * 1024 * 1024;
-const MAX_JOBS = 300;
+const MAX_JOBS = 150;
 const MAX_DISCOVERED_PAGES = 24;
 const MAX_POSTING_AGE_MS = 180 * 24 * 60 * 60 * 1000;
 const robotsCache = new Map<string, Promise<string>>();
@@ -38,7 +38,10 @@ export async function scrapeJobSource(source: JobSource) {
       : source.type === "Ashby" ? await scrapeAshby(source)
       : await scrapeStructuredData(source);
     if (!jobs.length) throw new ScrapeError("No public jobs were found. Use a company job-board URL or a page containing JobPosting structured data.", 422);
-    const currentJobs = dedupe(jobs).filter((job) => isUsefulJob(job) && (!job.postedAt || Date.now() - new Date(job.postedAt).getTime() <= MAX_POSTING_AGE_MS)).slice(0, MAX_JOBS);
+    const currentJobs = dedupe(jobs)
+      .filter((job) => isUsefulJob(job) && (!job.postedAt || Date.now() - new Date(job.postedAt).getTime() <= MAX_POSTING_AGE_MS))
+      .sort((left, right) => jobTimestamp(right) - jobTimestamp(left))
+      .slice(0, MAX_JOBS);
     const result = await replaceSourceJobs(source, currentJobs);
     return { imported: currentJobs.length, newJobs: result.newJobs, jobs: currentJobs };
   } catch (error) {
@@ -64,11 +67,14 @@ async function scrapeLever(source: JobSource): Promise<ImportedJob[]> {
 async function scrapeGreenhouse(source: JobSource): Promise<ImportedJob[]> {
   const key = identifyJobSource(source.url).key;
   const payload = await fetchJson<{ jobs?: GreenhouseJob[] }>(`https://boards-api.greenhouse.io/v1/boards/${encodeURIComponent(key)}/jobs?content=true`);
-  return (payload.jobs || []).map((job) => normalizeJob({
+  return (payload.jobs || [])
+    .sort((left, right) => Date.parse(right.updated_at || "") - Date.parse(left.updated_at || ""))
+    .slice(0, MAX_JOBS)
+    .map((job) => normalizeJob({
     externalId: String(job.id), title: job.title, company: source.name, location: job.location?.name || job.offices?.map((office) => office.location || office.name).filter(Boolean).join(", ") || "Location not specified",
     description: stripHtml(decodeEntities(job.content || "")), applyUrl: job.absolute_url,
     postedAt: job.updated_at || null, department: job.departments?.map((department) => department.name).join(", "),
-  }));
+    }));
 }
 
 async function scrapeAshby(source: JobSource): Promise<ImportedJob[]> {
@@ -278,6 +284,7 @@ function isRecord(value: unknown): value is Record<string, unknown> { return Boo
 function titleCase(value: string) { return value.replace(/\b\w/g, (character) => character.toUpperCase()); }
 function dedupe(jobs: ImportedJob[]) { return [...new Map(jobs.filter((job) => job.title && job.applyUrl).map((job) => [`${job.externalId}:${job.applyUrl}`, job])).values()]; }
 function isUsefulJob(job: ImportedJob) { return !/^(search jobs?|job search)$/i.test(job.title.trim()) && !/\bjob vacancies\b/i.test(job.title); }
+function jobTimestamp(job: ImportedJob) { const value = job.postedAt ? Date.parse(job.postedAt) : 0; return Number.isFinite(value) ? value : 0; }
 function recordString(value: Record<string, unknown>, keys: string[]) { for (const key of keys) { const item = value[key]; if (typeof item === "string" || typeof item === "number") return String(item).trim(); if (isRecord(item) && typeof item.name === "string") return item.name.trim(); } return ""; }
 function firstText($: ReturnType<typeof load>, selectors: string[]) { for (const selector of selectors) { const element = $(selector).first(); const value = element.is("meta") ? element.attr("content")?.trim() : element.text().replace(/\s+/g, " ").trim(); if (value) return value; } return ""; }
 function firstHref($: ReturnType<typeof load>, selectors: string[]) { for (const selector of selectors) { const value = $(selector).first().attr("href")?.trim(); if (value) return value; } return ""; }

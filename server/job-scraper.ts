@@ -6,7 +6,10 @@ import type { ImportedJob, SourceKind } from "./job-database.js";
 import { markSourceFailed, markSourceRunning, replaceSourceJobs } from "./job-database.js";
 
 const USER_AGENT = "CarrerFitJobIndexer/1.0 (+https://carrerfit.com)";
-const MAX_RESPONSE_BYTES = 3 * 1024 * 1024;
+// Large enterprise Greenhouse boards can legitimately exceed 5 MB when the
+// API includes full job descriptions. Keep a hard ceiling, but allow those
+// official feeds while limiting each source to MAX_JOBS below.
+const MAX_RESPONSE_BYTES = 8 * 1024 * 1024;
 const MAX_JOBS = 300;
 const MAX_DISCOVERED_PAGES = 24;
 const MAX_POSTING_AGE_MS = 180 * 24 * 60 * 60 * 1000;

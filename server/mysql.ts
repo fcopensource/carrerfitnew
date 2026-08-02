@@ -80,7 +80,12 @@ async function ensureMysqlSchema(target: Pool) {
         ('seed-greenhouse-postman','Postman','https://boards.greenhouse.io/postman','d70b76f9bd9f9fe7aa62177f8cae4e8adb74b8b47e561fabf18c46dc044f9a5c','Greenhouse',1,UTC_TIMESTAMP(3)),
         ('seed-ashby-linear','Linear','https://jobs.ashbyhq.com/linear','ed039c768172c33d03f780799b57441a89743d499c6be155b77f8fa4baeefbe6','Ashby',1,UTC_TIMESTAMP(3)),
         ('seed-ashby-ramp','Ramp','https://jobs.ashbyhq.com/ramp','c068716db4f03e610c81b8535835fe4539affb2cafd4dfa9c1d5b60acf522f12','Ashby',1,UTC_TIMESTAMP(3)),
-        ('seed-greenhouse-figma','Figma','https://boards.greenhouse.io/figma','66c8efac1d5f8431eba7be9cb8f373673e10dc1e7bebb2a8e70c5dc28c55d2c8','Greenhouse',1,UTC_TIMESTAMP(3))`);
+        ('seed-greenhouse-figma','Figma','https://boards.greenhouse.io/figma','66c8efac1d5f8431eba7be9cb8f373673e10dc1e7bebb2a8e70c5dc28c55d2c8','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-cloudflare','Cloudflare','https://boards.greenhouse.io/cloudflare','2818aa96d8535c0ee9b7de1a81bdf0779aa81625822a92d20bf1168e9109134f','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-datadog','Datadog','https://boards.greenhouse.io/datadog','246cded4fabc0820e15a0b97426250d142bec511369d7d5e8ad13266e2d2ebfe','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-mongodb','MongoDB','https://boards.greenhouse.io/mongodb','d3627c8522668117c83fc9b1d5f5d521bfc714d16e9129c8186098e4a4f29b9a','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-grafanalabs','Grafana Labs','https://boards.greenhouse.io/grafanalabs','2b7de3d1f33c3ce1ef4d1b0459ae0297cbe4138ec6deba292a5998bbf9a300fa','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-twilio','Twilio','https://boards.greenhouse.io/twilio','f1146bb952f3ced1d8cb00e04549164cba8ba5e086ed30e3000a337e2ef0f0a9','Greenhouse',1,UTC_TIMESTAMP(3))`);
       await connection.query(`CREATE TABLE IF NOT EXISTS imported_jobs (
         id VARCHAR(80) PRIMARY KEY,
         external_id VARCHAR(200) NOT NULL,

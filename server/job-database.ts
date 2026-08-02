@@ -71,6 +71,11 @@ export function getSqliteJobDatabase() {
   seedSource.run("seed-ashby-linear", "Linear", "https://jobs.ashbyhq.com/linear", "Ashby", seededAt);
   seedSource.run("seed-ashby-ramp", "Ramp", "https://jobs.ashbyhq.com/ramp", "Ashby", seededAt);
   seedSource.run("seed-greenhouse-figma", "Figma", "https://boards.greenhouse.io/figma", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-cloudflare", "Cloudflare", "https://boards.greenhouse.io/cloudflare", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-datadog", "Datadog", "https://boards.greenhouse.io/datadog", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-mongodb", "MongoDB", "https://boards.greenhouse.io/mongodb", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-grafanalabs", "Grafana Labs", "https://boards.greenhouse.io/grafanalabs", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-twilio", "Twilio", "https://boards.greenhouse.io/twilio", "Greenhouse", seededAt);
   return sqlite;
 }
 

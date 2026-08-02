@@ -24,6 +24,7 @@ import {
   Zap,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 const roles = [
@@ -44,6 +45,15 @@ const testimonials = [
   { quote: "The ATS breakdown was specific enough to improve the resume instead of just showing another mystery score.", label: "Job seeker", initials: "JS" },
   { quote: "Interview practice followed my actual projects, so the questions felt relevant instead of recycled.", label: "Interview studio user", initials: "IS" },
   { quote: "Seeing matching and missing skills together helped me decide where an application was worth the effort.", label: "Career switcher", initials: "CS" },
+];
+
+const careerBoards = [
+  { company: "Grafana Labs", image: "/company-proof/grafana.jpg", detail: "Remote engineering roles" },
+  { company: "Twilio", image: "/company-proof/twilio.jpg", detail: "Remote-first opportunities" },
+  { company: "Postman", image: "/company-proof/postman.jpg", detail: "Product and growth roles" },
+  { company: "Smart Working", image: "/company-proof/smart-working.jpg", detail: "Remote technology roles" },
+  { company: "Netomi", image: "/company-proof/netomi.jpg", detail: "AI and product roles" },
+  { company: "MongoDB", image: "/company-proof/mongodb.jpg", detail: "Global career opportunities" },
 ];
 
 export default function Home() {
@@ -108,10 +118,28 @@ export default function Home() {
       </section>
 
       <section className="proofStrip">
-        <article><strong>PDF + DOCX</strong><span>validated resume parsing</span></article>
-        <article><strong>AES-256</strong><span>encrypted private storage</span></article>
-        <article><strong>Evidence</strong><span>skills linked to resume text</span></article>
-        <article><strong>30 days</strong><span>automatic stale-job cleanup</span></article>
+        <div className="proofMetrics">
+          <article><strong>PDF + DOCX</strong><span>validated resume parsing</span></article>
+          <article><strong>AES-256</strong><span>encrypted private storage</span></article>
+          <article><strong>Evidence</strong><span>skills linked to resume text</span></article>
+          <article><strong>30 days</strong><span>automatic stale-job cleanup</span></article>
+        </div>
+        <div className="careerBoardHeading">
+          <div><span>LIVE EMPLOYER SOURCES</span><h2>Jobs from official company career boards</h2></div>
+          <Link href="/jobs">Explore all live jobs <ArrowRight size={16}/></Link>
+        </div>
+        <div className="careerBoardMarquee" aria-label="Examples of official company career boards indexed by CarrerFit">
+          <div className="careerBoardTrack">
+            {[...careerBoards, ...careerBoards].map((board, index) => (
+              <Link className="careerBoardCard" href="/jobs" key={`${board.company}-${index}`} aria-hidden={index >= careerBoards.length} tabIndex={index >= careerBoards.length ? -1 : 0}>
+                <div className="careerBoardShot"><Image src={board.image} alt={index < careerBoards.length ? `${board.company} official career board showing an available role` : ""} fill sizes="(max-width: 600px) 82vw, 350px" /></div>
+                <div className="careerBoardMeta"><span><i /> Jobs available</span><strong>{board.company}</strong><small>{board.detail}</small></div>
+                <ArrowRight className="careerBoardArrow" size={17}/>
+              </Link>
+            ))}
+          </div>
+        </div>
+        <p className="careerBoardNote"><ShieldCheck size={14}/> CarrerFit indexes public roles from employer-hosted career pages. Companies shown are job sources, not sponsors or endorsements.</p>
       </section>
 
       <section className="modernSection methodSection">

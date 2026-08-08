@@ -3,6 +3,7 @@ import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 import type { BlogPost } from "../lib/types.js";
 import { getSqliteJobDatabase } from "./job-database.js";
 import { databaseBackend, getMysqlPool } from "./mysql.js";
+import { additionalBlogSeeds } from "./blog-seeds.js";
 
 export type BlogPostInput = Pick<BlogPost, "title" | "excerpt" | "content" | "category" | "tags" | "authorName" | "seoTitle" | "seoDescription" | "featured" | "status"> & { slug?: string; publishedAt?: string | null };
 type BlogRow = RowDataPacket & { id: string; slug: string; title: string; excerpt: string; content: string; category: string; tags: string; author_name: string; seo_title: string; seo_description: string; featured: number | boolean; status: BlogPost["status"]; published_at: string | null; created_at: string; updated_at: string };
@@ -234,4 +235,6 @@ Use that feedback to adjust the target, portfolio, or story. A career change is 
 
 The CarrerFit assessment can help narrow your initial direction, while resume matching shows which live roles have meaningful overlap with your current evidence. Use both as inputs, then validate the result with real job descriptions and conversations.`,
   },
+  ...additionalBlogSeeds,
+
 ] as const;

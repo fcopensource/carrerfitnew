@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const protectedPaths = ["/dashboard", "/resume", "/interview", "/assessment", "/job-sources"];
-const privatePaths = ["/admin", "/dashboard", "/resume", "/interview", "/assessment", "/job-sources", "/blog-admin", "/login", "/register", "/forgot-password", "/reset-password"];
+const protectedPaths = ["/dashboard", "/resume", "/interview", "/assessment", "/practice", "/coding-practice", "/aptitude-tests", "/job-sources"];
+const privatePaths = ["/admin", "/dashboard", "/resume", "/interview", "/assessment", "/practice", "/coding-practice", "/aptitude-tests", "/job-sources", "/blog-admin", "/login", "/register", "/forgot-password", "/reset-password"];
 const sensitiveQueryKeys = new Set(["password", "pass", "username", "email", "secret", "apikey", "api_key"]);
 
 export function middleware(request: NextRequest) {

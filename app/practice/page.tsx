@@ -59,7 +59,7 @@ const aptitudeQuestions = [
   { category: "Problem solving", question: "You discover an error in a report one hour before delivery. What is the strongest first action?", options: ["Send it without changes", "Hide the error", "Verify the impact and correct the affected figures", "Wait for someone else to notice"], answer: 2 },
 ] as const;
 
-export default function PracticePage({ initialMode = "coding", standalone = false }: { initialMode?: PracticeMode; standalone?: boolean }) {
+export function PracticeStudio({ initialMode = "coding", standalone = false }: { initialMode?: PracticeMode; standalone?: boolean }) {
   const [mode, setMode] = useState<PracticeMode>(initialMode);
   const [problemIndex, setProblemIndex] = useState(0);
   const [code, setCode] = useState(codingProblems[0].starter);
@@ -155,4 +155,9 @@ export default function PracticePage({ initialMode = "coding", standalone = fals
       )}
     </main>
   );
+}
+
+
+export default function PracticePage() {
+  return <PracticeStudio initialMode="coding" standalone />;
 }

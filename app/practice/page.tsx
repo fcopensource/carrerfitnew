@@ -39,8 +39,8 @@ const aptitudeQuestions = [
   { category: "Problem solving", question: "A process takes 30 minutes. Automation reduces it by 40%. How long does it take now?", options: ["12 minutes", "18 minutes", "20 minutes", "24 minutes"], answer: 1 },
 ] as const;
 
-export default function PracticePage() {
-  const [mode, setMode] = useState<PracticeMode>("coding");
+export default function PracticePage({ initialMode = "coding", standalone = false }: { initialMode?: PracticeMode; standalone?: boolean }) {
+  const [mode, setMode] = useState<PracticeMode>(initialMode);
   const [problemIndex, setProblemIndex] = useState(0);
   const [code, setCode] = useState(codingProblems[0].starter);
   const [codeMessage, setCodeMessage] = useState("Choose a problem, write your approach, then review it against the examples.");
@@ -77,10 +77,10 @@ export default function PracticePage() {
         </div>
       </section>
 
-      <section className="practiceTabs" aria-label="Practice mode">
+      {!standalone && <section className="practiceTabs" aria-label="Practice mode">
         <button className={mode === "coding" ? "active" : ""} onClick={() => setMode("coding")}><Code2/> Coding practice <ChevronRight/></button>
         <button className={mode === "aptitude" ? "active" : ""} onClick={() => setMode("aptitude")}><BrainCircuit/> Aptitude test <ChevronRight/></button>
-      </section>
+      </section>}
 
       {mode === "coding" ? (
         <section className="codingWorkspace">

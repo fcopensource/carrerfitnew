@@ -5,6 +5,7 @@ import {
   ListChecks, Play, RotateCcw, Sparkles, Timer, Trophy,
 } from "lucide-react";
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import AppNav from "@/components/AppNav";
 
 type PracticeMode = "coding" | "aptitude";
@@ -81,6 +82,7 @@ export default function PracticePage({ initialMode = "coding", standalone = fals
         </div>
         <div className="practiceStats">
           <span><Code2/> Coding drills</span><span><BrainCircuit/> Aptitude tests</span><span><BarChart3/> Scorecards</span>
+          <div className="practiceRouteLinks"><Link className={mode === "coding" ? "selected" : ""} href="/coding-practice">Coding playground</Link><Link className={mode === "aptitude" ? "selected" : ""} href="/aptitude-tests">Aptitude tests</Link></div>
         </div>
       </section>
 

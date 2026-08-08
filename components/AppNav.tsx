@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const links = [["/jobs", "Explore jobs"], ["/assessment", "Career assessment"], ["/resume", "Resume analysis"], ["/interview", "Interview practice"], ["/blog", "Career guides"], ["/dashboard", "My dashboard"]];
+const links = [["/jobs", "Explore jobs"], ["/practice", "Practice centre"], ["/resume", "Resume analysis"], ["/interview", "Interview practice"], ["/blog", "Career guides"], ["/dashboard", "My dashboard"]];
 
 export default function AppNav({ light = false }: { light?: boolean }) {
   const pathname = usePathname();

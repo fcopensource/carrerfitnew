@@ -68,12 +68,13 @@ export default function Home() {
           <Link className="modernBrand" href="/"><span><Target size={20} /></span>CarrerFit.com</Link>
           <button className="modernMenu" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">{menuOpen ? <X /> : <Menu />}</button>
           <div className={menuOpen ? "modernLinks isOpen" : "modernLinks"}>
-            <Link href="/resume">AI resume match</Link>
             <Link href="/jobs">Explore jobs</Link>
+            <Link href="/assessment">Career assessment</Link>
+            <Link href="/interview">Interview practice</Link>
             <Link href="/blog">Career guides</Link>
             <Link href="/dashboard">My dashboard</Link>
           </div>
-          <Link className="modernNavCta" href="/resume">Match my resume <ArrowRight size={15} /></Link>
+          <Link className="modernNavCta" href="/resume">Analyze my resume <ArrowRight size={15} /></Link>
         </nav>
 
         <div className="heroNoise" />

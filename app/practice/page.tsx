@@ -37,6 +37,13 @@ const aptitudeQuestions = [
   { category: "Verbal reasoning", question: "Choose the word closest in meaning to “concise.”", options: ["Detailed", "Brief", "Uncertain", "Informal"], answer: 1 },
   { category: "Data interpretation", question: "A team completed 18 of 24 planned tasks. What percentage of tasks are complete?", options: ["65%", "70%", "75%", "80%"], answer: 2 },
   { category: "Problem solving", question: "A process takes 30 minutes. Automation reduces it by 40%. How long does it take now?", options: ["12 minutes", "18 minutes", "20 minutes", "24 minutes"], answer: 1 },
+  { category: "Quantitative", question: "A candidate answers 42 of 50 questions correctly. What is the score percentage?", options: ["80%", "82%", "84%", "86%"], answer: 2 },
+  { category: "Logical reasoning", question: "If all analysts are problem-solvers and some problem-solvers are writers, which statement must be true?", options: ["All writers are analysts", "Some analysts are writers", "All analysts are problem-solvers", "No writer is an analyst"], answer: 2 },
+  { category: "Verbal reasoning", question: "Choose the grammatically correct sentence.", options: ["Each of the reports were reviewed.", "Each of the reports was reviewed.", "Each reports was reviewed.", "Each report were reviewed."], answer: 1 },
+  { category: "Data interpretation", question: "Revenue grew from ₹8 lakh to ₹10 lakh. What was the percentage increase?", options: ["20%", "22.5%", "25%", "28%"], answer: 2 },
+  { category: "Quantitative", question: "A team of 6 completes a task in 10 days. At the same rate, how many days would 12 people need?", options: ["4", "5", "6", "8"], answer: 1 },
+  { category: "Logical reasoning", question: "A meeting is on Thursday. Two days after the meeting is:", options: ["Friday", "Saturday", "Sunday", "Monday"], answer: 2 },
+  { category: "Problem solving", question: "You discover an error in a report one hour before delivery. What is the strongest first action?", options: ["Send it without changes", "Hide the error", "Verify the impact and correct the affected figures", "Wait for someone else to notice"], answer: 2 },
 ] as const;
 
 export default function PracticePage({ initialMode = "coding", standalone = false }: { initialMode?: PracticeMode; standalone?: boolean }) {

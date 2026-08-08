@@ -2,13 +2,25 @@
 
 import {
   BarChart3, BrainCircuit, Check, ChevronRight, CircleCheck, Code2, Lightbulb,
-  ListChecks, Play, RotateCcw, Sparkles, Timer, Trophy,
+  ListChecks, Maximize2, Minimize2, Play, RotateCcw, Save, Sparkles, Timer, Trophy,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import AppNav from "@/components/AppNav";
 
 type PracticeMode = "coding" | "aptitude";
+type Language = "JavaScript" | "Python" | "Java" | "C++" | "C" | "Go" | "Rust";
+
+const languageTemplates: Record<Language, string> = {
+  JavaScript: "function solve(input) {\\n  // Write your solution here\\n  \\n}",
+  Python: "def solve(input):\\n    # Write your solution here\\n    pass",
+  Java: "class Solution {\\n    public Object solve(Object input) {\\n        // Write your solution here\\n        return null;\\n    }\\n}",
+  "C++": "#include <bits/stdc++.h>\\nusing namespace std;\\n\\nclass Solution {\\npublic:\\n    vector<int> solve(vector<int>& input) {\\n        // Write your solution here\\n    }\\n};",
+  C: "#include <stdio.h>\\n\\nint main(void) {\\n    // Write your solution here\\n    return 0;\\n}",
+  Go: "package main\\n\\nfunc solve(input []int) []int {\\n    // Write your solution here\\n    return nil\\n}",
+  Rust: "fn solve(input: Vec<i32>) -> Vec<i32> {\\n    // Write your solution here\\n    vec![]\\n}",
+};
+
 type CodingProblem = { title: string; difficulty: "Easy" | "Medium"; category: string; prompt: string; examples: string[]; starter: string };
 
 const codingProblems: CodingProblem[] = [
@@ -52,19 +64,44 @@ export default function PracticePage({ initialMode = "coding", standalone = fals
   const [problemIndex, setProblemIndex] = useState(0);
   const [code, setCode] = useState(codingProblems[0].starter);
   const [codeMessage, setCodeMessage] = useState("Choose a problem, write your approach, then review it against the examples.");
+  const [language, setLanguage] = useState<Language>("JavaScript");
+  const [editorFullscreen, setEditorFullscreen] = useState(false);
+  const [draftState, setDraftState] = useState("Draft saved locally");
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [testStarted, setTestStarted] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const problem = codingProblems[problemIndex];
   const score = useMemo(() => aptitudeQuestions.reduce((total, item, index) => total + (answers[index] === item.answer ? 1 : 0), 0), [answers]);
 
+  useEffect(() => {
+    const updateFullscreenState = () => setEditorFullscreen(document.fullscreenElement?.id === "careerfit-editor");
+    document.addEventListener("fullscreenchange", updateFullscreenState);
+    return () => document.removeEventListener("fullscreenchange", updateFullscreenState);
+  }, []);
+
   function selectProblem(index: number) {
-    setProblemIndex(index); setCode(codingProblems[index].starter); setCodeMessage("New workspace ready. Trace the sample cases before you submit your approach.");
+    setProblemIndex(index); setCode(languageTemplates[language]); setDraftState("New problem draft"); setCodeMessage("New workspace ready. Trace the sample cases before you submit your approach.");
+  }
+
+  function changeLanguage(next: Language) {
+    setLanguage(next); setCode(languageTemplates[next]); setDraftState(`New ${next} draft`); setCodeMessage(`${next} starter template loaded. Explain your approach before you submit.`);
+  }
+
+  function saveDraft() {
+    window.localStorage.setItem(`carrerfit-coding-${problemIndex}-${language}`, code);
+    setDraftState("Saved in this browser");
+  }
+
+  async function toggleEditorFullscreen() {
+    const editor = document.getElementById("careerfit-editor");
+    if (!editor) return;
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else await editor.requestFullscreen();
   }
 
   function reviewCode() {
     const lines = code.trim().split("\n").filter(Boolean).length;
-    setCodeMessage(lines < 4 ? "Add your approach, edge cases, and a return statement before reviewing." : "Draft captured. Check time complexity, empty input, and the provided sample cases.");
+    setCodeMessage(lines < 4 ? "Add your approach, edge cases, and a return statement before reviewing." : "Approach captured. Check time complexity, empty input, and the provided sample cases before a secure runner is enabled.");
   }
 
   function restartTest() {
@@ -103,10 +140,11 @@ export default function PracticePage({ initialMode = "coding", standalone = fals
             <div className="sampleCases"><strong>Examples</strong>{problem.examples.map((example) => <code key={example}>{example}</code>)}</div>
             <div className="problemGuidance"><Lightbulb/><span><strong>Think before you type</strong>Describe your data structure and time complexity in a comment.</span></div>
           </div>
-          <div className="editorPanel">
-            <div className="editorTop"><span><CircleCheck/> JavaScript workspace</span><small>Local practice draft</small></div>
-            <textarea aria-label="Coding solution editor" value={code} onChange={(event) => setCode(event.target.value)} spellCheck={false}/>
-            <div className="editorActions"><button onClick={() => setCode(problem.starter)}><RotateCcw/> Reset</button><button className="primary" onClick={reviewCode}><Play/> Review approach</button></div>
+          <div id="careerfit-editor" className={editorFullscreen ? "editorPanel isFullscreen" : "editorPanel"}>
+            <div className="editorTop"><span><CircleCheck/> Careerfit code studio</span><div><span className="draftState">{draftState}</span><button className="editorIconButton" onClick={toggleEditorFullscreen} aria-label={editorFullscreen ? "Exit full screen" : "Enter full screen"}>{editorFullscreen ? <Minimize2/> : <Maximize2/>}</button></div></div>
+            <div className="editorToolbar"><label>Language<select value={language} onChange={(event) => changeLanguage(event.target.value as Language)}>{(Object.keys(languageTemplates) as Language[]).map((item) => <option key={item}>{item}</option>)}</select></label><span>Problem #{String(problemIndex + 1).padStart(2, "0")}</span><span className="sandboxNotice">Secure runner pending</span></div>
+            <div className="editorCanvas"><ol aria-hidden="true">{code.split("\n").map((_, index) => <li key={index}>{index + 1}</li>)}</ol><textarea aria-label="Coding solution editor" value={code} onChange={(event) => { setCode(event.target.value); setDraftState("Unsaved changes"); }} spellCheck={false}/></div>
+            <div className="editorActions"><button onClick={() => { setCode(languageTemplates[language]); setDraftState("Starter restored"); }}><RotateCcw/> Restore starter</button><div><button onClick={saveDraft}><Save/> Save draft</button><button className="primary" onClick={reviewCode}><Play/> Review solution</button></div></div>
             <div className="codeFeedback"><span><ListChecks/> Practice feedback</span><p>{codeMessage}</p></div>
           </div>
         </section>

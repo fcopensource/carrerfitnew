@@ -8,11 +8,21 @@ async function start() {
   console.log(`[startup] booting CarrerFit on ${hostname}:${port}`);
   console.log(`[startup] NODE_ENV=${process.env.NODE_ENV || "undefined"}`);
 
+  // Production serves Next and the protected job-ingestion API from one server.
+  // Keep this set before loading the compiled API so it does not open a second port.
+  process.env.CARRERFIT_COMBINED_SERVER = "1";
+  const { app: api, apiErrorHandler } = require("./dist/server/index.js");
+  api.use((_req, res) => res.status(404).json({ message: "API route not found" }));
+  api.use(apiErrorHandler);
+
   const app = next({ dev: false, hostname, port, dir: process.cwd() });
   await app.prepare();
 
   const handle = app.getRequestHandler();
-  const server = http.createServer((req, res) => handle(req, res));
+  const server = http.createServer((req, res) => {
+    if (req.url?.startsWith("/api/")) return api(req, res);
+    return handle(req, res);
+  });
 
   server.listen(port, hostname, () => {
     console.log(`[startup] CarrerFit listening on http://${hostname}:${port}`);

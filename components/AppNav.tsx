@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const links = [["/jobs", "Explore jobs"], ["/coding-practice", "Coding practice"], ["/resume", "Resume analysis"], ["/interview", "Interview practice"], ["/blog", "Career guides"], ["/dashboard", "My dashboard"]];
+const links = [["/jobs", "Jobs"], ["/resume", "Resume AI"], ["/interview", "AI interview"], ["/practice", "Practice lab"], ["/blog", "Career guides"]];
 
 export default function AppNav({ light = false }: { light?: boolean }) {
   const pathname = usePathname();
@@ -17,13 +17,13 @@ export default function AppNav({ light = false }: { light?: boolean }) {
   return (
     <header className={`appNav ${light ? "navLight" : ""}`}>
       <Link className="brand" href="/">
-        <span className="brandMark"><Target size={21} /></span><span>CarrerFit.com</span>
+        <span className="brandMark"><Target size={21} /></span><span><b>CarrerFit</b><small>Career intelligence</small></span>
       </Link>
       <button className="menuButton" onClick={() => setOpen(!open)} aria-label="Toggle navigation" aria-expanded={open} aria-controls="primary-navigation">{open ? <X /> : <Menu />}</button>
       <nav id="primary-navigation" className={open ? "open" : ""}>
         {links.map(([href, label]) => <Link className={pathname === href ? "current" : ""} href={href} key={href} onClick={() => setOpen(false)}>{label}</Link>)}
       </nav>
-      <div className="navAccount">{account ? <><Link className="navCta" href="/dashboard">{account.name.split(" ")[0]}</Link><button onClick={logout}>Sign out</button></> : <Link className="navCta" href="/login"><LogIn size={15}/> Sign in</Link>}</div>
+      <div className="navAccount">{account ? <><Link className="navCta" href="/dashboard">Open dashboard</Link><button onClick={logout}>Sign out</button></> : <Link className="navCta" href="/login"><LogIn size={15}/> Sign in</Link>}</div>
     </header>
   );
 }

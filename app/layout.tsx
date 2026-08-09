@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { connection } from "next/server";
 import { siteUrl } from "@/lib/site";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
   openGraph: { type: "website", siteName: "CarrerFit.com", url: "/", title: "CarrerFit | AI Resume Checker, Career Tools & Latest Jobs", description: "AI-powered resume analysis, interview practice, career guidance, and verified job opportunities." },
   twitter: { card: "summary_large_image", title: "CarrerFit | AI Resume Checker, Career Tools & Latest Jobs", description: "Build a clearer, evidence-backed career move." },
   robots: { index: true, follow: true },
+  other: { "google-adsense-account": "ca-pub-3893009337970738" },
 };
 
 export default async function RootLayout({
@@ -26,7 +28,18 @@ export default async function RootLayout({
   await connection();
   return (
     <html lang="en">
-      <body><AnalyticsTracker/>{children}<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson(siteSchema()) }}/></body>
+      <body>
+        <Script
+          id="google-adsense"
+          async
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3893009337970738"
+        />
+        <AnalyticsTracker/>
+        {children}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson(siteSchema()) }}/>
+      </body>
     </html>
   );
 }

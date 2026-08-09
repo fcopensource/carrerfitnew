@@ -59,6 +59,7 @@ export function getSqliteJobDatabase() {
   `);
   sqlite.prepare("UPDATE job_sources SET enabled=0,last_status='Success',last_error=NULL WHERE id='manual-admin-source'").run();
   sqlite.prepare("UPDATE job_sources SET enabled=0,last_status='Failed',last_error='Disabled because the source did not expose structured individual job records.' WHERE url LIKE '%google.com/about/careers/applications/jobs/results%' OR url LIKE '%hirist.tech%'").run();
+  sqlite.prepare("UPDATE job_sources SET enabled=0,last_status='Failed',last_error='Disabled because this is an individual stale job page, not a reusable employer feed.' WHERE name='Summer 2027 Intern - Software Engineer'").run();
   sqlite.prepare("UPDATE imported_jobs SET active=0 WHERE LOWER(TRIM(title)) IN ('search job','search jobs','job search') OR LOWER(title) LIKE '%job vacancies%'").run();
   const seedSource = sqlite.prepare("INSERT OR IGNORE INTO job_sources (id,name,url,type,created_at) VALUES (?,?,?,?,?)");
   const seededAt = new Date().toISOString();

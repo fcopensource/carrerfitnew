@@ -70,6 +70,7 @@ async function ensureMysqlSchema(target: Pool) {
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`);
       await connection.query("UPDATE job_sources SET enabled=0,last_status='Success',last_error=NULL WHERE id='manual-admin-source'");
       await connection.query("UPDATE job_sources SET enabled=0,last_status='Failed',last_error='Disabled because the source did not expose structured individual job records.' WHERE url LIKE '%google.com/about/careers/applications/jobs/results%' OR url LIKE '%hirist.tech%'");
+      await connection.query("UPDATE job_sources SET enabled=0,last_status='Failed',last_error='Disabled because this is an individual stale job page, not a reusable employer feed.' WHERE name='Summer 2027 Intern - Software Engineer'");
       await connection.query(`INSERT IGNORE INTO job_sources
         (id,name,url,url_hash,type,enabled,created_at) VALUES
         ('seed-lever-jumpcloud','JumpCloud','https://jobs.lever.co/jumpcloud','1f5bf77471b5b946aa2ba6897e914246502fb005753e8d55f7b74f96ff385a87','Lever',1,UTC_TIMESTAMP(3)),

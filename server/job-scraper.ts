@@ -197,26 +197,47 @@ function normalizeJob(input: { externalId: string; title: string; company: strin
 
 async function fetchJson<T>(url: string) { return JSON.parse(await fetchText(url)) as T; }
 
-async function fetchText(rawUrl: string, redirects = 0): Promise<string> {
+async function fetchText(rawUrl: string, redirects = 0, attempt = 0): Promise<string> {
   const url = normalizeUrl(rawUrl); await assertPublicUrl(url);
-  const response = await fetch(url, { redirect: "manual", signal: AbortSignal.timeout(20_000), headers: { "User-Agent": USER_AGENT, Accept: "application/json,text/html;q=0.9" } });
-  if ([301, 302, 303, 307, 308].includes(response.status)) {
-    if (redirects >= 3) throw new ScrapeError("The source redirected too many times.", 422);
-    const location = response.headers.get("location"); if (!location) throw new ScrapeError("The source returned an invalid redirect.", 422);
-    return fetchText(new URL(location, url).toString(), redirects + 1);
+  try {
+    const response = await fetch(url, { redirect: "manual", signal: AbortSignal.timeout(25_000), headers: { "User-Agent": USER_AGENT, Accept: "application/json,text/html;q=0.9" } });
+    if ([301, 302, 303, 307, 308].includes(response.status)) {
+      if (redirects >= 3) throw new ScrapeError("The source redirected too many times.", 422);
+      const location = response.headers.get("location"); if (!location) throw new ScrapeError("The source returned an invalid redirect.", 422);
+      return fetchText(new URL(location, url).toString(), redirects + 1, attempt);
+    }
+    if ((response.status === 429 || response.status >= 500) && attempt < 2) {
+      await response.body?.cancel();
+      await retryDelay(attempt);
+      return fetchText(rawUrl, redirects, attempt + 1);
+    }
+    if (!response.ok) throw new ScrapeError(`The source returned HTTP ${response.status}.`, response.status === 404 ? 404 : 422);
+    const declared = Number(response.headers.get("content-length") || 0);
+    if (declared > MAX_RESPONSE_BYTES) throw new ScrapeError("The source response is too large.", 413);
+    if (!response.body) return "";
+    const reader = response.body.getReader(); const decoder = new TextDecoder(); let result = ""; let bytes = 0;
+    while (true) {
+      const { done, value } = await reader.read(); if (done) break;
+      bytes += value.byteLength; if (bytes > MAX_RESPONSE_BYTES) { await reader.cancel(); throw new ScrapeError("The source response is too large.", 413); }
+      result += decoder.decode(value, { stream: true });
+    }
+    return result + decoder.decode();
+  } catch (error) {
+    if (attempt < 2 && isTransientFetchError(error)) {
+      await retryDelay(attempt);
+      return fetchText(rawUrl, redirects, attempt + 1);
+    }
+    throw error;
   }
-  if (!response.ok) throw new ScrapeError(`The source returned HTTP ${response.status}.`, response.status === 404 ? 404 : 422);
-  const declared = Number(response.headers.get("content-length") || 0);
-  if (declared > MAX_RESPONSE_BYTES) throw new ScrapeError("The source response is too large.", 413);
-  if (!response.body) return "";
-  const reader = response.body.getReader(); const decoder = new TextDecoder(); let result = ""; let bytes = 0;
-  while (true) {
-    const { done, value } = await reader.read(); if (done) break;
-    bytes += value.byteLength; if (bytes > MAX_RESPONSE_BYTES) { await reader.cancel(); throw new ScrapeError("The source response is too large.", 413); }
-    result += decoder.decode(value, { stream: true });
-  }
-  return result + decoder.decode();
 }
+
+function isTransientFetchError(error: unknown) {
+  if (error instanceof ScrapeError) return false;
+  if (!(error instanceof Error)) return true;
+  return ["AbortError", "TimeoutError", "TypeError"].includes(error.name) || /timeout|fetch failed|socket|network/i.test(error.message);
+}
+
+function retryDelay(attempt: number) { return new Promise((resolve) => setTimeout(resolve, 750 * (attempt + 1))); }
 
 async function robotsAllows(url: URL) {
   try {

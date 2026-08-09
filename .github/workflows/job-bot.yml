@@ -39,5 +39,6 @@ jobs:
             newJobs,
             activeJobs: .overview.stats.activeJobs,
             newInLast24Hours: .overview.stats.last24Hours,
-            failedSources: .overview.stats.failedSources
+            failedSources: .overview.stats.failedSources,
+            failedSourceNames: [.overview.sources[] | select(.enabled and .lastStatus == "Failed") | .name]
           }' "$response"

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { connection } from "next/server";
 import { siteUrl } from "@/lib/site";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
@@ -28,14 +27,14 @@ export default async function RootLayout({
   await connection();
   return (
     <html lang="en">
-      <body>
-        <Script
-          id="google-adsense"
+      <head>
+        <script
           async
-          strategy="afterInteractive"
-          crossOrigin="anonymous"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3893009337970738"
+          crossOrigin="anonymous"
         />
+      </head>
+      <body>
         <AnalyticsTracker/>
         {children}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson(siteSchema()) }}/>

@@ -76,6 +76,14 @@ export function getSqliteJobDatabase() {
   seedSource.run("seed-greenhouse-mongodb", "MongoDB", "https://boards.greenhouse.io/mongodb", "Greenhouse", seededAt);
   seedSource.run("seed-greenhouse-grafanalabs", "Grafana Labs", "https://boards.greenhouse.io/grafanalabs", "Greenhouse", seededAt);
   seedSource.run("seed-greenhouse-twilio", "Twilio", "https://boards.greenhouse.io/twilio", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-coinbase", "Coinbase", "https://boards.greenhouse.io/coinbase", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-reddit", "Reddit", "https://boards.greenhouse.io/reddit", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-samsara", "Samsara", "https://boards.greenhouse.io/samsara", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-coursera", "Coursera", "https://boards.greenhouse.io/coursera", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-discord", "Discord", "https://boards.greenhouse.io/discord", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-okta", "Okta", "https://boards.greenhouse.io/okta", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-airbnb", "Airbnb", "https://boards.greenhouse.io/airbnb", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-duolingo", "Duolingo", "https://boards.greenhouse.io/duolingo", "Greenhouse", seededAt);
   return sqlite;
 }
 

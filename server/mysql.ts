@@ -85,7 +85,15 @@ async function ensureMysqlSchema(target: Pool) {
         ('seed-greenhouse-datadog','Datadog','https://boards.greenhouse.io/datadog','246cded4fabc0820e15a0b97426250d142bec511369d7d5e8ad13266e2d2ebfe','Greenhouse',1,UTC_TIMESTAMP(3)),
         ('seed-greenhouse-mongodb','MongoDB','https://boards.greenhouse.io/mongodb','d3627c8522668117c83fc9b1d5f5d521bfc714d16e9129c8186098e4a4f29b9a','Greenhouse',1,UTC_TIMESTAMP(3)),
         ('seed-greenhouse-grafanalabs','Grafana Labs','https://boards.greenhouse.io/grafanalabs','2b7de3d1f33c3ce1ef4d1b0459ae0297cbe4138ec6deba292a5998bbf9a300fa','Greenhouse',1,UTC_TIMESTAMP(3)),
-        ('seed-greenhouse-twilio','Twilio','https://boards.greenhouse.io/twilio','f1146bb952f3ced1d8cb00e04549164cba8ba5e086ed30e3000a337e2ef0f0a9','Greenhouse',1,UTC_TIMESTAMP(3))`);
+        ('seed-greenhouse-twilio','Twilio','https://boards.greenhouse.io/twilio','f1146bb952f3ced1d8cb00e04549164cba8ba5e086ed30e3000a337e2ef0f0a9','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-coinbase','Coinbase','https://boards.greenhouse.io/coinbase','4f9816f45923672636fcfbf85073f8148be8e768ad1ff1e5522e98a418f74ef2','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-reddit','Reddit','https://boards.greenhouse.io/reddit','348615190345f23b423a4457b43f4c43e67d05c4e775d4a1ee4efb9ce6c14814','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-samsara','Samsara','https://boards.greenhouse.io/samsara','e77019793e1fd6d7fd6cdb368fded4e44e417d50e260a75fe1e73a605accc914','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-coursera','Coursera','https://boards.greenhouse.io/coursera','1634d01b26157f931a03ce8f79125b9d86baa0df6df319b63628d835da251ecb','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-discord','Discord','https://boards.greenhouse.io/discord','107b960ce91a6582875b99ab65fb822368f9cd8caa5d3c5a8fe72bc35f257e0f','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-okta','Okta','https://boards.greenhouse.io/okta','5e36e359e9043068a97bf5edd8cce82678d96a6b49a89b751ccb78adb47dacc8','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-airbnb','Airbnb','https://boards.greenhouse.io/airbnb','8076eb02fd1f8d04b1e7335514168c7d43a51be16f5100db42a1f1dc999bd28f','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-duolingo','Duolingo','https://boards.greenhouse.io/duolingo','8efc8ab52c74b437a41e04bfd42c61d19087808fef9dccd7ddd40ee340a6596c','Greenhouse',1,UTC_TIMESTAMP(3))`);
       await connection.query(`CREATE TABLE IF NOT EXISTS imported_jobs (
         id VARCHAR(80) PRIMARY KEY,
         external_id VARCHAR(200) NOT NULL,

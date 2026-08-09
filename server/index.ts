@@ -131,11 +131,26 @@ app.delete("/api/job-sources/:id", sourceLimiter, requireScraperAdmin, async (re
   res.status(204).end();
 });
 
+let jobSourceRefreshInFlight: Promise<{ refreshed: number; failed: number }> | null = null;
+
+export function refreshEnabledJobSources() {
+  if (jobSourceRefreshInFlight) return jobSourceRefreshInFlight;
+
+  jobSourceRefreshInFlight = (async () => {
+    const enabled = (await listJobSources()).filter((source) => source.enabled);
+    const results = await Promise.allSettled(enabled.map((source) => runSourceScrape(source.id)));
+    return {
+      refreshed: results.filter((result) => result.status === "fulfilled").length,
+      failed: results.filter((result) => result.status === "rejected").length,
+    };
+  })();
+
+  return jobSourceRefreshInFlight.finally(() => { jobSourceRefreshInFlight = null; });
+}
+
 app.post("/api/cron/job-sources", sourceLimiter, async (req, res) => {
   if (!secureMatch(String(req.headers["x-cron-secret"] || ""), process.env.CRON_SECRET || "")) return res.status(401).json({ message: "Invalid cron credential." });
-  const enabled = (await listJobSources()).filter((source) => source.enabled);
-  const results = await Promise.allSettled(enabled.map((source) => runSourceScrape(source.id)));
-  res.json({ refreshed: results.filter((result) => result.status === "fulfilled").length, failed: results.filter((result) => result.status === "rejected").length });
+  res.json(await refreshEnabledJobSources());
 });
 
 app.post("/api/assessment", async (req, res) => {

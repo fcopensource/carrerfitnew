@@ -1,10 +1,9 @@
 name: CarrerFit job ingestion bot
 
 on:
-  schedule:
-    # Run twice per hour. Two staggered entries reduce the effect of GitHub's
-    # occasional scheduled-run delays while concurrency prevents overlap.
-    - cron: "7,37 * * * *"
+  # Production now runs this refresh inside app.js every 30 minutes. Keep this
+  # workflow for an authenticated manual fallback without recurring failures
+  # when the hosting firewall temporarily rejects GitHub-hosted runners.
   workflow_dispatch:
 
 concurrency:

@@ -11,7 +11,7 @@ async function start() {
   // Production serves Next and the protected job-ingestion API from one server.
   // Keep this set before loading the compiled API so it does not open a second port.
   process.env.CARRERFIT_COMBINED_SERVER = "1";
-  const { app: api, apiErrorHandler } = require("./dist/server/index.js");
+  const { app: api, apiErrorHandler, refreshEnabledJobSources } = require("./dist/server/index.js");
   api.use((_req, res) => res.status(404).json({ message: "API route not found" }));
   api.use(apiErrorHandler);
 
@@ -26,6 +26,19 @@ async function start() {
 
   server.listen(port, hostname, () => {
     console.log(`[startup] CarrerFit listening on http://${hostname}:${port}`);
+
+    // Keep ingestion inside the running production app. This avoids relying on
+    // GitHub-hosted runners reaching the hosting provider through port 443.
+    const refreshJobs = async () => {
+      try {
+        const result = await refreshEnabledJobSources();
+        console.log(`[job-ingestion] refreshed=${result.refreshed} failed=${result.failed}`);
+      } catch (error) {
+        console.error("[job-ingestion] scheduled refresh failed", error);
+      }
+    };
+    setTimeout(refreshJobs, 60_000).unref();
+    setInterval(refreshJobs, 30 * 60 * 1000).unref();
   });
 
   function shutdown(signal) {

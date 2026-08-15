@@ -12,6 +12,7 @@ import { analyzeResumeWithGroq, hydrateRankedJobs } from "./groq.js";
 import { createInterviewPlan, evaluateInterviewAnswer, interviewResponseSchema, parseInterviewProfile } from "./interview.js";
 import { createJobSource, deleteJobSource, getImportedJob, getJobSource, getJobSourceOverview, listImportedJobs, listJobSources, setJobSourceEnabled } from "./job-database.js";
 import { identifyJobSource, ScrapeError, scrapeJobSource, validateJobSourceUrl } from "./job-scraper.js";
+import { runJobBot } from "./job-bot.js";
 import { newestJobsFirst } from "./job-order.js";
 import { extractResumeText, ResumeFileError } from "./resume.js";
 import { readStore, writeStore } from "./store.js";
@@ -131,21 +132,8 @@ app.delete("/api/job-sources/:id", sourceLimiter, requireScraperAdmin, async (re
   res.status(204).end();
 });
 
-let jobSourceRefreshInFlight: Promise<{ refreshed: number; failed: number }> | null = null;
-
 export function refreshEnabledJobSources() {
-  if (jobSourceRefreshInFlight) return jobSourceRefreshInFlight;
-
-  jobSourceRefreshInFlight = (async () => {
-    const enabled = (await listJobSources()).filter((source) => source.enabled);
-    const results = await Promise.allSettled(enabled.map((source) => runSourceScrape(source.id)));
-    return {
-      refreshed: results.filter((result) => result.status === "fulfilled").length,
-      failed: results.filter((result) => result.status === "rejected").length,
-    };
-  })();
-
-  return jobSourceRefreshInFlight.finally(() => { jobSourceRefreshInFlight = null; });
+  return runJobBot("cron");
 }
 
 app.post("/api/cron/job-sources", sourceLimiter, async (req, res) => {

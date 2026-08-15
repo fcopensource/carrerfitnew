@@ -1,10 +1,11 @@
 name: CarrerFit job ingestion bot
 
 on:
-  # Production now runs this refresh inside app.js every 30 minutes. Keep this
-  # workflow for an authenticated manual fallback without recurring failures
-  # when the hosting firewall temporarily rejects GitHub-hosted runners.
   workflow_dispatch:
+  # Hostinger can suspend the Node process between requests, so its in-process
+  # timer is only a fallback. This external schedule is the durable trigger.
+  schedule:
+    - cron: "7,37 * * * *"
 
 concurrency:
   group: carrerfit-job-ingestion
@@ -21,16 +22,20 @@ jobs:
         run: |
           test -n "$CRON_SECRET"
           response="$(mktemp)"
-          # The www hostname uses Hostinger's CDN edge, which remains reachable
-          # from GitHub runners when the apex edge temporarily rejects them.
-          curl --ipv4 --fail-with-body --retry 5 --retry-all-errors --retry-delay 5 \
-            --connect-timeout 30 --max-time 900 \
-            -X POST "https://www.carrerfit.com/api/cron/job-sources" \
-            -H "x-cron-secret: $CRON_SECRET" \
-            -H "user-agent: CarrerFit-JobBot/1.0" \
-            --output "$response"
+          call_bot() {
+            curl --ipv4 --fail-with-body --retry 6 --retry-all-errors --retry-delay 8 \
+              --connect-timeout 25 --max-time 900 \
+              -X POST "$1/api/cron/job-sources" \
+              -H "x-cron-secret: $CRON_SECRET" \
+              -H "user-agent: CarrerFit-JobBot/1.0" \
+              --output "$response"
+          }
 
-          jq -e '{
+          # Hostinger has intermittently timed out one CDN hostname for GitHub
+          # runners. Try both production edges before treating the run as failed.
+          call_bot "https://www.carrerfit.com" || call_bot "https://carrerfit.com"
+
+          jq -e 'select(.runId and (.refreshed > 0)) | {
             ok,
             runId,
             sources,

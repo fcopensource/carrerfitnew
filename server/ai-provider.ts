@@ -8,6 +8,8 @@ export async function aiJson<T>(options: {
   user: string;
   schema: z.ZodType<T>;
   maxTokens: number;
+  model?: string;
+  reasoningEffort?: "low" | "medium" | "high" | "xhigh";
 }): Promise<{ data: T; provider: AiProvider } | null> {
   if (process.env.CARRERFIT_DISABLE_AI === "1") return null;
   const jsonSchema = z.toJSONSchema(options.schema, { io: "output" }) as Record<string, unknown>;
@@ -18,7 +20,7 @@ export async function aiJson<T>(options: {
       provider: "openai",
       url: "https://api.openai.com/v1/chat/completions",
       apiKey: process.env.OPENAI_API_KEY,
-      model: process.env.OPENAI_MODEL || "gpt-5-mini",
+      model: options.model || process.env.OPENAI_MODEL || "gpt-5.4",
       options,
       jsonSchema,
     });
@@ -43,17 +45,21 @@ async function requestJson<T>({ provider, url, apiKey, model, options, jsonSchem
   url: string;
   apiKey: string;
   model: string;
-  options: { name: string; system: string; user: string; schema: z.ZodType<T>; maxTokens: number };
+  options: { name: string; system: string; user: string; schema: z.ZodType<T>; maxTokens: number; model?: string; reasoningEffort?: "low" | "medium" | "high" | "xhigh" };
   jsonSchema: Record<string, unknown>;
 }): Promise<{ data: T; provider: AiProvider } | null> {
   try {
     const response = await fetch(url, {
       method: "POST",
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      signal: AbortSignal.timeout(60_000),
+      signal: AbortSignal.timeout(90_000),
       body: JSON.stringify({
         model,
         max_completion_tokens: options.maxTokens,
+        ...(provider === "openai" ? {
+          reasoning_effort: options.reasoningEffort || process.env.OPENAI_REASONING_EFFORT || "high",
+          verbosity: process.env.OPENAI_VERBOSITY || "high",
+        } : {}),
         response_format: { type: "json_schema", json_schema: { name: options.name, strict: true, schema: jsonSchema } },
         messages: [{ role: "system", content: options.system }, { role: "user", content: options.user }],
       }),

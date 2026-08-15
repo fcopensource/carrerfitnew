@@ -7,6 +7,7 @@ import helmet from "helmet";
 import multer from "multer";
 import type { AssessmentAnswers, CareerMatch } from "../lib/types.js";
 import { analyzeAts } from "./ats.js";
+import { configuredAiProvider } from "./ai-provider.js";
 import { jobs } from "./data/jobs.js";
 import { analyzeResumeWithGroq, hydrateRankedJobs } from "./groq.js";
 import { createInterviewPlan, evaluateInterviewAnswer, interviewResponseSchema, parseInterviewProfile } from "./interview.js";
@@ -26,7 +27,7 @@ const allowedOrigins = (process.env.WEB_URL || "http://localhost:3000").split(",
 app.use("/api", cors({ origin(origin, callback) { callback(null, !origin || allowedOrigins.includes(origin)); } }));
 app.use("/api", express.json({ limit: "1mb" }));
 
-app.get("/api/health", (_req, res) => res.json({ ok: true, service: "carrerfit-api", aiConfigured: Boolean(process.env.GROQ_API_KEY) }));
+app.get("/api/health", (_req, res) => res.json({ ok: true, service: "carrerfit-api", aiConfigured: Boolean(configuredAiProvider()), aiProvider: configuredAiProvider() }));
 
 const resumeUpload = multer({
   storage: multer.memoryStorage(),

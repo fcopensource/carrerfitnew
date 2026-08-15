@@ -51,8 +51,10 @@ npm start
 
 Environment variables:
 
+- `OPENAI_API_KEY`: server-side OpenAI API key used as the primary AI provider; never use a `NEXT_PUBLIC_` prefix
+- `OPENAI_MODEL`: OpenAI model for resume analysis and interviews; defaults to `gpt-5-mini`
 - `GROQ_API_KEY`: server-side Groq API key; never expose this with a `NEXT_PUBLIC_` prefix
-- `GROQ_MODEL`: defaults to `openai/gpt-oss-120b`
+- `GROQ_MODEL`: optional fallback model; defaults to `openai/gpt-oss-120b`
 - `PORT`: Next.js port, defaults to `3000`
 - `API_PORT`: Express port, defaults to `4000`
 - `API_URL`: internal Express URL used by Next.js rewrites
@@ -209,7 +211,8 @@ Set these only in Hostinger Environment variables. Do not place them in browser 
 
 | Variable group | Required for |
 | --- | --- |
-| `GROQ_API_KEY`, `GROQ_MODEL` | AI resume and interview features |
+| `OPENAI_API_KEY`, `OPENAI_MODEL` | Primary AI resume analysis and adaptive interview features |
+| `GROQ_API_KEY`, `GROQ_MODEL` | Optional AI fallback if OpenAI is unavailable |
 | `WEB_URL`, `APP_URL`, `AUTH_SECRET`, `AUTH_REQUIRED` | Secure cookies, origin validation, and account access |
 | `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_SSL`, `DB_POOL_SIZE` | MySQL data storage |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_FROM` | Registration confirmations and password reset emails |

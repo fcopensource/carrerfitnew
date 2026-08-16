@@ -9,7 +9,7 @@ const USER_AGENT = "CarrerFitJobIndexer/1.0 (+https://carrerfit.com)";
 // Large enterprise Greenhouse boards can legitimately exceed 5 MB when the
 // API includes full job descriptions. Keep a hard ceiling, but allow those
 // official feeds while limiting each source to MAX_JOBS below.
-const MAX_RESPONSE_BYTES = 8 * 1024 * 1024;
+const MAX_RESPONSE_BYTES = 12 * 1024 * 1024;
 const MAX_JOBS = 150;
 const MAX_DISCOVERED_PAGES = 24;
 const MAX_POSTING_AGE_MS = 180 * 24 * 60 * 60 * 1000;

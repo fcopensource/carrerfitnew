@@ -24,7 +24,10 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import AppNav from "@/components/AppNav";
+import dynamic from "next/dynamic";
 import { useState } from "react";
+
+const CareerOrbit = dynamic(() => import("@/components/CareerOrbit"), { ssr: false });
 
 const roles = [
   { title: "Product Analyst", company: "BrightLoop", score: 96, salary: "₹18–28L", skills: ["SQL", "Analytics", "AI workflows"] },
@@ -65,18 +68,20 @@ export default function Home() {
         <AppNav />
 
         <div className="heroNoise" />
+        <CareerOrbit />
         <div className="modernHeroGrid">
           <div className="modernHeroCopy">
-            <span className="modernEyebrow"><Sparkles size={14} /> Career intelligence, built around you</span>
-            <h1>Make your next career move the <em>right</em> one.</h1>
-            <p>CarrerFit.com turns your experience and ambitions into a clear career direction, a focused skill plan, and job matches you can act on.</p>
+            <span className="modernEyebrow"><Sparkles size={14} /> Your career operating system</span>
+            <h1>Turn experience into <em>opportunity.</em></h1>
+            <p>One intelligent workspace to understand your resume, uncover your strongest career direction, practice interviews, and act on verified roles.</p>
             <div className="modernActions">
-              <Link href="/resume">Match my resume <ArrowRight size={18}/></Link>
-              <Link href="/jobs">Browse live roles</Link>
+              <Link href="/resume">Analyze my resume <ArrowRight size={18}/></Link>
+              <Link href="/jobs">Explore verified jobs</Link>
             </div>
+            <div className="heroCapabilityRow"><span><b>01</b> Resume intelligence</span><span><b>02</b> Evidence-ranked jobs</span><span><b>03</b> Adaptive interviews</span></div>
             <div className="trustRow">
               <div><ShieldCheck size={21}/><strong>Private by design</strong></div>
-              <p>Encrypted resume storage, verified accounts, and employer-hosted applications.</p>
+              <p>Encrypted career data, verified sources, and employer-hosted applications.</p>
             </div>
           </div>
 

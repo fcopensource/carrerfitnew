@@ -3,7 +3,9 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-export default function CareerOrbit() {
+type CareerOrbitProps = { variant?: "hero" | "resume" | "jobs" | "interview" };
+
+export default function CareerOrbit({ variant = "hero" }: CareerOrbitProps) {
   const hostRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -12,7 +14,7 @@ export default function CareerOrbit() {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    camera.position.set(0, 0, 8.7);
+    camera.position.set(0, 0, variant === "hero" ? 8.7 : 7.4);
     let renderer: THREE.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
@@ -26,8 +28,13 @@ export default function CareerOrbit() {
 
     const group = new THREE.Group();
     scene.add(group);
+    const coreGeometry = variant === "resume"
+      ? new THREE.OctahedronGeometry(1.45, 2)
+      : variant === "interview"
+        ? new THREE.TorusKnotGeometry(1.05, 0.3, 150, 18)
+        : new THREE.IcosahedronGeometry(variant === "jobs" ? 1.7 : 1.33, 2);
     const core = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(1.33, 2),
+      coreGeometry,
       new THREE.MeshBasicMaterial({ color: 0x3158e8, wireframe: true, transparent: true, opacity: 0.72 }),
     );
     group.add(core);
@@ -37,11 +44,11 @@ export default function CareerOrbit() {
     );
     group.add(halo);
 
-    const count = window.innerWidth < 700 ? 46 : 82;
+    const count = window.innerWidth < 700 ? 38 : variant === "jobs" ? 112 : 82;
     const positions = new Float32Array(count * 3);
     const points: THREE.Vector3[] = [];
     for (let index = 0; index < count; index += 1) {
-      const radius = 2.15 + Math.random() * 2.25;
+      const radius = (variant === "interview" ? 1.85 : 2.15) + Math.random() * (variant === "jobs" ? 2.65 : 2.25);
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
       const point = new THREE.Vector3(
@@ -71,7 +78,7 @@ export default function CareerOrbit() {
     lineGeometry.setAttribute("position", new THREE.Float32BufferAttribute(linePositions, 3));
     group.add(new THREE.LineSegments(lineGeometry, new THREE.LineBasicMaterial({ color: 0x6f8cff, transparent: true, opacity: 0.18 })));
 
-    const rings = [2.5, 3.25, 4].map((radius, index) => {
+    const rings = (variant === "interview" ? [2.1, 2.65, 3.2] : [2.5, 3.25, 4]).map((radius, index) => {
       const ring = new THREE.Mesh(
         new THREE.TorusGeometry(radius, 0.007, 6, 150),
         new THREE.MeshBasicMaterial({ color: index === 1 ? 0xc9ff63 : 0x5878ef, transparent: true, opacity: index === 1 ? 0.24 : 0.18 }),
@@ -102,7 +109,7 @@ export default function CareerOrbit() {
     const render = () => {
       if (visible) {
         if (!reduced) {
-          group.rotation.y += 0.0017;
+          group.rotation.y += variant === "interview" ? 0.003 : 0.0017;
           group.rotation.x += 0.00045;
           group.rotation.y += (pointerX - group.rotation.y * 0.04) * 0.002;
           group.rotation.x += (-pointerY - group.rotation.x * 0.04) * 0.002;
@@ -132,7 +139,7 @@ export default function CareerOrbit() {
       renderer.dispose();
       renderer.domElement.remove();
     };
-  }, []);
+  }, [variant]);
 
-  return <div ref={hostRef} className="careerOrbit" aria-hidden="true" />;
+  return <div ref={hostRef} className={`careerOrbit careerOrbit--${variant}`} aria-hidden="true" />;
 }

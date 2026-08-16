@@ -94,7 +94,18 @@ async function ensureMysqlSchema(target: Pool) {
         ('seed-greenhouse-discord','Discord','https://boards.greenhouse.io/discord','107b960ce91a6582875b99ab65fb822368f9cd8caa5d3c5a8fe72bc35f257e0f','Greenhouse',1,UTC_TIMESTAMP(3)),
         ('seed-greenhouse-okta','Okta','https://boards.greenhouse.io/okta','5e36e359e9043068a97bf5edd8cce82678d96a6b49a89b751ccb78adb47dacc8','Greenhouse',1,UTC_TIMESTAMP(3)),
         ('seed-greenhouse-airbnb','Airbnb','https://boards.greenhouse.io/airbnb','8076eb02fd1f8d04b1e7335514168c7d43a51be16f5100db42a1f1dc999bd28f','Greenhouse',1,UTC_TIMESTAMP(3)),
-        ('seed-greenhouse-duolingo','Duolingo','https://boards.greenhouse.io/duolingo','8efc8ab52c74b437a41e04bfd42c61d19087808fef9dccd7ddd40ee340a6596c','Greenhouse',1,UTC_TIMESTAMP(3))`);
+        ('seed-greenhouse-duolingo','Duolingo','https://boards.greenhouse.io/duolingo','8efc8ab52c74b437a41e04bfd42c61d19087808fef9dccd7ddd40ee340a6596c','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-pinterest','Pinterest','https://boards.greenhouse.io/pinterest','ba947836cafaf68d093a978a229e7814d7af3c90459a84829aee7953e83a4dcd','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-lyft','Lyft','https://boards.greenhouse.io/lyft','f42a2d7e1c90b7eec55d791116e5d045696c647c90d410aab58057351571b63d','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-dropbox','Dropbox','https://boards.greenhouse.io/dropbox','8fb79fd381973311523c7546a73fc930b59819cfe61709ea66d8b4e1a4e0bdc3','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-databricks','Databricks','https://boards.greenhouse.io/databricks','9b05f5429088d9d936b0bbf9d251e2167c7a4a277ddb74d3dcd1f23c6abf9e9f','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-roblox','Roblox','https://boards.greenhouse.io/roblox','e653b3182ed1ce286b2a2b263855afb589918506f9bf7df5d8deef69d90d5894','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-elastic','Elastic','https://boards.greenhouse.io/elastic','6d6e0d3f5ca4591467b13143812fb6800cb573dfa9384bb009242d879b53db78','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-hubspot','HubSpot','https://boards.greenhouse.io/hubspotjobs','7ebe49711ce635165c9319e210e01ef5819ce66d7a6c2c35d43aef8514bf3a80','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-canonical','Canonical','https://boards.greenhouse.io/canonical','58e2c9e2881a0dbd63402b2056cb2b6a98e9b6578a53329ed91cf0297c6b37c5','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-brex','Brex','https://boards.greenhouse.io/brex','61e9108baceae136458b63d67e42b2a43475337cd51acc4bec7ef00972312156','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-ashby-notion','Notion','https://jobs.ashbyhq.com/notion','90300d4b1ce073f7eec39c3a6045fdb486c74dfa573e15c584efe841527ed844','Ashby',1,UTC_TIMESTAMP(3)),
+        ('seed-ashby-perplexity','Perplexity','https://jobs.ashbyhq.com/perplexity','1b584331868e7259fc61ec814779441d715a7876740f06ff83a1fdca2b90b969','Ashby',1,UTC_TIMESTAMP(3))`);
       await connection.query(`CREATE TABLE IF NOT EXISTS imported_jobs (
         id VARCHAR(80) PRIMARY KEY,
         external_id VARCHAR(200) NOT NULL,

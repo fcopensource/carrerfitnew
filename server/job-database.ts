@@ -85,6 +85,17 @@ export function getSqliteJobDatabase() {
   seedSource.run("seed-greenhouse-okta", "Okta", "https://boards.greenhouse.io/okta", "Greenhouse", seededAt);
   seedSource.run("seed-greenhouse-airbnb", "Airbnb", "https://boards.greenhouse.io/airbnb", "Greenhouse", seededAt);
   seedSource.run("seed-greenhouse-duolingo", "Duolingo", "https://boards.greenhouse.io/duolingo", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-pinterest", "Pinterest", "https://boards.greenhouse.io/pinterest", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-lyft", "Lyft", "https://boards.greenhouse.io/lyft", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-dropbox", "Dropbox", "https://boards.greenhouse.io/dropbox", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-databricks", "Databricks", "https://boards.greenhouse.io/databricks", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-roblox", "Roblox", "https://boards.greenhouse.io/roblox", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-elastic", "Elastic", "https://boards.greenhouse.io/elastic", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-hubspot", "HubSpot", "https://boards.greenhouse.io/hubspotjobs", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-canonical", "Canonical", "https://boards.greenhouse.io/canonical", "Greenhouse", seededAt);
+  seedSource.run("seed-greenhouse-brex", "Brex", "https://boards.greenhouse.io/brex", "Greenhouse", seededAt);
+  seedSource.run("seed-ashby-notion", "Notion", "https://jobs.ashbyhq.com/notion", "Ashby", seededAt);
+  seedSource.run("seed-ashby-perplexity", "Perplexity", "https://jobs.ashbyhq.com/perplexity", "Ashby", seededAt);
   return sqlite;
 }
 

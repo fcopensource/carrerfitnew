@@ -105,7 +105,20 @@ async function ensureMysqlSchema(target: Pool) {
         ('seed-greenhouse-canonical','Canonical','https://boards.greenhouse.io/canonical','58e2c9e2881a0dbd63402b2056cb2b6a98e9b6578a53329ed91cf0297c6b37c5','Greenhouse',1,UTC_TIMESTAMP(3)),
         ('seed-greenhouse-brex','Brex','https://boards.greenhouse.io/brex','61e9108baceae136458b63d67e42b2a43475337cd51acc4bec7ef00972312156','Greenhouse',1,UTC_TIMESTAMP(3)),
         ('seed-ashby-notion','Notion','https://jobs.ashbyhq.com/notion','90300d4b1ce073f7eec39c3a6045fdb486c74dfa573e15c584efe841527ed844','Ashby',1,UTC_TIMESTAMP(3)),
-        ('seed-ashby-perplexity','Perplexity','https://jobs.ashbyhq.com/perplexity','1b584331868e7259fc61ec814779441d715a7876740f06ff83a1fdca2b90b969','Ashby',1,UTC_TIMESTAMP(3))`);
+        ('seed-ashby-perplexity','Perplexity','https://jobs.ashbyhq.com/perplexity','1b584331868e7259fc61ec814779441d715a7876740f06ff83a1fdca2b90b969','Ashby',1,UTC_TIMESTAMP(3)),
+        ('seed-ashby-openai','OpenAI','https://jobs.ashbyhq.com/openai','8f6283444544cb7d89d66979266c577728b16ad770f836e3b2f6281040e1afa8','Ashby',1,UTC_TIMESTAMP(3)),
+        ('seed-ashby-cursor','Cursor','https://jobs.ashbyhq.com/cursor','18c8498b1d20500ee318dc277c555393f3370e88b36f8d9e0991c123497f4c47','Ashby',1,UTC_TIMESTAMP(3)),
+        ('seed-greenhouse-gitlab','GitLab','https://boards.greenhouse.io/gitlab','29d75bed9439f89c1785c447b914e10d2ef569f05ed9daa4b558412d8a1ec671','Greenhouse',1,UTC_TIMESTAMP(3)),
+        ('seed-structured-vercel','Vercel','https://vercel.com/careers','22399300e27a6034bb8dcd128f388c0c79c1d04220310c654d2b804951b0a294','Structured data',1,UTC_TIMESTAMP(3)),
+        ('seed-structured-plaid','Plaid','https://plaid.com/careers/','7be3de0fb3903cece3753161b4f7d710cdcf334341ec7847f5e07b83c9c728b8','Structured data',1,UTC_TIMESTAMP(3)),
+        ('seed-structured-stripe','Stripe','https://stripe.com/careers/search','24b8d4a0c9d56755e99e896b6301fc28937e5709f13f1e3315f66915e39c7151','Structured data',1,UTC_TIMESTAMP(3)),
+        ('seed-structured-scale','Scale AI','https://scale.com/careers','841e89d191b056a8d96583e98e3773fb8bf9d4209537804f55bd57952e4bcf97','Structured data',1,UTC_TIMESTAMP(3)),
+        ('seed-structured-atlassian','Atlassian','https://www.atlassian.com/company/careers/all-jobs','ab0b09e2165d107fd910454666f6bc6de119cc67a598f3d37dacc29d2f7e1d3a','Structured data',1,UTC_TIMESTAMP(3)),
+        ('seed-structured-anthropic','Anthropic','https://www.anthropic.com/careers','4d2d026d3cca4d9d0a08421378254d100b3198c2e7569171f491d9517b800911','Structured data',1,UTC_TIMESTAMP(3)),
+        ('seed-structured-mistral','Mistral AI','https://mistral.ai/careers/','e5b96893eeed6463ed2de65eae4a85023edf020b0bf1275af28c90546951f188','Structured data',1,UTC_TIMESTAMP(3)),
+        ('seed-structured-snowflake','Snowflake','https://careers.snowflake.com/','84bf3426d939633ef8cef37cdb733d73cb9dc811a51b81831e4e81ef89d4a659','Structured data',1,UTC_TIMESTAMP(3)),
+        ('seed-structured-uber','Uber','https://jobs.uber.com/','13e6cd04d8010ca98b88dbbd7faeb9a8d9830342cf6e74cfd5cd4818a4495c67','Structured data',1,UTC_TIMESTAMP(3)),
+        ('seed-structured-shopify','Shopify','https://www.shopify.com/careers','5f801d1df9125230c14de36f3999f3a9bd578425f2c743936968c85aa6240b45','Structured data',1,UTC_TIMESTAMP(3))`);
       await connection.query(`CREATE TABLE IF NOT EXISTS imported_jobs (
         id VARCHAR(80) PRIMARY KEY,
         external_id VARCHAR(200) NOT NULL,

@@ -21,14 +21,14 @@ import {
 import styles from "./home.module.css";
 
 const quickLinks = [
-  ["Remote", Globe2],
-  ["MNC", Building2],
-  ["Salesforce", BriefcaseBusiness],
-  ["AI & Data", Sparkles],
-  ["Fresher", GraduationCap],
-  ["Startup", Target],
-  ["Internship", Clock3],
-  ["Analytics", FileSearch],
+  { label: "Remote", icon: Globe2 },
+  { label: "MNC", icon: Building2 },
+  { label: "Salesforce", icon: BriefcaseBusiness },
+  { label: "AI & Data", icon: Sparkles },
+  { label: "Fresher", icon: GraduationCap },
+  { label: "Startup", icon: Target },
+  { label: "Internship", icon: Clock3 },
+  { label: "Analytics", icon: FileSearch },
 ];
 
 const companies = [
@@ -122,8 +122,8 @@ export default function Home() {
 
       <section className={styles.quickSection}>
         <div className={styles.quickGrid}>
-          {quickLinks.map(([label, Icon]) => (
-            <Link href="/jobs" className={styles.quickChip} key={label as string}>
+          {quickLinks.map(({ label, icon: Icon }) => (
+            <Link href="/jobs" className={styles.quickChip} key={label}>
               <Icon />
               <span>{label}</span>
               <ArrowRight />

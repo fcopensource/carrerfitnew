@@ -57,7 +57,16 @@ export default function Home() {
               aria-label="Search jobs"
               placeholder="Search by role, skill, company, or location"
             />
-            <button type="submit">Search jobs <ArrowRight /></button>
+            <span
+              role="button"
+              tabIndex={0}
+              onClick={() => window.location.assign("/jobs")}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") window.location.assign("/jobs");
+              }}
+            >
+              Search jobs <ArrowRight />
+            </span>
           </form>
 
           <div className="heroTrust">

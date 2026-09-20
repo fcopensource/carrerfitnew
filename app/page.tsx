@@ -1,85 +1,208 @@
 "use client";
 
-import type { CSSProperties } from "react";
-import dynamic from "next/dynamic";
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, AudioLines, BadgeCheck, BrainCircuit, BriefcaseBusiness, Check, ChevronRight, FileSearch, FileText, Fingerprint, Globe2, LockKeyhole, MapPin, MessageSquareText, Mic2, Play, Radar, ShieldCheck, Sparkles, Target, WandSparkles, Zap } from "lucide-react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  BriefcaseBusiness,
+  Building2,
+  CheckCircle2,
+  Clock3,
+  MapPin,
+  Search,
+  ShieldCheck,
+  Sparkles,
+  Target,
+  TrendingUp,
+  UsersRound,
+} from "lucide-react";
 import AppNav from "@/components/AppNav";
 
-const CareerOrbit = dynamic(() => import("@/components/CareerOrbit"), { ssr: false });
-const companies = [
-  { name: "Grafana Labs", image: "/company-proof/grafana.jpg" },
-  { name: "Twilio", image: "/company-proof/twilio.jpg" },
-  { name: "Postman", image: "/company-proof/postman.jpg" },
-  { name: "MongoDB", image: "/company-proof/mongodb.jpg" },
+const featuredJobs = [
+  { role: "Salesforce Developer", company: "Cloudworks", location: "Remote · India", fit: "92%", tags: ["Apex", "LWC", "Flows"] },
+  { role: "Software Engineer", company: "Northstar Labs", location: "Bengaluru · Hybrid", fit: "89%", tags: ["React", "Node.js", "TypeScript"] },
+  { role: "AI / ML Engineer", company: "Vertex Systems", location: "Gurugram · Hybrid", fit: "86%", tags: ["Python", "LLMs", "ML"] },
 ];
-const matches = [
-  { role: "Senior Product Analyst", company: "Northstar", fit: 94, skills: ["SQL", "Experiments", "AI"] },
-  { role: "Growth Data Lead", company: "Arc Labs", fit: 89, skills: ["Python", "Strategy", "BI"] },
-  { role: "Revenue Operations", company: "CloudMint", fit: 86, skills: ["CRM", "Automation", "Ops"] },
+
+const categories = [
+  ["Engineering", "1,240 roles"],
+  ["Data & AI", "740 roles"],
+  ["Product", "520 roles"],
+  ["Salesforce", "310 roles"],
+  ["Design", "280 roles"],
+  ["Marketing", "430 roles"],
 ];
 
 export default function Home() {
   return (
-    <main className="homeV3">
-      <section className="v3Hero">
-        <AppNav />
-        <div className="v3Grid" />
-        <div className="v3HeroScene"><CareerOrbit variant="hero" /></div>
-        <div className="v3HeroInner">
-          <div className="v3HeroCopy">
-            <span className="v3Kicker"><i /> AI career intelligence, reimagined</span>
-            <h1>Your career has a signal.<br/><em>We make it visible.</em></h1>
-            <p>CarrerFit reads the evidence in your resume, maps it to the live market, and turns it into a precise path—from stronger applications to sharper interviews.</p>
-            <div className="v3HeroActions"><Link href="/resume">Analyze my resume <ArrowRight /></Link><Link href="/interview"><Play /> Experience AI interview</Link></div>
-            <div className="v3HeroProof"><span><ShieldCheck /> Private, encrypted processing</span><span><BadgeCheck /> Verified employer sources</span></div>
-          </div>
-          <div className="v3CommandCard">
-            <header><span><i/><i/><i/></span><small>CAREER SIGNAL / LIVE</small><Radar /></header>
-            <div className="v3CommandBody">
-              <div className="v3ScoreCore"><span>Career readiness</span><strong>87</strong><small>+12 this month</small></div>
-              <div className="v3SignalList"><div><span><BrainCircuit /> Resume intelligence</span><b>Complete</b></div><div><span><BriefcaseBusiness /> Market alignment</span><b>Strong</b></div><div><span><Mic2 /> Interview confidence</span><b>Building</b></div></div>
-              <div className="v3MiniGraph">{[28,38,34,52,47,63,58,76,70,87].map((height,index)=><i key={index} style={{height:`${height}%`}} />)}</div>
-            </div>
+    <main className="appShell jobsV2">
+      <AppNav light />
+
+      <section className="jobsDiscoveryHero">
+        <div className="jobsGlow jobsGlowOne" />
+        <div className="jobsGlow jobsGlowTwo" />
+
+        <div className="jobsHeroContent">
+          <span className="jobsEyebrow"><Sparkles /> Smarter job discovery with AI</span>
+          <h1>Find work that actually<br /><em>fits your career.</em></h1>
+          <p>
+            Discover verified opportunities, understand your fit, and move from
+            searching to applying with confidence.
+          </p>
+
+          <form className="heroSearch" action="/jobs">
+            <Search />
+            <input
+              name="q"
+              aria-label="Search jobs"
+              placeholder="Search by role, skill, company, or location"
+            />
+            <span
+              role="button"
+              tabIndex={0}
+              onClick={() => window.location.assign("/jobs")}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") window.location.assign("/jobs");
+              }}
+            >
+              Search jobs <ArrowRight />
+            </span>
+          </form>
+
+          <div className="heroTrust">
+            <span><CheckCircle2 /> Verified job sources</span>
+            <span><Target /> AI match scoring</span>
+            <span><ShieldCheck /> Direct employer applications</span>
           </div>
         </div>
-        <div className="v3ScrollCue"><span>Scroll to explore</span><i /></div>
+
+        <div className="jobsHeroVisual" aria-hidden="true">
+          <div className="floatingJob floatingJobOne">
+            <span>SE</span>
+            <div><small>Top match</small><b>Software Engineer</b><i>Remote · 94% fit</i></div>
+            <strong>94</strong>
+          </div>
+          <div className="floatingJob floatingJobTwo">
+            <span>AI</span>
+            <div><small>New today</small><b>AI Engineer</b><i>Hybrid · 89% fit</i></div>
+            <strong>89</strong>
+          </div>
+          <div className="floatingJob floatingJobThree">
+            <span>SF</span>
+            <div><small>Recommended</small><b>Salesforce Developer</b><i>Remote · 91% fit</i></div>
+            <strong>91</strong>
+          </div>
+          <div className="radar"><i /><i /><i /><Target /></div>
+        </div>
       </section>
 
-      <section className="v3Ticker" aria-label="CarrerFit capabilities"><div>{["RESUME INTELLIGENCE","ATS SCORING","VERIFIED JOBS","AI INTERVIEWS","CAREER ANALYTICS","SKILL-GAP MAPPING","RESUME INTELLIGENCE","ATS SCORING","VERIFIED JOBS","AI INTERVIEWS","CAREER ANALYTICS","SKILL-GAP MAPPING"].map((item,index)=><span key={`${item}-${index}`}><Sparkles /> {item}</span>)}</div></section>
+      <section className="jobsInsightStrip">
+        <div><strong>3,500+</strong><span>Open opportunities</span></div>
+        <div><strong>120+</strong><span>Hiring companies</span></div>
+        <div><strong>38%</strong><span>Remote-friendly roles</span></div>
+        <div><strong>Daily</strong><span>Fresh job updates</span></div>
+      </section>
 
-      <section className="v3Manifesto">
-        <div className="v3SectionLabel"><span>01</span> The intelligence layer</div>
-        <div className="v3ManifestoCopy"><h2>Not another job board.<br/><em>A system that understands you.</em></h2><p>Your career data should do more than sit inside a PDF. CarrerFit turns it into a living intelligence layer—structured, measurable, and connected to real opportunity.</p></div>
-        <div className="v3Bento">
-          <article className="v3BentoMain"><div><span>RESUME DNA</span><FileSearch /></div><h3>Every line becomes evidence.</h3><p>Experience, impact, skills, seniority, education, and career direction are extracted into a structured private profile.</p><div className="v3ResumeScan"><span className="scanBeam"/><header><i>VK</i><div><b>Vikram Kumar</b><small>Product & data professional</small></div><strong>92%</strong></header><div className="scanLines"><i/><i/><i/><i/><i/></div><footer><span>12 skills</span><span>4 roles</span><span>18 outcomes</span></footer></div></article>
-          <article className="v3BentoMetric"><span><Target /> ATS precision</span><strong>91<small>/100</small></strong><div><i /></div><p>Actionable feedback linked to exact resume evidence.</p></article>
-          <article className="v3BentoSecurity"><Fingerprint/><div><span>PRIVATE VAULT</span><h3>Your data stays yours.</h3><p>AES-256 encrypted storage, private sessions, and controlled access.</p></div></article>
-          <article className="v3BentoSkills"><span>SKILL GRAPH</span><div className="skillCloud"><i>SQL</i><i>AI</i><i>Python</i><i>Strategy</i><i>Analytics</i><i>CRM</i></div></article>
+      <section className="jobsMarketplace">
+        <div className="marketplaceHeading">
+          <div>
+            <span>Browse by career path</span>
+            <h2>Explore opportunities faster</h2>
+            <p>Jump into the roles that match where you want your career to go next.</p>
+          </div>
+          <Link className="marketplaceCount" href="/jobs">View all jobs <ArrowRight /></Link>
+        </div>
+
+        <div className="v3ProofGrid">
+          {categories.map(([name, count]) => (
+            <Link href="/jobs" key={name}>
+              <article>
+                <BriefcaseBusiness />
+                <strong>{name}</strong>
+                <span>{count}</span>
+              </article>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="v3Jobs">
+        <div className="v3JobsHeader">
+          <div>
+            <div className="v3SectionLabel"><span>01</span> Featured opportunities</div>
+            <h2>Strong roles.<br />Clear reasons to apply.</h2>
+          </div>
+          <p>
+            CarrerFit helps you compare your experience with each role so you can
+            spend time on applications with real potential.
+          </p>
+        </div>
+
+        <div className="v3MatchStack" style={{ maxWidth: 980, margin: "0 auto" }}>
+          {featuredJobs.map((job, index) => (
+            <Link href="/jobs" key={job.role}>
+              <span className="v3Rank">0{index + 1}</span>
+              <div className="v3MatchInfo">
+                <small>{job.company}</small>
+                <h3>{job.role}</h3>
+                <p><MapPin /> {job.location}</p>
+                <div>{job.tags.map(tag => <i key={tag}><CheckCircle2 />{tag}</i>)}</div>
+              </div>
+              <strong>{job.fit}</strong>
+              <ArrowRight />
+            </Link>
+          ))}
         </div>
       </section>
 
       <section className="v3Journey">
-        <div className="v3JourneyVisual"><CareerOrbit variant="resume"/><div className="v3OrbitCaption"><span>01</span><b>Upload</b><i/><span>02</span><b>Understand</b><i/><span>03</span><b>Act</b></div></div>
-        <div className="v3JourneyCopy"><div className="v3SectionLabel light"><span>02</span> One connected journey</div><h2>From uncertainty to a next move you can explain.</h2><div className="v3JourneySteps"><article><span>01</span><div><h3>Decode your profile</h3><p>AI converts your resume into a structured map of skills, outcomes, strengths, and gaps.</p></div></article><article><span>02</span><div><h3>Rank real opportunities</h3><p>Verified roles are scored against your actual evidence—not generic keyword overlap.</p></div></article><article><span>03</span><div><h3>Practice the conversation</h3><p>Your interviewer adapts to your resume, answers, role, and performance in real time.</p></div></article></div><Link href="/resume">Start with your resume <ArrowRight /></Link></div>
+        <div className="v3JourneyCopy">
+          <div className="v3SectionLabel light"><span>02</span> More than a job board</div>
+          <h2>Build the whole application, not just the search.</h2>
+          <div className="v3JourneySteps">
+            <article><span>01</span><div><h3>Analyze your resume</h3><p>Understand ATS strength, skill gaps, and where your profile can improve.</p></div></article>
+            <article><span>02</span><div><h3>Match to real jobs</h3><p>Compare your evidence against live roles from verified employer sources.</p></div></article>
+            <article><span>03</span><div><h3>Prepare for interviews</h3><p>Practice with an AI interviewer that adapts to your resume and target role.</p></div></article>
+          </div>
+          <Link href="/resume">Check my resume <ArrowRight /></Link>
+        </div>
+
+        <div className="v3CommandCard">
+          <header><span><i /><i /><i /></span><small>JOB SEARCH / CAREER SIGNAL</small><TrendingUp /></header>
+          <div className="v3CommandBody">
+            <div className="v3SignalList">
+              <div><span><Building2 /> Verified companies</span><b>120+</b></div>
+              <div><span><UsersRound /> Personalized matching</span><b>Live</b></div>
+              <div><span><Clock3 /> Fresh opportunities</span><b>Daily</b></div>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <section className="v3Jobs">
-        <div className="v3JobsHeader"><div><div className="v3SectionLabel"><span>03</span> Opportunity radar</div><h2>Jobs ranked by evidence,<br/>not noise.</h2></div><p>Fresh roles from public employer career pages. Every match explains what aligns, what is missing, and why it deserves your attention.</p></div>
-        <div className="v3JobsStage"><div className="v3JobsGalaxy"><CareerOrbit variant="jobs"/><div><Globe2/><b>Live market graph</b><span>Verified sources syncing</span></div></div><div className="v3MatchStack">{matches.map((match,index)=><Link href="/jobs" key={match.role} style={{"--stack":index} as CSSProperties}><span className="v3Rank">0{index+1}</span><div className="v3MatchInfo"><small>{match.company}</small><h3>{match.role}</h3><p><MapPin/> India · Remote friendly</p><div>{match.skills.map(skill=><i key={skill}><Check/>{skill}</i>)}</div></div><strong>{match.fit}<small>%</small></strong><ChevronRight/></Link>)}</div></div>
-        <div className="v3CompanyRail">{companies.map(company=><Link href="/jobs" key={company.name}><div><Image src={company.image} alt={`${company.name} careers`} fill sizes="240px" /></div><span><i/> LIVE ROLES</span><b>{company.name}</b><ArrowRight/></Link>)}</div>
+      <section className="v3Final">
+        <div className="v3FinalGlow" />
+        <span><Sparkles /> Your next role could be closer than you think</span>
+        <h2>Search smarter.<br /><em>Apply with confidence.</em></h2>
+        <p>Explore verified jobs, improve your resume, and prepare for the interview in one place.</p>
+        <div>
+          <Link href="/jobs">Browse jobs <ArrowRight /></Link>
+          <Link href="/resume">Analyze resume</Link>
+        </div>
+        <small><BadgeCheck /> Verified opportunities · AI-powered matching · Direct applications</small>
       </section>
 
-      <section className="v3Interview">
-        <div className="v3InterviewCopy"><div className="v3SectionLabel light"><span>04</span> Adaptive interview studio</div><h2>Practice with an interviewer that actually read your resume.</h2><p>Questions deepen with every answer. Get focused coaching on clarity, evidence, structure, confidence, and role-specific knowledge.</p><ul><li><AudioLines/> Real-time voice conversation</li><li><BrainCircuit/> Resume-aware follow-up questions</li><li><MessageSquareText/> Evidence-based feedback report</li></ul><Link href="/interview">Enter interview studio <ArrowRight/></Link></div>
-        <div className="v3InterviewStage"><CareerOrbit variant="interview"/><div className="v3QuestionCard"><span><WandSparkles/> INTERVIEWER</span><p>Tell me about the product analytics project where you influenced a business decision.</p><div>{Array.from({length:12},(_,index)=><i key={index}/>)}</div></div><div className="v3LivePill"><i/> Listening</div></div>
-      </section>
-
-      <section className="v3Proof"><div className="v3SectionLabel"><span>05</span> Built for trust</div><h2>Serious intelligence.<br/><em>Responsible by design.</em></h2><div className="v3ProofGrid"><article><LockKeyhole/><strong>AES-256</strong><span>Encrypted resume vault</span></article><article><BadgeCheck/><strong>Verified</strong><span>Employer-hosted job sources</span></article><article><FileText/><strong>PDF + DOCX</strong><span>Validated document parsing</span></article><article><Zap/><strong>Explainable</strong><span>Evidence behind every score</span></article></div></section>
-
-      <section className="v3Final"><div className="v3FinalGlow"/><span><Sparkles/> Your career signal is waiting</span><h2>Stop guessing.<br/><em>Start seeing the path.</em></h2><p>Upload your resume. See what the market sees. Build the version of your career that fits.</p><div><Link href="/resume">Analyze my resume <ArrowRight/></Link><Link href="/jobs">Explore live roles</Link></div><small><ShieldCheck/> Private processing · No credit card · Employer-hosted applications</small></section>
-      <footer className="v3Footer"><Link href="/"><Target/> <b>CarrerFit.com</b></Link><span>Career intelligence for better decisions.</span><div><Link href="/resume">Resume</Link><Link href="/jobs">Jobs</Link><Link href="/interview">Interview</Link><Link href="/blog">Guides</Link><Link href="/privacy">Privacy</Link></div><small>© 2026 CarrerFit.com</small></footer>
+      <footer className="v3Footer">
+        <Link href="/"><Target /> <b>CarrerFit.com</b></Link>
+        <span>Career intelligence for better job decisions.</span>
+        <div>
+          <Link href="/jobs">Jobs</Link>
+          <Link href="/resume">Resume AI</Link>
+          <Link href="/interview">AI Interview</Link>
+          <Link href="/blog">Career Guides</Link>
+          <Link href="/privacy">Privacy</Link>
+        </div>
+        <small>© 2026 CarrerFit.com</small>
+      </footer>
     </main>
   );
 }

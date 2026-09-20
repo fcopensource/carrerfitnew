@@ -3,6 +3,7 @@
 > **AI-powered career intelligence for job discovery, resume analysis, and interview preparation.**
 
 [![Live](https://img.shields.io/badge/Live-carrerfit.com-3158E8?style=for-the-badge)](https://carrerfit.com)
+![License](https://img.shields.io/badge/License-MIT-c9ff63?style=for-the-badge)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-15-111111?style=for-the-badge&logo=next.js&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-149ECA?style=for-the-badge&logo=react&logoColor=white)
@@ -140,3 +141,7 @@ CarrerFit is evolving from a job portal into a **career operating system** — o
 
 **Live:** [carrerfit.com](https://carrerfit.com)  
 Built as an end-to-end career intelligence platform with TypeScript.
+
+## 📄 License
+
+This project is licensed under the **MIT License**. See [LICENSE](./LICENSE) for details.

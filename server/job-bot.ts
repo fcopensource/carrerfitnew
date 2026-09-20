@@ -12,7 +12,7 @@ export function runJobBot(trigger: "cron" | "admin") {
 async function execute(trigger: "cron" | "admin") {
   const enabled = (await listJobSources()).filter((source) => source.enabled);
   const run = await createJobBotRun(trigger, enabled.length);
-  const results = await runWithConcurrency(enabled, 3, scrapeJobSource);
+  const results = await runWithConcurrency(enabled, 6, scrapeJobSource);
   const refreshed = results.filter((result) => result.status === "fulfilled").length;
   const failed = results.length - refreshed;
   const newJobs = results.reduce((total, result) => total + (result.status === "fulfilled" ? result.value.newJobs : 0), 0);

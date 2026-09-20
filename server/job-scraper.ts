@@ -9,9 +9,9 @@ const USER_AGENT = "CarrerFitJobIndexer/1.0 (+https://carrerfit.com)";
 // Large enterprise Greenhouse boards can legitimately exceed 5 MB when the
 // API includes full job descriptions. Keep a hard ceiling, but allow those
 // official feeds while limiting each source to MAX_JOBS below.
-const MAX_RESPONSE_BYTES = 12 * 1024 * 1024;
-const MAX_JOBS = 150;
-const MAX_DISCOVERED_PAGES = 24;
+const MAX_RESPONSE_BYTES = 48 * 1024 * 1024;
+const MAX_JOBS = 500;
+const MAX_DISCOVERED_PAGES = 60;
 const MAX_POSTING_AGE_MS = 180 * 24 * 60 * 60 * 1000;
 const robotsCache = new Map<string, Promise<string>>();
 
@@ -122,8 +122,8 @@ async function scrapeStructuredData(source: JobSource) {
   if (direct.length) return direct;
   const links = discoverJobLinks(html, source.url).slice(0, MAX_DISCOVERED_PAGES);
   const discovered: ImportedJob[] = [];
-  for (let index = 0; index < links.length; index += 6) {
-    const batch = await Promise.allSettled(links.slice(index, index + 6).map(async (url) => {
+  for (let index = 0; index < links.length; index += 10) {
+    const batch = await Promise.allSettled(links.slice(index, index + 10).map(async (url) => {
       if (!(await robotsAllows(new URL(url)))) return [];
       const page = await fetchText(url); return parseGenericJobPage(page, url, source.name);
     }));

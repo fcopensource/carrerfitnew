@@ -62,16 +62,15 @@ export default function Home() {
           </nav>
 
           <div className={styles.headerActions}>
-            <Link href="/login" className={styles.login}>Login</Link>
-            <Link href="/register" className={styles.register}>Register</Link>
+            <Link href="/login" className={styles.signIn}>Sign in</Link>
           </div>
         </div>
       </header>
 
       <section className={styles.hero}>
         <div className={styles.heroInner}>
-          <span className={styles.eyebrow}><Sparkles /> AI-powered job discovery</span>
-          <h1>Find the right job, faster.</h1>
+          <span className={styles.eyebrow}><Sparkles /> Intelligent opportunity discovery</span>
+          <h1>Find the right job.<br/><em>Build the right career.</em></h1>
           <p>Search verified opportunities, understand your fit, and prepare your profile from one clean career platform.</p>
 
           <form action="/jobs" className={styles.searchBox}>

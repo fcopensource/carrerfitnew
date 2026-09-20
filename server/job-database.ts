@@ -96,6 +96,19 @@ export function getSqliteJobDatabase() {
   seedSource.run("seed-greenhouse-brex", "Brex", "https://boards.greenhouse.io/brex", "Greenhouse", seededAt);
   seedSource.run("seed-ashby-notion", "Notion", "https://jobs.ashbyhq.com/notion", "Ashby", seededAt);
   seedSource.run("seed-ashby-perplexity", "Perplexity", "https://jobs.ashbyhq.com/perplexity", "Ashby", seededAt);
+  seedSource.run("seed-ashby-openai", "OpenAI", "https://jobs.ashbyhq.com/openai", "Ashby", seededAt);
+  seedSource.run("seed-ashby-cursor", "Cursor", "https://jobs.ashbyhq.com/cursor", "Ashby", seededAt);
+  seedSource.run("seed-greenhouse-gitlab", "GitLab", "https://boards.greenhouse.io/gitlab", "Greenhouse", seededAt);
+  seedSource.run("seed-structured-vercel", "Vercel", "https://vercel.com/careers", "Structured data", seededAt);
+  seedSource.run("seed-structured-plaid", "Plaid", "https://plaid.com/careers/", "Structured data", seededAt);
+  seedSource.run("seed-structured-stripe", "Stripe", "https://stripe.com/careers/search", "Structured data", seededAt);
+  seedSource.run("seed-structured-scale", "Scale AI", "https://scale.com/careers", "Structured data", seededAt);
+  seedSource.run("seed-structured-atlassian", "Atlassian", "https://www.atlassian.com/company/careers/all-jobs", "Structured data", seededAt);
+  seedSource.run("seed-structured-anthropic", "Anthropic", "https://www.anthropic.com/careers", "Structured data", seededAt);
+  seedSource.run("seed-structured-mistral", "Mistral AI", "https://mistral.ai/careers/", "Structured data", seededAt);
+  seedSource.run("seed-structured-snowflake", "Snowflake", "https://careers.snowflake.com/", "Structured data", seededAt);
+  seedSource.run("seed-structured-uber", "Uber", "https://jobs.uber.com/", "Structured data", seededAt);
+  seedSource.run("seed-structured-shopify", "Shopify", "https://www.shopify.com/careers", "Structured data", seededAt);
   return sqlite;
 }
 

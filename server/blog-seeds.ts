@@ -373,4 +373,546 @@ CarrerFit's interview practice connects your resume to the interview flow, helpi
 The goal is not to know every possible question. It is to become consistent at explaining how you think, what you built, and why your decisions made sense.`,
   },
 
+  {
+    id: "blog-good-resume-2026",
+    slug: "how-to-make-a-good-resume-2026",
+    featured: true,
+    category: "Resume strategy",
+    authorName: "CarrerFit Editorial",
+    title: "How to Make a Good Resume in 2026: A Step-by-Step Guide",
+    excerpt: "Learn how to build a clear, ATS-friendly resume that shows real evidence, matches the role you want, and gives recruiters a reason to keep reading.",
+    seoTitle: "How to Make a Good Resume in 2026: Step-by-Step Guide | CarrerFit",
+    seoDescription: "Learn how to make a good resume in 2026 with ATS-friendly formatting, strong experience bullets, relevant skills, projects, and a final resume checklist.",
+    tags: ["how to make a good resume", "resume tips 2026", "ATS friendly resume", "resume format", "resume writing"],
+    publishedAt: "2026-09-22T06:30:00.000Z",
+    content: `A good resume has one job: make it easy for a recruiter to understand what you can do, what evidence proves it, and why your experience is relevant to the role.
+
+In 2026, that matters even more because many applications are screened through applicant tracking systems before a recruiter reviews them. The best resume is therefore both machine-readable and genuinely useful to a human reader.
+
+This guide shows how to make a good resume from the ground up without stuffing keywords, inventing achievements, or turning the document into a complicated design project.
+
+## Start with one target role
+
+Do not begin by trying to make one resume work for every possible job.
+
+Choose the role you want first. Then collect five to ten current job descriptions for that role and identify the requirements that repeat.
+
+Look for patterns in:
+
+- job titles
+- core responsibilities
+- tools and technologies
+- years of experience
+- industry knowledge
+- business outcomes
+- communication or leadership expectations
+
+These repeated signals tell you what employers are consistently looking for.
+
+Your resume should make the strongest relevant evidence easy to find.
+
+## Use a simple resume structure
+
+A strong resume usually needs only a few clear sections:
+
+- name and contact details
+- professional summary
+- work experience
+- technical or professional skills
+- projects
+- education
+- certifications when they add value
+
+Use standard section headings. Avoid hiding important information inside graphics, sidebars, icons, or decorative elements that may not parse cleanly.
+
+For most candidates, one column is the safest format.
+
+Your resume should still make sense if somebody copies all of its text into a plain-text editor.
+
+## Write a strong professional summary
+
+Your summary should answer three questions quickly:
+
+- what kind of professional are you?
+- what are your strongest relevant capabilities?
+- what kind of value have you already created?
+
+Avoid generic lines such as "hard-working professional looking for a challenging opportunity."
+
+A better summary is specific.
+
+For example:
+
+Software developer with experience building Salesforce and web applications using Apex, Lightning Web Components, JavaScript, APIs, and automation. Experienced in delivering workflow improvements for enterprise projects and interested in building scalable software products.
+
+The summary should match your actual background. Do not add technologies or seniority that you cannot defend in an interview.
+
+## Turn experience into evidence
+
+Recruiters do not only want a list of responsibilities. They want evidence that you used your skills to produce useful outcomes.
+
+A strong resume bullet usually contains four parts:
+
+- action
+- task or problem
+- tools or approach
+- result
+
+For example, instead of:
+
+Worked on Salesforce Flows and Apex.
+
+Write:
+
+Built Salesforce Flows and Apex automation for donor-management workflows, reducing repetitive manual steps and improving consistency across the process.
+
+You do not need a number in every bullet. Use metrics when you genuinely know them.
+
+Useful evidence can include:
+
+- time saved
+- errors reduced
+- users supported
+- performance improved
+- processes automated
+- revenue influenced
+- records migrated
+- deployments completed
+- systems integrated
+- features delivered
+
+Specific evidence makes a resume stronger than exaggerated language.
+
+## Put relevant experience first
+
+The most valuable information should appear early.
+
+If you are applying for a Salesforce Developer role, your Apex, LWC, Flows, integrations, SOQL, Experience Cloud, and project outcomes should be easier to find than unrelated coursework.
+
+If you are targeting software engineering, highlight programming, APIs, databases, architecture, testing, deployment, and product work.
+
+This does not mean hiding unrelated experience. It means prioritizing evidence that helps the recruiter answer one question:
+
+Can this person do this job?
+
+## Build a useful skills section
+
+A skills section should help confirm the evidence already present in the resume.
+
+Group skills when useful, for example:
+
+- Languages: JavaScript, TypeScript, Python, Java
+- Frontend: React, Next.js, HTML, CSS
+- Backend: Node.js, Express, REST APIs
+- Salesforce: Apex, LWC, Flows, SOQL
+- Data: MySQL, MongoDB
+- Tools: Git, GitHub Actions, Docker
+
+Do not create a giant keyword wall.
+
+If a skill appears in the skills section but nowhere in your projects or work experience, ask whether it really belongs there.
+
+## Use projects strategically
+
+Projects are especially valuable for students, early-career candidates, career changers, and developers moving into a new technical area.
+
+A strong project entry should explain:
+
+- what you built
+- the problem it solves
+- the important technologies
+- your individual contribution
+- one or two meaningful technical decisions
+- the result or current usage
+
+For example:
+
+CareerFit — AI career intelligence platform built with Next.js, TypeScript, Node.js, MySQL, and AI APIs. Developed job ingestion, resume analysis, job matching, interview practice, authentication, and application tracking.
+
+The project becomes much more convincing when the GitHub repository, live demo, architecture, and README support the claims.
+
+## Make your resume ATS-friendly
+
+An ATS-friendly resume is not about gaming a scoring system. It is about making your information easy to extract and understand.
+
+Use:
+
+- standard fonts
+- clear headings
+- normal text for important information
+- consistent dates
+- simple bullet points
+- a PDF or DOCX when requested
+- terminology that matches the role naturally
+
+Avoid:
+
+- important text inside images
+- excessive icons
+- complicated multi-column layouts
+- hidden keywords
+- white text on white backgrounds
+- repeating the job description word for word
+
+Keywords matter only when they represent real skills or experience.
+
+## Tailor the resume for the job
+
+You do not need to rewrite the entire resume for every application.
+
+Instead, adjust the parts that matter most:
+
+- professional summary
+- order of skills
+- first few experience bullets
+- selected projects
+- role-specific terminology
+
+Compare your resume with the job description and ask:
+
+- Which requirements do I already prove?
+- Which important requirements are missing?
+- Which relevant evidence is buried too low?
+- Which bullets are not useful for this role?
+
+This is where resume analysis tools can help, but the final decision should stay evidence-based.
+
+## Keep the design professional
+
+Good design improves readability. It should not compete with the content.
+
+Use:
+
+- consistent spacing
+- clear hierarchy
+- one or two font sizes for body content
+- enough white space
+- short bullet points
+- consistent date formatting
+
+A recruiter should be able to scan your recent role, strongest skills, and major achievements within seconds.
+
+## Remove common resume mistakes
+
+Before applying, check for these problems:
+
+- spelling or grammar mistakes
+- inconsistent dates
+- unclear job titles
+- unsupported skills
+- duplicate information
+- paragraphs that are too long
+- generic responsibilities without outcomes
+- outdated contact information
+- broken portfolio or GitHub links
+- exaggerated claims you cannot explain
+
+A technically impressive resume loses credibility quickly if the basic details are careless.
+
+## Final resume checklist
+
+Before you send the resume, confirm that:
+
+- the target role is clear
+- the most relevant experience appears early
+- every major skill has supporting evidence
+- bullets describe contributions instead of vague responsibilities
+- the document is easy to scan
+- the formatting is ATS-friendly
+- the resume uses accurate role-specific terminology
+- links work
+- dates are consistent
+- every claim can be explained in an interview
+
+CarrerFit can help you analyze your resume, identify evidence gaps, and compare your profile with live job requirements.
+
+The goal is not to create the "perfect resume." The goal is to create a credible, relevant document that makes your strongest evidence easy to understand.`,
+  },
+  {
+    id: "blog-job-by-skillset-2026",
+    slug: "how-to-get-a-job-based-on-your-skills",
+    featured: false,
+    category: "Job search",
+    authorName: "CarrerFit Editorial",
+    title: "How to Get a Job Based on Your Skills: A Skill-First Job Search Guide",
+    excerpt: "A practical method for turning the skills you already have into target roles, stronger applications, proof of ability, and a focused job-search strategy.",
+    seoTitle: "How to Get a Job Based on Your Skills: Skill-First Guide | CarrerFit",
+    seoDescription: "Learn how to get a job based on your skills by mapping strengths to roles, proving your abilities, closing important gaps, and applying more strategically.",
+    tags: ["how to get a job based on your skills", "skill based job search", "job matching", "career skills", "transferable skills"],
+    publishedAt: "2026-09-22T06:45:00.000Z",
+    content: `The fastest way to improve a job search is often to stop starting with job titles and start with evidence.
+
+Instead of asking, "Which jobs should I apply for?" begin with a more useful question:
+
+What skills can I already prove?
+
+A skill-first job search helps you identify roles where your current experience creates a credible starting point. It also shows you which gaps are worth fixing before you spend weeks applying.
+
+## Build a skill inventory
+
+Write down the skills you have actually used.
+
+Separate them into categories such as:
+
+- technical skills
+- domain knowledge
+- tools and platforms
+- communication skills
+- leadership or ownership
+- analytical skills
+- operational skills
+- creative skills
+
+Do not rate yourself only by confidence.
+
+For every skill, add evidence.
+
+For example:
+
+React — built two production interfaces.
+
+Salesforce Flows — automated donor and engagement workflows.
+
+SQL — wrote reporting and data-validation queries.
+
+Project coordination — worked with developers, stakeholders, and QA during delivery.
+
+Evidence is more useful than a self-rating because employers need proof.
+
+## Separate core skills from transferable skills
+
+Core skills are directly connected to a role.
+
+A Salesforce Developer might need Apex, LWC, SOQL, Flows, APIs, and platform configuration.
+
+Transferable skills can move between roles.
+
+Examples include:
+
+- problem solving
+- stakeholder communication
+- debugging
+- data analysis
+- documentation
+- project ownership
+- requirements analysis
+- automation
+
+Transferable skills become especially important when changing career direction.
+
+For example, a Salesforce developer moving toward software engineering may already have experience with APIs, backend logic, data models, testing, version control, and enterprise systems.
+
+The job search should highlight that bridge instead of pretending the career starts from zero.
+
+## Map skills to role families
+
+Once you have a skill inventory, identify role families where those skills repeatedly appear.
+
+For example:
+
+JavaScript + React + APIs + Git may connect to frontend, full-stack, or product engineering roles.
+
+Python + SQL + dashboards + statistics may connect to data analyst, analytics engineer, or junior data science roles.
+
+Apex + LWC + Flows + SOQL may connect to Salesforce developer, platform engineer, or CRM engineering roles.
+
+Communication + CRM + analytics + stakeholder management may connect to customer success, solutions engineering, RevOps, or business systems roles.
+
+Do not rely on one job title. Companies often use different titles for similar work.
+
+## Validate the role against the real market
+
+Now collect current job descriptions for each role you are considering.
+
+Track the requirements that repeat.
+
+Create three columns:
+
+- skills I already prove
+- skills I have but need stronger evidence for
+- skills I do not have yet
+
+This stops you from treating every missing keyword as equally important.
+
+If eight out of ten jobs ask for one technology, it may be worth learning.
+
+If only one company mentions it, the gap may not deserve weeks of preparation.
+
+## Choose jobs using evidence, not excitement alone
+
+A useful job-fit decision includes more than a match percentage.
+
+Evaluate:
+
+- skill overlap
+- depth of experience
+- seniority
+- location
+- work arrangement
+- compensation
+- industry knowledge
+- visa or work authorization requirements
+- responsibilities
+- growth potential
+
+A role with 70 percent credible alignment can be a stronger application than a role that looks exciting but requires years of experience you do not yet have.
+
+## Close the highest-value skill gaps
+
+Do not try to learn everything before applying.
+
+Choose gaps based on market frequency and impact.
+
+A simple priority system is:
+
+High priority — appears in many target roles and can be learned or demonstrated quickly.
+
+Medium priority — useful but not consistently required.
+
+Low priority — rare, optional, or too advanced for your current target.
+
+Then build one focused project, certification, contribution, or work example that creates proof.
+
+For technical roles, one well-built project can demonstrate several skills at once.
+
+## Turn skills into proof
+
+Employers cannot evaluate a skill they cannot see.
+
+Create evidence through:
+
+- work accomplishments
+- GitHub projects
+- deployed applications
+- case studies
+- dashboards
+- technical writing
+- open-source contributions
+- certifications
+- presentations
+- portfolio work
+
+Your proof should answer:
+
+What did you build or improve?
+
+What did you personally do?
+
+Which skills did you use?
+
+What was the result?
+
+For developers, a repository becomes much stronger when it includes a clean README, architecture explanation, setup instructions, tests, and meaningful commit history.
+
+## Search with skill combinations
+
+Do not search only by title.
+
+Combine your strongest skills with role keywords.
+
+Examples:
+
+React TypeScript frontend engineer
+
+Salesforce Apex LWC developer
+
+Python SQL data analyst
+
+Node.js API backend developer
+
+Machine learning Python junior engineer
+
+Cloud Salesforce integration engineer
+
+This can reveal roles you would miss by searching only one title.
+
+Use filters for location, experience, work mode, and recency after the skill search.
+
+## Apply in three tiers
+
+Divide opportunities into three groups.
+
+Strong fit — you already prove most core requirements.
+
+Adjacent fit — you match the foundation but have one or two important gaps.
+
+Stretch role — you meet some requirements but the seniority or skill depth is significantly above your current evidence.
+
+Spend the most time on strong-fit applications.
+
+Use adjacent roles to test career transitions.
+
+Apply to stretch roles selectively instead of making them the majority of your search.
+
+## Tailor the application around the strongest overlap
+
+For each serious application, identify the top five requirements.
+
+Then map them to resume evidence.
+
+If the role emphasizes APIs, automation, JavaScript, and stakeholder collaboration, make sure those strengths are visible near the top of the resume when they are true for you.
+
+Do not add missing skills just because they appear in the job description.
+
+A smaller number of credible applications is often more useful than hundreds of generic submissions.
+
+## Prepare skill stories for interviews
+
+If a resume says you know a skill, expect the interviewer to test it.
+
+Prepare one or two stories for every important skill.
+
+Use this structure:
+
+- situation
+- problem
+- action
+- technical or professional decision
+- result
+- what you learned
+
+For technical skills, also prepare for deeper questions.
+
+If you list REST APIs, be ready to explain authentication, status codes, validation, failures, and an API you actually built or integrated.
+
+If you list Salesforce Flows, be ready to explain why you chose Flow instead of Apex for a specific automation.
+
+Evidence turns a skill from a keyword into credibility.
+
+## Track what the market tells you
+
+Your job search generates data.
+
+Track:
+
+- roles saved
+- applications sent
+- recruiter responses
+- interview invitations
+- rejected applications
+- skill gaps that repeat
+- companies that respond
+- resume versions used
+
+If applications produce no interviews, the problem may be targeting or resume evidence.
+
+If interviews happen but offers do not, the bigger opportunity may be interview preparation.
+
+Use the feedback loop to improve the next week instead of repeating the same process.
+
+## A 30-day skill-first job search plan
+
+Week 1: build your skill inventory and choose two target role families.
+
+Week 2: analyze current job descriptions and identify repeated requirements.
+
+Week 3: strengthen one high-value skill gap and create visible proof.
+
+Week 4: apply to your strongest-fit roles, track outcomes, and practice interviews based on the jobs you are targeting.
+
+CarrerFit is built around this skill-first approach. Your resume evidence can be compared with live jobs so that opportunities are ranked by what you can actually prove, not only by the words in a job title.
+
+The objective is not to find any job that contains your skills. It is to find roles where your existing evidence gives you a realistic advantage and your next skill investment creates meaningful career growth.`,
+  },
+
 ] as const;

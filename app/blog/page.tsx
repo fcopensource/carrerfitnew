@@ -20,7 +20,37 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
     {featured ? <section className="featuredArticle"><div className="articleVisual"><span>{featured.category}</span><b>{featured.readingMinutes}<small>min</small></b></div><div><span className="articleMeta">Featured guide · {formatDate(featured.publishedAt)}</span><h2><Link href={`/blog/${featured.slug}`}>{featured.title}</Link></h2><p>{featured.excerpt}</p><div className="articleTags">{featured.tags.slice(0,4).map(tag => <span key={tag}>{tag}</span>)}</div><Link className="readArticle" href={`/blog/${featured.slug}`}>Read the complete guide <ArrowRight/></Link></div></section> : <section className="blogEmpty"><h2>New guides are being prepared.</h2><p>Subscribe to the RSS feed or return soon.</p></section>}
     {remaining.length > 0 && <section className="articleLibrary"><div className="blogSectionHeading"><span className="kicker">Latest thinking</span><h2>Build your next move with clarity.</h2></div><div className="articleGrid">{remaining.map((post,index) => <article key={post.id}><div className={`articleCardVisual tone${index % 3}`}><span>{post.category}</span><BookOpen/></div><div><span className="articleMeta"><Clock3/> {post.readingMinutes} min read · {formatDate(post.publishedAt)}</span><h3><Link href={`/blog/${post.slug}`}>{post.title}</Link></h3><p>{post.excerpt}</p><Link href={`/blog/${post.slug}`}>Read guide <ArrowRight/></Link></div></article>)}</div></section>}
     <section className="blogNewsletter"><div><span className="kicker">Turn insight into action</span><h2>Use your own evidence.</h2><p>Analyze your resume against real opportunities, then practice the interview built from your experience.</p></div><div><Link href="/resume">Analyze my resume</Link><Link href="/interview">Practice an interview</Link></div></section>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson({ "@context": "https://schema.org", "@type": "Blog", name: "CarrerFit Career Guides", description: metadata.description, url: siteUrl("/blog"), publisher: { "@type": "Organization", name: "CarrerFit.com", url: siteUrl("/") }, blogPost: allPosts.map(post => ({ "@type": "BlogPosting", headline: post.title, url: siteUrl(`/blog/${post.slug}`), datePublished: post.publishedAt, dateModified: post.updatedAt })) }) }}/>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Blog",
+          "@id": siteUrl("/blog#career-guides"),
+          name: "CarrerFit Career Guides",
+          description: metadata.description,
+          url: siteUrl("/blog"),
+          publisher: { "@type": "Organization", name: "CarrerFit.com", url: siteUrl("/") },
+          blogPost: allPosts.map(post => ({
+            "@type": "BlogPosting",
+            headline: post.title,
+            url: siteUrl(`/blog/${post.slug}`),
+            datePublished: post.publishedAt,
+            dateModified: post.updatedAt,
+          })),
+        },
+        {
+          "@type": "ItemList",
+          name: "CarrerFit Career Guides",
+          numberOfItems: allPosts.length,
+          itemListElement: allPosts.map((post, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: post.title,
+            url: siteUrl(`/blog/${post.slug}`),
+          })),
+        },
+      ],
+    }) }}/>
   </main>;
 }
 function formatDate(value: string | null) { return value ? new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", year: "numeric" }).format(new Date(value)) : "Draft"; }

@@ -1,96 +1,233 @@
 # CarrerFit.com
 
-> **AI-powered career intelligence for job discovery, resume analysis, and interview preparation.**
+> **AI-powered career intelligence for jobs, resumes, skills, interviews, and applications.**
 
 [![Live](https://img.shields.io/badge/Live-carrerfit.com-3158E8?style=for-the-badge)](https://carrerfit.com)
-![License](https://img.shields.io/badge/License-MIT-c9ff63?style=for-the-badge)
+[![MIT License](https://img.shields.io/badge/License-MIT-c9ff63?style=for-the-badge)](./LICENSE)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-15-111111?style=for-the-badge&logo=next.js&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-149ECA?style=for-the-badge&logo=react&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-20--22-339933?style=for-the-badge&logo=node.js&logoColor=white)
 
-**CarrerFit** is a full-stack career platform that connects the entire job-search workflow: discover live roles, understand your fit, improve your resume, practice interviews, and track applications — from one private career workspace.
+**CarrerFit** is a full-stack career platform built around one idea: career decisions are better when they are connected to **real evidence**.
 
-## ✨ What it does
+Instead of treating job search, resume improvement, interview practice, and application tracking as separate tools, CarrerFit connects them into one workflow — from **resume evidence → job matching → preparation → application progress**.
 
-- **Live job discovery** — searchable roles imported from public employer career systems.
-- **AI resume intelligence** — PDF/DOCX parsing, ATS analysis, structured profile extraction, and evidence-based recommendations.
-- **Job matching** — ranks opportunities using skills, experience, seniority, work mode, and resume evidence.
-- **AI mock interviews** — resume-aware questions, adaptive follow-ups, speech input, and per-answer coaching.
-- **Application tracking** — manage Saved → Applied → Interview → Offer from a personal dashboard.
-- **Career assessment** — maps interests, strengths, experience, and working style to potential career paths.
-- **Career content** — database-backed guides, RSS, sitemap, structured metadata, and publishing tools.
+**Live product:** https://carrerfit.com
 
-## 🧠 Career intelligence flow
+---
+
+## ✨ Core experience
+
+| Area | What CarrerFit does |
+| --- | --- |
+| 🔎 **Live Jobs** | Imports and normalizes roles from public employer career systems |
+| 📄 **Resume Intelligence** | Parses PDF/DOCX resumes, extracts structured career evidence, and runs ATS analysis |
+| 🎯 **Job Matching** | Compares skills, experience, seniority, work mode, and resume evidence against opportunities |
+| 🎤 **AI Interviews** | Generates resume-aware questions, adaptive follow-ups, answer feedback, and final coaching reports |
+| 📌 **Application Tracking** | Tracks opportunities through Saved → Applied → Interview → Offer |
+| 🧭 **Career Assessment** | Maps strengths, interests, work preferences, and experience to realistic career directions |
+| 🧪 **Practice Lab** | Includes coding and aptitude practice workflows |
+| 📰 **Career Guides** | Database-backed editorial content with sitemap, RSS, metadata, and publishing tools |
+
+---
+
+## 🧠 How CarrerFit thinks
+
+CarrerFit is designed around an **evidence-first career graph**.
 
 ```mermaid
 flowchart LR
-    A[Resume] --> B[Structured Career Profile]
-    B --> C[ATS & Skill Analysis]
-    B --> D[Job Matching Engine]
-    E[Live Employer Sources] --> F[Job Ingestion Bot]
-    F --> D
-    D --> G[Ranked Opportunities]
-    G --> H[Application Pipeline]
-    B --> I[AI Interview Studio]
-    I --> J[Feedback & Practice Plan]
+    A[Resume / Experience] --> B[Structured Career Profile]
+    B --> C[ATS + Skill Analysis]
+    B --> D[Evidence-Based Matching]
+
+    E[Employer Career Sources] --> F[Job Ingestion Engine]
+    F --> G[Normalized Job Database]
+    G --> D
+
+    D --> H[Ranked Opportunities]
+    H --> I[Application Pipeline]
+
+    B --> J[AI Interview Studio]
+    J --> K[Feedback + Improvement Plan]
+
+    C --> L[Skill Gaps]
+    L --> H
 ```
+
+The product goal is not simply to answer **“Is this a good resume?”** or **“What jobs are available?”**
+
+It aims to answer:
+
+> **What can this person genuinely prove, which opportunities fit that evidence, what is missing, and what should they do next?**
+
+---
 
 ## 🚀 Job ingestion engine
 
-CarrerFit includes its own ingestion pipeline for public employer-hosted job data.
+CarrerFit includes its own public-job ingestion pipeline.
 
-**Supported sources**
-- Greenhouse
-- Lever
-- Ashby
-- Structured `JobPosting` career pages
+### Supported source types
 
-The bot normalizes jobs into a common schema, filters stale listings, deduplicates records, respects `robots.txt` for generic sources, blocks private-network targets, and keeps applications linked to the original employer page.
+- **Greenhouse**
+- **Lever**
+- **Ashby**
+- Generic employer pages exposing structured **JobPosting** data
 
-Scheduled ingestion runs through **GitHub Actions** and persists source health, active jobs, failures, and run history.
+### Ingestion capabilities
+
+- Normalizes different employer formats into one job schema
+- Deduplicates imported roles
+- Tracks source health and ingestion history
+- Filters stale / low-quality records
+- Preserves employer-hosted application URLs
+- Uses HTTPS-only source validation
+- Includes private-network / SSRF protections
+- Respects `robots.txt` for generic career-page crawling
+- Runs scheduled refreshes through **GitHub Actions**
+
+The crawler is designed for official employer-hosted opportunities rather than republishing arbitrary third-party job-board content.
+
+---
+
+## 📄 Resume intelligence pipeline
+
+```text
+PDF / DOCX
+   ↓
+Text extraction
+   ↓
+Structured career profile
+   ↓
+ATS analysis
+   ↓
+Skill + experience evidence
+   ↓
+Live job comparison
+   ↓
+Ranked opportunities + gaps
+```
+
+Resume processing currently includes:
+
+- PDF parsing with **PDF.js**
+- DOCX parsing with **Mammoth**
+- Structured AI extraction
+- Schema validation with **Zod**
+- Deterministic ATS scoring
+- AI-assisted job-fit explanations
+- Local fallback matching when an AI provider is unavailable
+- AES-256-GCM encrypted resume storage for signed-in users
+
+---
+
+## 🎤 AI interview studio
+
+The interview workflow uses the candidate's actual profile and target role to create a more realistic practice session.
+
+It supports:
+
+- Resume-aware interview setup
+- Adaptive follow-up questions
+- Role-specific technical / behavioral questioning
+- Speech input
+- Browser text-to-speech
+- Per-answer coaching
+- Final multi-dimension report
+- Optional on-device camera coaching signals
+
+Camera frames stay in the browser; only local numeric practice signals are used by the interview flow.
+
+---
+
+## 🏗️ Architecture
+
+```text
+                         ┌─────────────────────────┐
+                         │      Next.js 15 UI      │
+                         │ React 19 + TypeScript   │
+                         └────────────┬────────────┘
+                                      │
+                    ┌─────────────────┴─────────────────┐
+                    │                                   │
+          ┌─────────▼─────────┐               ┌─────────▼─────────┐
+          │   API / Services   │               │ Career Content /  │
+          │ Auth, Resume, AI,  │               │ SEO / Blog / RSS  │
+          │ Jobs, Interviews   │               └───────────────────┘
+          └─────────┬─────────┘
+                    │
+        ┌───────────┼──────────────┬──────────────────┐
+        │           │              │                  │
+┌───────▼──────┐ ┌──▼──────────┐ ┌─▼─────────────┐ ┌─▼────────────────┐
+│ MySQL /      │ │ OpenAI /    │ │ Job Ingestion │ │ SMTP / Account   │
+│ MariaDB      │ │ Groq        │ │ Greenhouse    │ │ Verification     │
+│ SQLite dev   │ │ fallback    │ │ Lever / Ashby │ │ + Recovery       │
+└──────────────┘ └─────────────┘ └───────────────┘ └──────────────────┘
+```
+
+---
 
 ## 🛠 Tech stack
 
 | Layer | Technology |
 | --- | --- |
 | Frontend | Next.js 15, React 19, TypeScript |
-| API | Express 5, Node.js |
-| AI | OpenAI + Groq fallback |
+| Backend | Node.js, Express 5, Next.js route handlers |
+| AI | OpenAI with Groq fallback |
 | Database | MySQL / MariaDB, SQLite fallback |
-| Resume parsing | PDF.js, Mammoth |
 | Validation | Zod |
-| Security | Helmet, rate limiting, signed sessions, encrypted resume storage |
+| Resume parsing | PDF.js, Mammoth |
+| Authentication | Argon2, server-side sessions, email verification |
+| Security | AES-256-GCM, Helmet, rate limiting, origin validation |
+| Scraping | Cheerio + ATS-specific adapters |
 | Automation | GitHub Actions |
-| Scraping / parsing | Cheerio + ATS-specific adapters |
+| Email | Nodemailer / SMTP |
 
-## 🔐 Security-first architecture
+---
 
-CarrerFit handles career and resume data as private user information.
+## 🔐 Security principles
 
-- Verified-email accounts and server-side sessions
-- Password hashing and one-time recovery flows
-- AES-256-GCM encrypted resume storage
-- Same-origin protections for mutating requests
-- SSRF protection for job-source ingestion
-- HTTPS-only source validation
-- Rate-limited resume, interview, authentication, and scraper APIs
-- Camera frames remain in the browser during interview coaching
+Career and resume data are treated as private user information.
 
-## ⚡ Run locally
+- Passwords are one-way hashed with **Argon2**
+- Browser sessions use server-side session records
+- Session tokens are stored as hashes
+- Resume files and structured resume documents can be encrypted at rest
+- Mutating requests use same-origin validation
+- Job-source URLs are validated before crawling
+- Private / restricted network destinations are blocked
+- Resume, authentication, interview, scraper, and admin workflows are rate-limited
+- Admin access is separated from standard user authentication
 
-Requires **Node.js 20–22**.
+---
+
+## ⚡ Local development
+
+### Requirements
+
+- **Node.js 20–22**
+- npm
+- Optional MySQL / MariaDB database
+- AI provider credentials for full AI features
+
+### Setup
 
 ```bash
 git clone https://github.com/fcopensource/carrerfitnew.git
 cd carrerfitnew
+
 npm install
 cp .env.example .env
 npm run dev
 ```
 
-Web app: `http://localhost:3000`  
-API: `http://localhost:4000`
+Development services:
+
+```text
+Web      http://localhost:3000
+API      http://localhost:4000
+```
 
 ### Production
 
@@ -99,19 +236,26 @@ npm run build
 npm start
 ```
 
-Core environment groups:
+---
+
+## 🔧 Environment configuration
+
+The main environment groups are:
 
 ```text
 OPENAI_* / GROQ_*       AI providers
-DB_*                    MySQL / MariaDB
-SMTP_*                  Email verification & recovery
-AUTH_SECRET             Session security
+DB_* / DATABASE_URL     MySQL / MariaDB
+SMTP_*                  Verification and password recovery
+AUTH_SECRET             Sessions and encrypted private data
 SCRAPER_ADMIN_TOKEN     Job-source administration
-CRON_SECRET             Scheduled ingestion
-BLOG_ADMIN_TOKEN        Publishing administration
+CRON_SECRET             Scheduled job ingestion
+BLOG_ADMIN_TOKEN        Career-guide publishing
+APP_URL / WEB_URL       Public deployment URL
 ```
 
-See `.env.example` for the complete configuration.
+See **`.env.example`** for the complete configuration.
+
+---
 
 ## 🧪 Quality checks
 
@@ -120,28 +264,95 @@ npm run typecheck
 npm test
 ```
 
-The test suite covers authentication, blog storage, matching, ATS analysis, interviews, and job ingestion.
+Focused test commands are also available for:
 
-## 📁 Project structure
-
-```text
-app/              Next.js application and routes
-components/       Shared React components
-server/           API, AI, auth, jobs, ingestion, persistence
-scripts/          Tests and migration utilities
-lib/              Shared types and utilities
-.github/workflows Job-ingestion automation
-```
-
-## 🌱 Product direction
-
-CarrerFit is evolving from a job portal into a **career operating system** — one profile that continuously connects job-market data, resume evidence, skill gaps, interview preparation, and application progress.
+- authentication
+- blog storage
+- job matching
+- ATS analysis
+- AI interviews
+- job ingestion
 
 ---
 
-**Live:** [carrerfit.com](https://carrerfit.com)  
-Built as an end-to-end career intelligence platform with TypeScript.
+## 📁 Repository structure
+
+```text
+app/                  Next.js pages, layouts and API routes
+components/           Shared UI and product components
+server/               Auth, AI, resume, jobs, ingestion and persistence
+lib/                  Shared types and utilities
+scripts/              Tests and migration utilities
+public/               Static public assets
+.github/workflows/    Scheduled automation
+```
+
+Important backend modules:
+
+```text
+server/ai-provider.ts     AI provider abstraction + fallback
+server/ats.ts             ATS scoring
+server/interview.ts       Adaptive interview logic
+server/job-bot.ts         Job ingestion orchestration
+server/job-database.ts    Job persistence and source state
+server/job-scraper.ts     Greenhouse / Lever / Ashby / generic parsing
+server/matcher.ts         Career and job matching
+server/resume.ts          Resume extraction
+server/resume-vault.ts    Encrypted resume storage
+```
+
+---
+
+## 🌱 Product direction
+
+CarrerFit is evolving from a job portal into a **career operating system**.
+
+The long-term direction is to connect:
+
+```text
+Career Profile
+    ↓
+Live Job Market
+    ↓
+Explainable Matching
+    ↓
+Skill Gaps
+    ↓
+Application Action
+    ↓
+Interview Practice
+    ↓
+Outcome Feedback
+    ↓
+Updated Career Plan
+```
+
+Future product areas include deeper career graphs, stronger personalized ranking, company intelligence, salary intelligence, skill-gap planning, interview progress analytics, and smarter application workflows.
+
+---
+
+## 🤝 Contributing
+
+Ideas, bug reports, and thoughtful improvements are welcome.
+
+For substantial changes:
+
+1. Create a focused branch
+2. Keep changes scoped to one feature or fix
+3. Run type checks and tests
+4. Open a pull request with the reasoning behind the change
+
+---
 
 ## 📄 License
 
-This project is licensed under the **MIT License**. See [LICENSE](./LICENSE) for details.
+CarrerFit is licensed under the **MIT License**.
+
+See [LICENSE](./LICENSE) for details.
+
+---
+
+<p align="center">
+  <strong>CarrerFit.com</strong><br/>
+  Build evidence. Find better-fit opportunities. Prepare with purpose.
+</p>

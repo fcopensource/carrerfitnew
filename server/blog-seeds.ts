@@ -3949,4 +3949,241 @@ It says:
 Here are the problems I solved, the decisions I made, and the code that proves it.`,
   },
 
+  {
+    id: "blog-data-analyst-roadmap-2026", slug: "data-analyst-roadmap-2026", featured: false, category: "Career growth", authorName: "CarrerFit Editorial",
+    title: "Data Analyst Roadmap 2026: Skills, Projects, Portfolio and Job Strategy",
+    excerpt: "A practical data analyst roadmap covering Excel, SQL, statistics, Python, visualization, business thinking, portfolio projects, resumes, and interview preparation.",
+    seoTitle: "Data Analyst Roadmap 2026: Skills, Projects & Jobs | CarrerFit",
+    seoDescription: "Follow a practical data analyst roadmap for 2026 covering Excel, SQL, statistics, Python, dashboards, portfolio projects, resumes, and interview preparation.",
+    tags: ["data analyst roadmap 2026","data analyst skills","SQL for data analyst","data analyst portfolio","data analyst jobs"], publishedAt: "2026-09-27T12:30:00.000Z",
+    content: `A data analyst is valuable because they turn messy information into decisions.
+
+The role is not only about dashboards.
+
+Strong analysts understand the business question, obtain the right data, clean it, analyze it, communicate uncertainty, and present a useful conclusion.
+
+## Start with spreadsheet fluency
+
+Excel or Google Sheets remains useful in many analyst roles.
+
+Learn:
+
+- formulas
+- lookups
+- conditional logic
+- pivot tables
+- filtering
+- charts
+- data cleaning
+
+Do not stop at memorizing functions.
+
+Practice answering business questions from a raw dataset.
+
+## Make SQL a core skill
+
+SQL is one of the most important skills for analysts.
+
+Learn:
+
+- SELECT
+- WHERE
+- GROUP BY
+- JOIN
+- CASE
+- subqueries
+- common table expressions
+- window functions
+- date functions
+- aggregation
+
+Then practice on realistic datasets.
+
+Be able to explain why your query answers the business question.
+
+## Learn statistics for decisions
+
+You do not need advanced mathematics for every analyst role, but you should understand:
+
+- mean and median
+- variance
+- distributions
+- sampling
+- correlation
+- confidence intervals
+- hypothesis testing
+- basic experimentation
+
+Statistics helps you avoid confident conclusions from weak evidence.
+
+## Add Python when it expands your capability
+
+Python is useful for automation, larger datasets, repeatable analysis, and deeper statistical work.
+
+Focus on:
+
+- pandas
+- NumPy
+- visualization
+- notebooks
+- file handling
+- data cleaning
+
+Use Python when it solves a problem that spreadsheets cannot solve comfortably.
+
+## Learn one visualization tool
+
+Common choices include Power BI and Tableau.
+
+The tool matters less than your ability to design useful dashboards.
+
+A strong dashboard answers specific questions.
+
+Avoid adding charts only because they look attractive.
+
+Choose visualizations that make comparison, trends, distributions, or exceptions easier to understand.
+
+## Develop business thinking
+
+A technically correct analysis can still be useless if it answers the wrong question.
+
+Ask:
+
+What decision will this analysis support?
+
+Who will use it?
+
+What metric matters?
+
+What assumptions could change the conclusion?
+
+What action follows from the result?
+
+Business context is one of the biggest differences between an analyst and someone who only knows tools.
+
+## Build portfolio projects with questions
+
+Avoid projects that simply say:
+
+I analyzed a dataset.
+
+Start with a question.
+
+Examples:
+
+Which customer segment has the highest retention?
+
+What factors are associated with late deliveries?
+
+Which products create the strongest margin?
+
+Where does a conversion funnel lose the most users?
+
+Then show:
+
+- data source
+- cleaning
+- SQL or Python analysis
+- visualization
+- conclusion
+- limitations
+- recommendation
+
+## Document your reasoning
+
+Your portfolio should explain why you made analytical choices.
+
+If you removed outliers, explain why.
+
+If data was missing, explain how you handled it.
+
+If correlation exists, avoid claiming causation without evidence.
+
+Good analysis is transparent.
+
+## Prepare a job-ready portfolio
+
+Two or three strong projects can be enough.
+
+Try to include different skills:
+
+Project 1: SQL-heavy business analysis.
+
+Project 2: dashboard and visualization.
+
+Project 3: Python automation or deeper analysis.
+
+Make the files easy to review.
+
+Include a README with the problem, method, key findings, and screenshots.
+
+## Write an analyst resume around outcomes
+
+Avoid listing only:
+
+Excel, SQL, Python, Power BI.
+
+Show evidence such as:
+
+Built a Power BI dashboard that consolidated weekly sales metrics and reduced manual reporting work.
+
+Created SQL queries to identify customer retention patterns across transaction data.
+
+Use real outcomes and avoid inventing metrics.
+
+## Prepare for analyst interviews
+
+Expect questions across:
+
+- SQL
+- spreadsheets
+- statistics
+- metrics
+- dashboards
+- case studies
+- communication
+
+You may receive a business scenario rather than a direct technical question.
+
+Practice explaining your reasoning step by step.
+
+## A 12-week roadmap
+
+Weeks 1–2: Excel and data cleaning.
+
+Weeks 3–5: SQL.
+
+Weeks 6–7: statistics.
+
+Weeks 8–9: Power BI or Tableau.
+
+Weeks 10–11: Python and pandas.
+
+Week 12: portfolio polish and interview practice.
+
+You can adjust the timeline depending on your starting level.
+
+## Search for adjacent analyst roles
+
+Job titles vary.
+
+Search for:
+
+- data analyst
+- business analyst
+- reporting analyst
+- product analyst
+- operations analyst
+- BI analyst
+- marketing analyst
+
+Read the actual responsibilities before deciding whether a role fits.
+
+CarrerFit can help compare your existing evidence against live job requirements so you can identify which analyst skills are already credible and which gaps appear repeatedly.
+
+A strong data analyst career is not built from tools alone.
+
+It is built from the ability to turn data into a decision another person can trust.`,
+  },
+
 ] as const;

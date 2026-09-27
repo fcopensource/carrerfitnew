@@ -15,7 +15,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogArticlePage({ params }: Props) {
   const post = await getPublishedBlogPost((await params).slug); if (!post) notFound();
-  const related = (await listPublishedBlogPosts({ limit: 10 })).filter(item => item.id !== post.id && (item.category === post.category || item.tags.some(tag => post.tags.includes(tag)))).slice(0, 2);
+  const related = (await listPublishedBlogPosts({ limit: 30 }))
+    .filter((item) => item.id !== post.id)
+    .map((item) => ({ item, score: relatedScore(post, item) }))
+    .filter(({ score }) => score > 0)
+    .sort((left, right) => right.score - left.score || new Date(right.item.publishedAt || right.item.createdAt).getTime() - new Date(left.item.publishedAt || left.item.createdAt).getTime())
+    .slice(0, 3)
+    .map(({ item }) => item);
   const schema = [
     {
       "@context": "https://schema.org",
@@ -49,3 +55,8 @@ export default async function BlogArticlePage({ params }: Props) {
   </article><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }}/></main>;
 }
 function formatDate(value: string | null) { return value ? new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "long", year: "numeric" }).format(new Date(value)) : ""; }
+
+function relatedScore(current: { category: string; tags: string[] }, candidate: { category: string; tags: string[] }) {
+  const sharedTags = candidate.tags.filter((tag) => current.tags.includes(tag)).length;
+  return (candidate.category === current.category ? 3 : 0) + sharedTags;
+}

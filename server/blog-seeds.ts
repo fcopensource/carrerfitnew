@@ -3740,4 +3740,213 @@ The goal of system design preparation is not to draw the largest architecture.
 It is to make clear, defensible decisions under uncertainty.`,
   },
 
+  {
+    id: "blog-github-portfolio-recruiters-2026", slug: "github-portfolio-recruiters-notice-2026", featured: false, category: "Career growth", authorName: "CarrerFit Editorial",
+    title: "How to Build a GitHub Portfolio Recruiters Notice in 2026",
+    excerpt: "Turn GitHub from a code dump into career evidence with focused projects, strong READMEs, meaningful commits, architecture notes, testing, deployment, and clear technical stories.",
+    seoTitle: "How to Build a GitHub Portfolio Recruiters Notice in 2026 | CarrerFit",
+    seoDescription: "Build a recruiter-friendly GitHub portfolio in 2026 with strong projects, READMEs, meaningful commits, architecture notes, tests, deployments, and clear evidence of skill.",
+    tags: ["GitHub portfolio","developer portfolio","software engineer portfolio","GitHub profile","projects for resume"], publishedAt: "2026-09-27T12:20:00.000Z",
+    content: `A GitHub profile does not become impressive because it has many repositories.
+
+It becomes useful when it helps another person understand what you can build, how you think, and whether you finish what you start.
+
+For job seekers, GitHub works best as evidence.
+
+## Choose quality over repository count
+
+Three serious repositories are usually more valuable than thirty unfinished experiments.
+
+A strong portfolio project should demonstrate multiple abilities:
+
+- problem solving
+- architecture
+- coding
+- data handling
+- testing
+- deployment
+- documentation
+
+Archive or hide projects that no longer represent your current ability when they create unnecessary noise.
+
+## Pin the right repositories
+
+Your pinned repositories are your front page.
+
+Choose projects that represent the roles you want.
+
+If you target backend roles, show APIs, databases, authentication, reliability, and testing.
+
+If you target frontend roles, show responsive interfaces, accessibility, state management, performance, and real API integration.
+
+If you target AI roles, show evaluation, structured outputs, retrieval, data handling, or model integration rather than five chatbot clones.
+
+## Write a README for humans
+
+A recruiter or engineer should understand the project quickly.
+
+A strong README includes:
+
+- what the project does
+- why it exists
+- live demo when available
+- main features
+- architecture
+- technology choices
+- setup instructions
+- screenshots when useful
+- known limitations
+- roadmap
+
+Do not make the reader reverse-engineer the project from folder names.
+
+## Explain technical decisions
+
+The most interesting part of a project is often not the feature list.
+
+Explain decisions such as:
+
+Why MySQL?
+
+Why server-side sessions?
+
+Why a background worker?
+
+Why did you use a queue?
+
+Why did you encrypt uploaded documents?
+
+Why did you add a fallback provider?
+
+Trade-offs show engineering judgment.
+
+## Use meaningful commits
+
+A good commit history can show how the product evolved.
+
+Prefer messages such as:
+
+Add job source health tracking
+
+Implement rate limiting for authentication
+
+Fix duplicate application records
+
+Add structured resume validation
+
+Avoid intentionally creating dozens of meaningless commits just to increase your contribution graph.
+
+The goal is to make development history understandable.
+
+## Add tests where mistakes matter
+
+Tests are visible evidence of engineering discipline.
+
+Prioritize:
+
+- authentication
+- data transformation
+- API validation
+- matching logic
+- parsers
+- critical workflows
+
+You do not need perfect coverage.
+
+You need proof that important behavior is intentional.
+
+## Deploy your strongest projects
+
+Deployment creates stronger interview stories because production introduces real constraints.
+
+You learn about:
+
+- environment variables
+- domains
+- HTTPS
+- databases
+- logs
+- build failures
+- runtime limits
+- monitoring
+
+A live product also lets a recruiter understand the project without cloning the repository.
+
+## Keep secrets out of Git
+
+Never commit API keys, passwords, production credentials, or private certificates.
+
+Use environment variables and provide a safe example file.
+
+If a secret is accidentally pushed, rotating the secret matters more than deleting the commit because Git history may still contain it.
+
+## Build a clean profile README
+
+A profile README can summarize:
+
+- your role
+- strongest technologies
+- current focus
+- selected projects
+- links
+
+Keep it concise.
+
+Your repositories should provide the detailed evidence.
+
+## Connect GitHub to your resume
+
+For each major skill on your resume, know where the evidence exists.
+
+For example:
+
+TypeScript → production web application
+
+MySQL → schema and query design
+
+AI integration → structured model outputs and evaluation
+
+GitHub Actions → automated workflows
+
+Security → authentication, encryption, and validation
+
+This makes interviews easier because every claim has a story.
+
+## Prepare to defend the code
+
+If a recruiter or interviewer opens a repository, assume they may ask:
+
+What was the hardest problem?
+
+What would you redesign?
+
+How does authentication work?
+
+Why did you choose this database?
+
+How would the system scale?
+
+What did you personally build?
+
+The project becomes valuable when you can answer those questions.
+
+## Make your profile tell one story
+
+Your GitHub, resume, LinkedIn, and interview answers should broadly agree about your professional direction.
+
+If you want backend roles but every pinned project is a static landing page, the evidence is weak.
+
+If you want AI engineering roles, show AI systems plus solid software engineering around them.
+
+CarrerFit's evidence-first approach follows the same principle: skills become stronger when they are connected to concrete work.
+
+A strong GitHub portfolio does not say:
+
+I know many technologies.
+
+It says:
+
+Here are the problems I solved, the decisions I made, and the code that proves it.`,
+  },
+
 ] as const;

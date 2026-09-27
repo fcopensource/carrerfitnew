@@ -10,9 +10,14 @@ async function main() {
   const { createBlogPost, deleteBlogPost, getPublishedBlogPost, listAllBlogPosts, listPublishedBlogPosts, updateBlogPost } = await import("../server/blog-store.js");
   const { closeJobDatabaseForTests } = await import("../server/job-database.js");
   try {
-    const seeded = await listPublishedBlogPosts();
-    assert.equal(seeded.length, 3, "three original guides should be seeded");
+    const seeded = await listPublishedBlogPosts({ limit: 1000 });
+    assert.ok(seeded.length >= 3, "published career guides should be seeded");
     assert.ok(seeded.every(post => post.status === "Published" && post.publishedAt));
+    assert.equal(new Set(seeded.map(post => post.slug)).size, seeded.length, "seeded article slugs must be unique");
+    assert.equal(new Set(seeded.map(post => post.id)).size, seeded.length, "seeded article ids must be unique");
+    assert.ok(seeded.every(post => post.title.length >= 10 && post.seoTitle.length >= 10), "seeded guides should include useful titles");
+    assert.ok(seeded.every(post => post.seoDescription.length >= 40), "seeded guides should include SEO descriptions");
+    assert.ok(seeded.every(post => post.tags.length > 0), "seeded guides should include at least one focus tag");
 
     const draft = await createBlogPost({
       title: "A private draft article for publishing verification",
@@ -31,7 +36,7 @@ async function main() {
     assert.equal((await getPublishedBlogPost("publishing-verification"))?.id, draft.id);
     assert.equal(await deleteBlogPost("publishing-verification"), true);
     assert.equal(await getPublishedBlogPost("publishing-verification"), null);
-    console.log("Blog seed, draft isolation, publishing, slug update, and deletion checks passed.");
+    console.log(`Blog seed quality (${seeded.length} guides), draft isolation, publishing, slug update, and deletion checks passed.`);
   } finally {
     await closeJobDatabaseForTests();
     for (const suffix of ["", "-shm", "-wal"]) rmSync(`${database}${suffix}`, { force: true });

@@ -13,7 +13,7 @@ let seedPromise: Promise<void> | null = null;
 export async function listPublishedBlogPosts(options: { limit?: number; category?: string } = {}) {
   await ensureBlogContent(); const values: (string | number)[] = []; const clauses = ["status='Published'", "published_at IS NOT NULL"];
   if (options.category) { clauses.push("category=?"); values.push(options.category); }
-  const limit = Math.max(1, Math.min(100, options.limit || 50));
+  const limit = Math.max(1, Math.min(1000, options.limit || 50));
   const query = `SELECT * FROM blog_posts WHERE ${clauses.join(" AND ")} ORDER BY featured DESC,published_at DESC LIMIT ${limit}`;
   return queryPosts(query, values);
 }

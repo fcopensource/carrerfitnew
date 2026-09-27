@@ -9,89 +9,68 @@
 ![React](https://img.shields.io/badge/React-19-149ECA?style=for-the-badge&logo=react&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-20--22-339933?style=for-the-badge&logo=node.js&logoColor=white)
 
-**CarrerFit** is a full-stack career platform built around one idea: career decisions are better when they are connected to **real evidence**.
+**CarrerFit** connects the full career workflow in one place: discover live jobs, understand your resume evidence, identify skill gaps, practice interviews, and track applications.
 
-Instead of treating job search, resume improvement, interview practice, and application tracking as separate tools, CarrerFit connects them into one workflow — from **resume evidence → job matching → preparation → application progress**.
+The product is built around an **evidence-first** idea: match people to opportunities using what they can actually prove, not only keywords.
 
-**Live product:** https://carrerfit.com
+**Live:** https://carrerfit.com
 
 ---
 
-## ✨ Core experience
+## ✨ What CarrerFit does
 
-| Area | What CarrerFit does |
+| Area | Capability |
 | --- | --- |
-| 🔎 **Live Jobs** | Imports and normalizes roles from public employer career systems |
-| 📄 **Resume Intelligence** | Parses PDF/DOCX resumes, extracts structured career evidence, and runs ATS analysis |
-| 🎯 **Job Matching** | Compares skills, experience, seniority, work mode, and resume evidence against opportunities |
-| 🎤 **AI Interviews** | Generates resume-aware questions, adaptive follow-ups, answer feedback, and final coaching reports |
-| 📌 **Application Tracking** | Tracks opportunities through Saved → Applied → Interview → Offer |
-| 🧭 **Career Assessment** | Maps strengths, interests, work preferences, and experience to realistic career directions |
-| 🧪 **Practice Lab** | Includes coding and aptitude practice workflows |
-| 📰 **Career Guides** | Database-backed editorial content with sitemap, RSS, metadata, and publishing tools |
+| 🔎 **Live Jobs** | Imports roles from public employer career systems |
+| 📄 **Resume Intelligence** | PDF/DOCX parsing, ATS analysis, structured profile extraction |
+| 🎯 **Job Matching** | Compares skills, experience, seniority, work mode, and resume evidence |
+| 🎤 **AI Interviews** | Resume-aware questions, adaptive follow-ups, speech input, coaching reports |
+| 📌 **Application Tracking** | Saved → Applied → Interview → Offer workflow |
+| 🧭 **Career Assessment** | Maps strengths, interests, experience, and work preferences to career paths |
+| 🧪 **Practice Lab** | Coding and aptitude practice |
+| 📰 **Career Guides** | SEO-ready career content, RSS, sitemap, and publishing tools |
 
 ---
 
-## 🧠 How CarrerFit thinks
-
-CarrerFit is designed around an **evidence-first career graph**.
+## 🧠 Career intelligence flow
 
 ```mermaid
 flowchart LR
     A[Resume / Experience] --> B[Structured Career Profile]
     B --> C[ATS + Skill Analysis]
     B --> D[Evidence-Based Matching]
-
     E[Employer Career Sources] --> F[Job Ingestion Engine]
-    F --> G[Normalized Job Database]
-    G --> D
-
-    D --> H[Ranked Opportunities]
-    H --> I[Application Pipeline]
-
-    B --> J[AI Interview Studio]
-    J --> K[Feedback + Improvement Plan]
-
-    C --> L[Skill Gaps]
-    L --> H
+    F --> D
+    D --> G[Ranked Opportunities]
+    G --> H[Application Pipeline]
+    B --> I[AI Interview Studio]
+    I --> J[Feedback + Improvement Plan]
 ```
 
-The product goal is not simply to answer **“Is this a good resume?”** or **“What jobs are available?”**
+CarrerFit aims to answer:
 
-It aims to answer:
-
-> **What can this person genuinely prove, which opportunities fit that evidence, what is missing, and what should they do next?**
+> **What can this person prove, which opportunities fit that evidence, what is missing, and what should they do next?**
 
 ---
 
 ## 🚀 Job ingestion engine
 
-CarrerFit includes its own public-job ingestion pipeline.
-
-### Supported source types
+CarrerFit includes its own public-job ingestion pipeline with support for:
 
 - **Greenhouse**
 - **Lever**
 - **Ashby**
-- Generic employer pages exposing structured **JobPosting** data
+- Structured **JobPosting** employer pages
 
-### Ingestion capabilities
+The pipeline normalizes different job formats, deduplicates listings, tracks source health, filters stale records, preserves employer-hosted application URLs, validates HTTPS sources, includes SSRF protections, and respects `robots.txt` for generic career-page crawling.
 
-- Normalizes different employer formats into one job schema
-- Deduplicates imported roles
-- Tracks source health and ingestion history
-- Filters stale / low-quality records
-- Preserves employer-hosted application URLs
-- Uses HTTPS-only source validation
-- Includes private-network / SSRF protections
-- Respects `robots.txt` for generic career-page crawling
-- Runs scheduled refreshes through **GitHub Actions**
-
-The crawler is designed for official employer-hosted opportunities rather than republishing arbitrary third-party job-board content.
+Scheduled refreshes run through **GitHub Actions**.
 
 ---
 
-## 📄 Resume intelligence pipeline
+## 📄 Resume + interview intelligence
+
+### Resume pipeline
 
 ```text
 PDF / DOCX
@@ -109,62 +88,21 @@ Live job comparison
 Ranked opportunities + gaps
 ```
 
-Resume processing currently includes:
+Resume analysis uses **PDF.js**, **Mammoth**, structured AI extraction, **Zod** validation, deterministic ATS scoring, fallback matching, and encrypted storage for signed-in users.
 
-- PDF parsing with **PDF.js**
-- DOCX parsing with **Mammoth**
-- Structured AI extraction
-- Schema validation with **Zod**
-- Deterministic ATS scoring
-- AI-assisted job-fit explanations
-- Local fallback matching when an AI provider is unavailable
-- AES-256-GCM encrypted resume storage for signed-in users
+### AI interview studio
 
----
+The interview workflow supports:
 
-## 🎤 AI interview studio
-
-The interview workflow uses the candidate's actual profile and target role to create a more realistic practice session.
-
-It supports:
-
-- Resume-aware interview setup
-- Adaptive follow-up questions
-- Role-specific technical / behavioral questioning
-- Speech input
-- Browser text-to-speech
+- Resume-aware questions
+- Adaptive follow-ups
+- Technical and behavioral practice
+- Speech input and browser text-to-speech
 - Per-answer coaching
-- Final multi-dimension report
+- Final performance reports
 - Optional on-device camera coaching signals
 
-Camera frames stay in the browser; only local numeric practice signals are used by the interview flow.
-
----
-
-## 🏗️ Architecture
-
-```text
-                         ┌─────────────────────────┐
-                         │      Next.js 15 UI      │
-                         │ React 19 + TypeScript   │
-                         └────────────┬────────────┘
-                                      │
-                    ┌─────────────────┴─────────────────┐
-                    │                                   │
-          ┌─────────▼─────────┐               ┌─────────▼─────────┐
-          │   API / Services   │               │ Career Content /  │
-          │ Auth, Resume, AI,  │               │ SEO / Blog / RSS  │
-          │ Jobs, Interviews   │               └───────────────────┘
-          └─────────┬─────────┘
-                    │
-        ┌───────────┼──────────────┬──────────────────┐
-        │           │              │                  │
-┌───────▼──────┐ ┌──▼──────────┐ ┌─▼─────────────┐ ┌─▼────────────────┐
-│ MySQL /      │ │ OpenAI /    │ │ Job Ingestion │ │ SMTP / Account   │
-│ MariaDB      │ │ Groq        │ │ Greenhouse    │ │ Verification     │
-│ SQLite dev   │ │ fallback    │ │ Lever / Ashby │ │ + Recovery       │
-└──────────────┘ └─────────────┘ └───────────────┘ └──────────────────┘
-```
+Camera frames remain in the browser.
 
 ---
 
@@ -174,11 +112,11 @@ Camera frames stay in the browser; only local numeric practice signals are used 
 | --- | --- |
 | Frontend | Next.js 15, React 19, TypeScript |
 | Backend | Node.js, Express 5, Next.js route handlers |
-| AI | OpenAI with Groq fallback |
+| AI | OpenAI + Groq fallback |
 | Database | MySQL / MariaDB, SQLite fallback |
-| Validation | Zod |
 | Resume parsing | PDF.js, Mammoth |
-| Authentication | Argon2, server-side sessions, email verification |
+| Validation | Zod |
+| Authentication | Argon2, server-side sessions |
 | Security | AES-256-GCM, Helmet, rate limiting, origin validation |
 | Scraping | Cheerio + ATS-specific adapters |
 | Automation | GitHub Actions |
@@ -186,32 +124,24 @@ Camera frames stay in the browser; only local numeric practice signals are used 
 
 ---
 
-## 🔐 Security principles
+## 🔐 Security
 
-Career and resume data are treated as private user information.
+CarrerFit treats resume and career data as private user information.
 
-- Passwords are one-way hashed with **Argon2**
-- Browser sessions use server-side session records
-- Session tokens are stored as hashes
-- Resume files and structured resume documents can be encrypted at rest
-- Mutating requests use same-origin validation
-- Job-source URLs are validated before crawling
-- Private / restricted network destinations are blocked
-- Resume, authentication, interview, scraper, and admin workflows are rate-limited
-- Admin access is separated from standard user authentication
+- Argon2 password hashing
+- Server-side sessions with hashed tokens
+- AES-256-GCM encrypted resume storage
+- Email verification and one-time recovery flows
+- Same-origin validation for mutating requests
+- HTTPS-only job-source validation
+- Private-network / SSRF protections
+- Rate-limited authentication, resume, interview, scraper, and admin workflows
 
 ---
 
-## ⚡ Local development
+## ⚡ Run locally
 
-### Requirements
-
-- **Node.js 20–22**
-- npm
-- Optional MySQL / MariaDB database
-- AI provider credentials for full AI features
-
-### Setup
+Requires **Node.js 20–22**.
 
 ```bash
 git clone https://github.com/fcopensource/carrerfitnew.git
@@ -222,38 +152,32 @@ cp .env.example .env
 npm run dev
 ```
 
-Development services:
-
 ```text
-Web      http://localhost:3000
-API      http://localhost:4000
+Web   http://localhost:3000
+API   http://localhost:4000
 ```
 
-### Production
+Production:
 
 ```bash
 npm run build
 npm start
 ```
 
----
-
-## 🔧 Environment configuration
-
-The main environment groups are:
+Main environment groups:
 
 ```text
 OPENAI_* / GROQ_*       AI providers
 DB_* / DATABASE_URL     MySQL / MariaDB
-SMTP_*                  Verification and password recovery
+SMTP_*                  Verification and recovery
 AUTH_SECRET             Sessions and encrypted private data
 SCRAPER_ADMIN_TOKEN     Job-source administration
-CRON_SECRET             Scheduled job ingestion
+CRON_SECRET             Scheduled ingestion
 BLOG_ADMIN_TOKEN        Career-guide publishing
 APP_URL / WEB_URL       Public deployment URL
 ```
 
-See **`.env.example`** for the complete configuration.
+See `.env.example` for the full configuration.
 
 ---
 
@@ -264,38 +188,29 @@ npm run typecheck
 npm test
 ```
 
-Focused test commands are also available for:
-
-- authentication
-- blog storage
-- job matching
-- ATS analysis
-- AI interviews
-- job ingestion
+The repository includes focused tests for authentication, blog storage, matching, ATS analysis, interviews, and job ingestion.
 
 ---
 
-## 📁 Repository structure
+## 📁 Project structure
 
 ```text
 app/                  Next.js pages, layouts and API routes
-components/           Shared UI and product components
-server/               Auth, AI, resume, jobs, ingestion and persistence
+components/           Shared UI components
+server/               AI, auth, resume, jobs, ingestion, persistence
 lib/                  Shared types and utilities
 scripts/              Tests and migration utilities
-public/               Static public assets
 .github/workflows/    Scheduled automation
 ```
 
-Important backend modules:
+Key backend modules:
 
 ```text
 server/ai-provider.ts     AI provider abstraction + fallback
 server/ats.ts             ATS scoring
 server/interview.ts       Adaptive interview logic
 server/job-bot.ts         Job ingestion orchestration
-server/job-database.ts    Job persistence and source state
-server/job-scraper.ts     Greenhouse / Lever / Ashby / generic parsing
+server/job-scraper.ts     Employer job adapters and parsing
 server/matcher.ts         Career and job matching
 server/resume.ts          Resume extraction
 server/resume-vault.ts    Encrypted resume storage
@@ -305,9 +220,7 @@ server/resume-vault.ts    Encrypted resume storage
 
 ## 🌱 Product direction
 
-CarrerFit is evolving from a job portal into a **career operating system**.
-
-The long-term direction is to connect:
+CarrerFit is evolving from a job portal into a **career operating system**:
 
 ```text
 Career Profile
@@ -323,32 +236,15 @@ Application Action
 Interview Practice
     ↓
 Outcome Feedback
-    ↓
-Updated Career Plan
 ```
 
-Future product areas include deeper career graphs, stronger personalized ranking, company intelligence, salary intelligence, skill-gap planning, interview progress analytics, and smarter application workflows.
-
----
-
-## 🤝 Contributing
-
-Ideas, bug reports, and thoughtful improvements are welcome.
-
-For substantial changes:
-
-1. Create a focused branch
-2. Keep changes scoped to one feature or fix
-3. Run type checks and tests
-4. Open a pull request with the reasoning behind the change
+The long-term direction includes deeper career graphs, personalized ranking, company and salary intelligence, skill-gap planning, interview progress analytics, and smarter application workflows.
 
 ---
 
 ## 📄 License
 
-CarrerFit is licensed under the **MIT License**.
-
-See [LICENSE](./LICENSE) for details.
+Licensed under the **MIT License**. See [LICENSE](./LICENSE).
 
 ---
 

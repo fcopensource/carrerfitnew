@@ -2614,4 +2614,747 @@ It is a connected system.
 CarrerFit is built around the same idea: compare your current evidence with real opportunities, identify the gaps that repeat, and choose the next skill that creates the most useful career leverage.`,
   },
 
+  {
+    id: "blog-salesforce-interview-2026",
+    slug: "salesforce-developer-interview-guide-2026",
+    featured: false,
+    category: "Interview preparation",
+    authorName: "CarrerFit Editorial",
+    title: "Salesforce Developer Interview Guide 2026: Apex, LWC, Flows, SOQL and Real Project Questions",
+    excerpt: "Prepare for Salesforce developer interviews with a practical framework covering Apex, LWC, Flows, SOQL, integrations, security, debugging, and project deep dives.",
+    seoTitle: "Salesforce Developer Interview Guide 2026 | Apex, LWC, SOQL | CarrerFit",
+    seoDescription: "Prepare for Salesforce developer interviews in 2026 with practical questions and a study plan covering Apex, LWC, Flows, SOQL, integrations, security, debugging, and project experience.",
+    tags: ["Salesforce developer interview", "Apex interview questions", "LWC interview", "SOQL interview", "Salesforce jobs 2026"],
+    publishedAt: "2026-09-27T06:30:00.000Z",
+    content: `A strong Salesforce developer interview is rarely about memorizing definitions.
+
+Interviewers want to understand whether you can design automation safely, write maintainable Apex, build useful Lightning Web Components, reason about data access, debug production issues, and explain the business problem behind your technical choices.
+
+The best preparation therefore combines platform fundamentals with real project stories.
+
+## Start with the Salesforce execution model
+
+Before practicing isolated questions, make sure you understand how the platform executes work.
+
+You should be comfortable explaining:
+
+- transactions
+- governor limits
+- order of execution
+- bulk processing
+- synchronous versus asynchronous Apex
+- database operations
+- automation interactions
+
+A common weakness is knowing syntax without understanding what happens when the same logic processes hundreds of records.
+
+When reviewing code, always ask:
+
+Will this work for one record?
+
+Will it still work for 200 records?
+
+Could another Flow, trigger, or automation run in the same transaction?
+
+That mindset is more valuable than memorizing limits without context.
+
+## Prepare Apex around design decisions
+
+Do not prepare Apex only as a list of keywords.
+
+Practice explaining why you would choose one approach over another.
+
+You should understand:
+
+- trigger design
+- handler patterns
+- bulkification
+- collections
+- SOQL and DML limits
+- exception handling
+- test classes
+- future methods
+- Queueable Apex
+- Batch Apex
+- Scheduled Apex
+- callouts
+- sharing behavior
+
+A useful interview question is:
+
+When would you use Queueable Apex instead of a future method?
+
+A stronger answer explains chaining, complex data, monitoring, and maintainability rather than simply saying Queueable is newer.
+
+Another common question is:
+
+Why should SOQL and DML not be placed inside loops?
+
+The answer should connect directly to governor limits and bulk processing.
+
+## Know Lightning Web Components beyond syntax
+
+For LWC roles, interviewers often move quickly from basic decorators into component communication and server interaction.
+
+Prepare:
+
+- reactive properties
+- public properties
+- custom events
+- parent-child communication
+- Lightning Data Service
+- wire adapters
+- imperative Apex
+- lifecycle hooks
+- error handling
+- loading states
+- caching
+- security considerations
+
+Be ready to explain a real component you built.
+
+A good project explanation includes:
+
+- what the user needed
+- why standard Salesforce UI was not enough
+- what data the component used
+- how Apex was called
+- how errors were handled
+- what changed for the user after deployment
+
+That turns LWC knowledge into evidence.
+
+## Understand when to use Flow and when to use Apex
+
+This is one of the most important Salesforce design questions.
+
+A good answer should not claim that Apex is always better or that Flow should replace all code.
+
+Flow is often a strong choice when:
+
+- the automation is declarative
+- administrators may need to maintain it
+- the logic is understandable without complex code
+- the use case fits platform limits
+
+Apex may be more appropriate when:
+
+- logic is complex
+- advanced transaction control is needed
+- processing is highly reusable
+- integrations require custom handling
+- large-scale operations need more control
+- testing and architecture benefit from code
+
+The strongest answer includes an example where you deliberately chose one over the other.
+
+## Practice SOQL as a performance topic
+
+SOQL questions are not only about SELECT syntax.
+
+Prepare:
+
+- relationship queries
+- parent-to-child queries
+- child-to-parent queries
+- aggregate queries
+- selective filters
+- query limits
+- query rows
+- indexes
+- dynamic SOQL
+- security-aware querying
+
+Be able to explain why a query that works with test data may become slow or unsafe with production-scale data.
+
+If you have used reports, dashboards, or data migrations, connect that experience to your understanding of the Salesforce data model.
+
+## Review security carefully
+
+Salesforce development interviews often include security questions because platform access is part of application behavior.
+
+Understand:
+
+- profiles
+- permission sets
+- roles
+- organization-wide defaults
+- sharing rules
+- manual sharing
+- Apex sharing
+- field-level security
+- object permissions
+- record access
+
+Do not confuse authentication with authorization.
+
+Also be ready to explain why running Apex in system context can create risks if user access is ignored.
+
+## Prepare integration questions
+
+If your resume mentions APIs or integrations, expect follow-ups.
+
+Know:
+
+- REST APIs
+- SOAP at a conceptual level
+- Named Credentials
+- authentication
+- callouts
+- JSON serialization
+- retries
+- error handling
+- limits
+- asynchronous processing
+
+A useful project story should explain what system Salesforce communicated with, what data moved, how authentication worked, what happened on failure, and how you monitored the integration.
+
+## Build project stories before memorizing answers
+
+Your own experience is the strongest material in the interview.
+
+Prepare at least four stories:
+
+1. A complex automation you designed
+2. A production bug you diagnosed
+3. A component or feature you built
+4. A difficult data or integration problem
+
+For each story, prepare:
+
+- business problem
+- your exact responsibility
+- architecture
+- alternatives considered
+- technical decision
+- testing
+- deployment
+- result
+- what you would improve now
+
+This gives the interviewer multiple ways to explore your real experience.
+
+## Expect debugging questions
+
+You may be asked how you would investigate:
+
+- a Flow failing for some users
+- a trigger causing too many SOQL queries
+- an LWC not refreshing data
+- a callout timing out
+- permissions working for an admin but not a normal user
+- a test passing in sandbox but failing during deployment
+
+Do not jump immediately to one fix.
+
+Explain your debugging sequence.
+
+For example:
+
+1. reproduce the issue
+2. identify affected users or records
+3. inspect logs
+4. check automation dependencies
+5. verify permissions
+6. isolate the failing logic
+7. test the fix
+8. add regression coverage
+
+A structured debugging process signals engineering maturity.
+
+## Prepare deployment and testing topics
+
+You should understand why Salesforce development needs testing beyond code coverage.
+
+Prepare:
+
+- positive tests
+- negative tests
+- bulk tests
+- permission-related tests
+- callout mocks
+- realistic test data
+- deployment dependencies
+
+If you use Git or CI/CD, be ready to explain your branching and deployment workflow.
+
+## Practice behavioral questions too
+
+Technical skill alone does not decide most interviews.
+
+Prepare stories around:
+
+- disagreement with a teammate
+- changing requirements
+- missed assumptions
+- urgent production issues
+- stakeholder communication
+- learning a new feature quickly
+- taking ownership of a problem
+
+Use real examples.
+
+Keep the story specific and make your personal contribution clear.
+
+## A seven-day Salesforce interview plan
+
+Day 1:
+Apex fundamentals, governor limits, and trigger design.
+
+Day 2:
+SOQL, data model, and security.
+
+Day 3:
+Flows and automation architecture.
+
+Day 4:
+Lightning Web Components.
+
+Day 5:
+Integrations, async Apex, testing, and deployment.
+
+Day 6:
+Project deep dives and behavioral stories.
+
+Day 7:
+Run a complete mock interview and review weak areas.
+
+## Questions you should be able to answer
+
+Before an interview, make sure you can explain:
+
+- What makes an Apex trigger bulk-safe?
+- Flow or Apex: how do you choose?
+- How do LWC components communicate?
+- How do you secure Apex data access?
+- What is the difference between role hierarchy and sharing rules?
+- When would you use Queueable Apex?
+- How do you test a callout?
+- How do you debug a governor-limit failure?
+- How do you integrate Salesforce with an external system?
+- What was the hardest Salesforce problem you personally solved?
+
+The final question is often the most valuable.
+
+CarrerFit's AI interview workflow can use your resume and target role to generate adaptive questions around your actual Salesforce evidence rather than a generic question bank.
+
+The goal is not to memorize every possible Salesforce interview answer.
+
+It is to understand the platform well enough to explain your decisions, defend your project experience, and reason through unfamiliar problems.`,
+  },
+  {
+    id: "blog-software-to-ai-engineer-2026",
+    slug: "software-developer-to-ai-engineer-roadmap-2026",
+    featured: true,
+    category: "Career growth",
+    authorName: "CarrerFit Editorial",
+    title: "Software Developer to AI Engineer in 2026: A Practical Transition Roadmap",
+    excerpt: "A practical roadmap for software developers who want to move into AI engineering without abandoning the engineering skills they already have.",
+    seoTitle: "Software Developer to AI Engineer Roadmap 2026 | CarrerFit",
+    seoDescription: "Learn how to move from software development to AI engineering in 2026 using Python, data, machine learning, LLM APIs, evaluation, deployment, and portfolio evidence.",
+    tags: ["AI engineer roadmap 2026", "software developer to AI engineer", "AI career", "machine learning roadmap", "LLM engineer skills"],
+    publishedAt: "2026-09-27T06:45:00.000Z",
+    content: `Moving from software development into AI engineering does not mean starting your career again.
+
+A software developer already has many of the skills AI products need:
+
+- programming
+- APIs
+- databases
+- debugging
+- testing
+- deployment
+- architecture
+- version control
+- production thinking
+
+The transition becomes easier when you treat AI as an additional engineering layer rather than a completely separate profession.
+
+## Keep your software engineering foundation
+
+Do not stop improving core engineering skills because AI is growing quickly.
+
+AI systems still need:
+
+- reliable APIs
+- authentication
+- databases
+- background jobs
+- monitoring
+- deployment
+- security
+- testing
+- cost control
+
+A developer who understands production engineering can often build more useful AI systems than someone who only knows how to call a model.
+
+Your existing engineering experience is an advantage.
+
+## Learn Python properly
+
+Python remains one of the most practical languages for AI work.
+
+If Python is new to you, focus on:
+
+- functions
+- classes
+- typing
+- virtual environments
+- package management
+- file handling
+- async basics
+- testing
+- data structures
+
+Then move into the data ecosystem.
+
+You should become comfortable reading and transforming datasets before moving deeply into model training.
+
+## Build data fundamentals
+
+AI systems depend on data quality.
+
+Learn:
+
+- NumPy
+- pandas
+- SQL
+- data cleaning
+- missing values
+- feature preparation
+- train-test splits
+- data leakage
+- basic visualization
+
+Do not rush through this stage.
+
+Many model problems are actually data problems.
+
+## Learn machine learning concepts
+
+You do not need to become a researcher before becoming useful in AI engineering.
+
+Start with:
+
+- supervised learning
+- unsupervised learning
+- classification
+- regression
+- clustering
+- overfitting
+- regularization
+- feature engineering
+- evaluation metrics
+- cross-validation
+
+Build small projects where you can explain why one model performs better than another.
+
+The goal is understanding, not only running a library.
+
+## Learn model evaluation
+
+Evaluation is one of the most important AI engineering skills.
+
+For traditional ML, understand metrics such as:
+
+- precision
+- recall
+- F1 score
+- ROC-AUC
+- MAE
+- RMSE
+
+The correct metric depends on the problem.
+
+For example, in fraud detection, missing a fraudulent transaction may be more expensive than incorrectly flagging a normal one.
+
+Evaluation connects the model to the real business objective.
+
+## Move into deep learning gradually
+
+Once basic ML concepts are comfortable, learn:
+
+- neural networks
+- activation functions
+- loss functions
+- optimization
+- embeddings
+- transformers at a conceptual level
+
+Use a framework such as PyTorch to build small experiments.
+
+Do not start by training massive models.
+
+Your objective is to understand how models learn and how to diagnose failure.
+
+## Learn LLM application engineering
+
+Many AI engineering roles now involve integrating large language models into products.
+
+Important skills include:
+
+- model APIs
+- structured outputs
+- prompt design
+- context management
+- tool calling
+- retrieval
+- embeddings
+- vector search
+- streaming
+- retries
+- fallbacks
+- rate limits
+
+But avoid reducing AI engineering to prompt engineering.
+
+The difficult part is building a complete reliable system around the model.
+
+## Learn retrieval-augmented generation
+
+Retrieval-augmented generation is useful when an AI system needs information outside the model's built-in knowledge.
+
+Understand the pipeline:
+
+documents
+→ chunking
+→ embeddings
+→ vector search
+→ retrieved context
+→ model response
+
+Then learn the failure modes:
+
+- poor chunking
+- irrelevant retrieval
+- stale documents
+- duplicate context
+- unsupported answers
+
+A strong RAG project should measure retrieval quality instead of only showing a chatbot interface.
+
+## Learn AI evaluation for LLM systems
+
+LLM outputs are probabilistic.
+
+That means testing requires a different mindset.
+
+Create evaluation datasets containing representative inputs.
+
+Measure things such as:
+
+- factual correctness
+- relevance
+- format compliance
+- hallucination rate
+- latency
+- cost
+- safety
+- fallback success
+
+If the system extracts structured resume data, test it against many resume formats.
+
+If it evaluates interviews, test whether similar answers receive reasonably consistent feedback.
+
+AI engineering becomes much stronger when evaluation is built into development.
+
+## Understand embeddings and semantic search
+
+Embeddings convert text into numerical representations that can be compared.
+
+They are useful for:
+
+- semantic search
+- recommendations
+- matching
+- clustering
+- retrieval
+
+For a career platform, embeddings could help compare resume evidence against job descriptions beyond exact keyword matches.
+
+But semantic similarity should not replace hard requirements.
+
+A strong matching system combines:
+
+- structured filters
+- skills
+- seniority
+- location
+- experience
+- semantic similarity
+
+## Learn AI system design
+
+AI features create new production constraints.
+
+Ask:
+
+What happens if the model is slow?
+
+What happens if the model fails?
+
+What if the output is invalid?
+
+How expensive is one request?
+
+Can the result be cached?
+
+What data is safe to send?
+
+Should a deterministic fallback exist?
+
+These questions turn an AI demo into an AI product.
+
+## Build one serious AI project
+
+Avoid building only generic chatbots.
+
+Choose a workflow where AI creates clear value.
+
+Examples:
+
+- resume evidence extraction
+- job matching
+- interview coaching
+- document classification
+- support-ticket triage
+- code review assistance
+- semantic search
+- recommendation systems
+- analytics explanation
+
+A serious project should include:
+
+- real input data
+- validation
+- database persistence
+- failure handling
+- evaluation
+- logging
+- deployment
+- security considerations
+
+The model should be one component of the architecture.
+
+## Use your current developer experience
+
+If you already work in software, connect AI to your existing domain.
+
+A Salesforce developer could build:
+
+- AI-assisted support-case classification
+- CRM summarization
+- intelligent lead research
+- knowledge retrieval
+
+A web developer could build:
+
+- semantic search
+- AI document workflows
+- recommendation tools
+- interview platforms
+
+A backend engineer could focus on:
+
+- model orchestration
+- queues
+- caching
+- evaluation pipelines
+- inference services
+
+The easiest transition often happens through a domain you already understand.
+
+## Build a portfolio around evidence
+
+Your AI portfolio should explain:
+
+- problem
+- architecture
+- model choice
+- evaluation
+- failure handling
+- cost
+- deployment
+- security
+- trade-offs
+
+Do not simply say:
+
+Built an AI app using an LLM.
+
+Explain what the model does, what the normal software does, how outputs are validated, and how you know the system is useful.
+
+## Update your resume gradually
+
+Do not instantly rename yourself an AI Engineer because you completed one course.
+
+Instead, add credible evidence.
+
+For example:
+
+Built an AI-assisted resume analysis service using structured model outputs, schema validation, deterministic ATS scoring, and fallback matching.
+
+That statement shows AI integration plus engineering discipline.
+
+As your evidence grows, your target roles can expand.
+
+## Target transition roles
+
+Depending on your experience, useful target roles may include:
+
+- AI application engineer
+- applied AI engineer
+- software engineer, AI
+- machine learning engineer
+- AI platform engineer
+- LLM engineer
+- backend engineer working on AI products
+
+Read real job descriptions and identify which role family best matches your existing strengths.
+
+## A six-month transition roadmap
+
+Month 1:
+Python, SQL, data handling, and ML fundamentals.
+
+Month 2:
+Build two small machine learning projects and learn evaluation.
+
+Month 3:
+Learn model APIs, embeddings, retrieval, and structured outputs.
+
+Month 4:
+Build one serious AI application.
+
+Month 5:
+Add evaluation, testing, deployment, monitoring, and cost controls.
+
+Month 6:
+Study target job descriptions, close repeated gaps, update your resume, and practice AI engineering interviews.
+
+You can move faster or slower depending on your starting point.
+
+The sequence matters more than the exact timeline.
+
+## Do not abandon engineering for hype
+
+AI tools will continue changing.
+
+Strong engineering skills remain useful across model generations.
+
+Focus on becoming someone who can:
+
+- understand the problem
+- select an appropriate AI capability
+- integrate it into a real system
+- evaluate the result
+- control cost and latency
+- handle failure
+- explain trade-offs
+
+That combination is much more durable than expertise in one temporary tool.
+
+CarrerFit is designed around the same transition logic: identify what you already prove, compare it against real target roles, find the gaps that repeat, and invest in the next skill that creates the most career leverage.`,
+  },
+
 ] as const;

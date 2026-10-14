@@ -5,6 +5,7 @@ import { getSqliteJobDatabase } from "./job-database.js";
 import { databaseBackend, getMysqlPool } from "./mysql.js";
 import { additionalBlogSeeds } from "./blog-seeds.js";
 import { octoberBlogSeeds } from "./blog-seeds-october-2026.js";
+import { october14BlogSeeds } from "./blog-seeds-october-14-2026.js";
 
 export type BlogPostInput = Pick<BlogPost, "title" | "excerpt" | "content" | "category" | "tags" | "authorName" | "seoTitle" | "seoDescription" | "featured" | "status"> & { slug?: string; publishedAt?: string | null };
 type BlogRow = RowDataPacket & { id: string; slug: string; title: string; excerpt: string; content: string; category: string; tags: string; author_name: string; seo_title: string; seo_description: string; featured: number | boolean; status: BlogPost["status"]; published_at: string | null; created_at: string; updated_at: string };
@@ -238,5 +239,6 @@ The CarrerFit assessment can help narrow your initial direction, while resume ma
   },
   ...additionalBlogSeeds,
   ...octoberBlogSeeds,
+  ...october14BlogSeeds,
 
 ] as const;
